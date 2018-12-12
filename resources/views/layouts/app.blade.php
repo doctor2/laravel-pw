@@ -66,6 +66,10 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <span class="nav-link">Balance: {{Auth::user()->balance->balance}} PW</span>
+                                
+                            </li>
                         @endguest
                     </ul>
                 </div>

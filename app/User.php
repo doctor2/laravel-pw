@@ -10,6 +10,15 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function($user){
+            $user->balance()->create(['balance' => 500]);
+        });
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -27,4 +36,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isAdmin()
+    {
+        return in_array($this->email,['admin@mail.ru']);
+    }
+
+    public function balance()
+    {
+        return $this->hasOne(Balance::class);
+    }
 }
