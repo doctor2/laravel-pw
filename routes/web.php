@@ -12,14 +12,16 @@
 */
 
 Route::get('/','TransactionController@index');
+Route::get('/transactions/create','TransactionController@create');
+Route::post('/transactions','TransactionController@store')->name('transactions.store');
+Route::get('/users','Api\UserController@index')->name('users.index');
+
 
 // Authentication Routes...
-$this->get('login/', 'Auth\LoginController@showLoginForm')->name('login');
-$this->post('login/', 'Auth\LoginController@login');
-$this->post('logout/', 'Auth\LoginController@logout')->name('logout');
+Route::get('login/', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login/', 'Auth\LoginController@login');
+Route::post('logout/', 'Auth\LoginController@logout')->name('logout');
 
 // Register Routes...
-$this->get('regiser/', 'Auth\RegisterController@showRegistrationForm')->name('register');
-$this->post('regiser/', 'Auth\RegisterController@register');
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('regiser/', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('regiser/', 'Auth\RegisterController@register');

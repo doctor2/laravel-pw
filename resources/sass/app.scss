@@ -12,3 +12,15 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+.filter_table{
+  display: flex;
+  justify-content: center;
+}
+.filter_table input{
+  max-width: 160px;
+}
+.filter_table .form-group{
+  margin-left: 10px;
+  margin-right: 10px;
+}
