@@ -18,6 +18,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('transaction', require('./components/Transaction.vue'));
+Vue.component('admin-transaction', require('./components/AdminTransaction.vue'));
+Vue.component('admin-user', require('./components/AdminUser.vue'));
 Vue.component('filter-table', require('./components/Filter.vue'));
 Vue.component('paginator', require('./components/Paginator.vue'));
 Vue.component('autocomplete', require('./components/Autocomplete.vue'));

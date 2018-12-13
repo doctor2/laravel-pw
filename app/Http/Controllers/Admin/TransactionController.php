@@ -1,27 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Rules\MaxUserBalance;
-use App\Transaction;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TransactionController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+    
     public function index()
     {
         if (request()->expectsJson()) {
-            $transactionsQuery = $this->getTransactionsListQuery(auth()->id());
+            $transactionsQuery = $this->getTransactionsListQuery();
 
             $this->filterTransactionList($transactionsQuery);
 
@@ -33,61 +23,17 @@ class TransactionController extends Controller
             return $transactions;
         }
 
-        return view('transactions.index');
+        return view('admin.transactions.index');
     }
 
-    public function create()
-    {
-        $transaction = [
-            'user_name' => '',
-            'user_id' => '',
-            'amount' => '',
-        ];
-
-        if (request('key')) {
-            $oldTransaction = \App\Transaction::where('transaction_key', request('key'))
-                ->where('user_id', '!=', auth()->id())
-                ->with('user')
-                ->first();
-
-            if ($oldTransaction) {
-                $transaction['user_name'] = $oldTransaction->user->name;
-                $transaction['user_id'] = $oldTransaction->user->id;
-                $transaction['amount'] = $oldTransaction->amount;
-            }
-        }
-
-        return view('transactions.create', compact('transaction'));
-    }
-
-    public function store(Transaction $transaction, MaxUserBalance $maxBalance)
-    {
-        request()->validate([
-            'amount' => ['required', $maxBalance],
-            'user_name' => 'required|exists:users,name',
-        ]);
-        
-        $otherUser = \App\User::where('id', request('user_id'))
-            ->where('name', request('user_name'))
-            ->first();
-
-        $transaction->createTransaction(
-            auth()->user(),
-            $otherUser,
-            request('amount'));
-
-        return redirect()->route('transactions.index')
-            ->with('success', 'Your thread has been published!');
-    }
-
-    public function getTransactionsListQuery($userId)
+    public function getTransactionsListQuery()
     {
         $transactionsQuery =
         \DB::table('transactions as tr')
             ->select('tr.amount', 'tr.user_balance', 'tr.created_at', 'u.name as user_name', 'tr.transaction_type', 'tr.transaction_key')
-            ->where('tr.user_id', $userId)
+            ->where('tr.transaction_type', config('transaction.types.debit'))
             ->join('transactions as trans', 'tr.transaction_key', '=', 'trans.transaction_key')
-            ->where('trans.user_id', '!=', $userId)
+            ->where('trans.transaction_type', config('transaction.types.credit'))
             ->join('users as u', 'trans.user_id', '=', 'u.id')
         ;
         return $transactionsQuery;

@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return in_array($this->email,['admin@mail.ru']);
+        return in_array($this->email,['admin@mail.ru', 'brath1@example.org']);
     }
 
     public function balance()

@@ -13,9 +13,9 @@
       <tbody>
         <tr v-for="(item, index) in items" :key="index">
           <td v-text="item.created_at"></td>
-          <td v-text="item.user_name"></td>
-          <td v-text="item.amount + ' ( ' + item.transaction_type + ' )'"></td>
-          <td v-html="getBalanceWithLink(item)"></td>
+          <td v-html="getNameWithLink(item)"></td>
+          <td v-text="item.email"></td>
+          <td v-html="item.banned"></td>
         </tr>
       </tbody>
     </table>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import common from './mixins/common';
+import common from "./mixins/common";
 
 export default {
   mixins: [common],
@@ -35,17 +35,17 @@ export default {
       isWaiting: true,
       items: [],
       filter_fields: [
-        { name: "date", label: "Date/Time", value: "" },
-        { name: "user_name", label: "Correspondent Name", value: "" },
-        { name: "amount", label: "Amount", value: "" },
-        { name: "user_balance", label: "Resulting balance", value: "" }
+        { name: "created_at", label: "Date/Time", value: "" },
+        { name: "name", label: "User name", value: "" },
+        { name: "email", label: "Email", value: "" },
+        { name: "banned", label: "Ban", value: "" }
       ],
       sortKey: "",
       sortItems: [
-        { name: "date", label: "Date/Time", sort: 0 },
-        { name: "user_name", label: "Correspondent Name", sort: 0 },
-        { name: "amount", label: "Amount", sort: 0 },
-        { name: "user_balance", label: "Resulting balance", sort: 0 }
+        { name: "created_at", label: "Date/Time", sort: 0 },
+        { name: "name", label: "User Name", sort: 0 },
+        { name: "email", label: "Email", sort: 0 },
+        { name: "banned", label: "Ban", sort: 0 }
       ]
     };
   },
@@ -58,15 +58,9 @@ export default {
     }
   },
   methods: {
-    getBalanceWithLink(item) {
-      let balance = item.user_balance;
-      if (item.transaction_type == "DEBIT") {
-        balance += ` <a href="/transactions/create?key=${
-          item.transaction_key
-        }">Repeat</a>`;
-      }
-      return balance;
-    },
+    getNameWithLink(item) {
+      return `<a href="/admin/users/${item.id}">${item.name}</a>`;
+    }
   }
 };
 </script>

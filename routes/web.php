@@ -25,3 +25,14 @@ Route::post('logout/', 'Auth\LoginController@logout')->name('logout');
 // Register Routes...
 Route::get('regiser/', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('regiser/', 'Auth\RegisterController@register');
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'middleware' => ['auth','admin']
+],function(){
+    Route::get('/transactions','TransactionController@index')->name('admin.transactions.index');
+    Route::get('/users','UserController@index')->name('admin.users.index');
+    Route::get('/users/{user}','UserController@show')->name('admin.users.show');
+
+});

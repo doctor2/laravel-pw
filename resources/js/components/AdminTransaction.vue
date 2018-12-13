@@ -67,6 +67,7 @@ export default {
       }
       return balance;
     },
+   
   }
 };
 </script>
