@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/','TransactionController@index');
+Route::get('/','TransactionController@index')->name('transactions.index');
 Route::get('/transactions/create','TransactionController@create');
 Route::post('/transactions','TransactionController@store')->name('transactions.store');
 Route::get('/users','Api\UserController@index')->name('users.index');

@@ -10485,8 +10485,60 @@ a.text-dark:focus {
   max-width: 160px;
 }
 
-.filter_table .form-group {
+.filter_table .form-group,
+.card-body-form .form-group {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.card-body-table th {
+  cursor: pointer;
+}
+
+.card-body-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.card-body-form .form-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.card-body-form .form-group label {
+  margin-right: 10px;
+}
+
+.card-body-form_amount {
+  max-width: 150px;
+}
+
+.arrow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  opacity: 0.66;
+}
+
+.arrow.asc {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #0d34e0;
+}
+
+.arrow.dsc {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #0d34e0;
 }
 

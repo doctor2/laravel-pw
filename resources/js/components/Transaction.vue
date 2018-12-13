@@ -4,10 +4,10 @@
     <table v-if="items.length != 0" class="table card-body-table">
       <thead>
         <tr>
-          <th scope="col">Date/Time</th>
-          <th scope="col">Correspondent Name</th>
-          <th scope="col">Amount</th>
-          <th scope="col">Resulting balance</th>
+          <th v-for="(item, index) in sortItems" :key="index" scope="col" @click="sortBy(index)">
+            <span v-text="item.label"></span>
+            <span class="arrow" :class="item.sort? 'asc' : 'dsc'"></span>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -32,26 +32,17 @@ export default {
       isWaiting: true,
       items: [],
       filter_fields: [
-        {
-          name: "date",
-          label: "Date/Time",
-          value: ""
-        },
-        {
-          name: "user_name",
-          label: "Correspondent Name",
-          value: ""
-        },
-        {
-          name: "amount",
-          label: "Amount",
-          value: ""
-        },
-        {
-          name: "user_balance",
-          label: "Resulting balance",
-          value: ""
-        }
+        { name: "date", label: "Date/Time", value: "" },
+        { name: "user_name", label: "Correspondent Name", value: "" },
+        { name: "amount", label: "Amount", value: "" },
+        { name: "user_balance", label: "Resulting balance", value: "" }
+      ],
+      sortKey: "",
+      sortItems: [
+        { name: "date", label: "Date/Time", sort: 0 },
+        { name: "user_name", label: "Correspondent Name", sort: 0 },
+        { name: "amount", label: "Amount", sort: 0 },
+        { name: "user_balance", label: "Resulting balance", sort: 0 }
       ]
     };
   },
@@ -174,6 +165,24 @@ export default {
       }
 
       return search;
+    },
+    sortBy(index) {
+        let newVal = !this.sortItems[index].sort;
+
+        this.sortItems.forEach(function(item, i, items) {
+            items[i].sort = 0;
+        });
+
+        this.sortItems[index].sort = newVal;
+
+        this.fetch([{
+            name: 'sort',
+            value: this.sortItems[index].name
+        },{
+            name: 'order',
+            value: this.sortItems[index].sort ? 'asc' : 'dsc'
+        }
+        ]);
     }
   }
 };
