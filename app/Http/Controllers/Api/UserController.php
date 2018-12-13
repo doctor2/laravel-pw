@@ -13,7 +13,7 @@ class UserController extends Controller
         if(request('name')){
             $users = \App\User::where('name', 'like', '%'. request('name') . '%')
                 ->where('id', '!=', auth()->id())
-                ->take(5)
+                ->take(10)
                 ->get();
         }
         

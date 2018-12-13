@@ -13,9 +13,9 @@
       <tbody>
         <tr v-for="(item, index) in items" :key="index">
           <td v-text="item.created_at"></td>
-          <td v-text="item.user_name"></td>
-          <td v-text="item.amount + ' ( ' + item.transaction_type + ' )'"></td>
-          <td v-html="getBalanceWithLink(item)"></td>
+          <td v-text="item.debit_user_name"></td>
+          <td v-text="item.crebit_user_name"></td>
+          <td v-html="getAmountWithLink(item)"></td>
         </tr>
       </tbody>
     </table>
@@ -31,43 +31,24 @@ export default {
   mixins: [common],
   data() {
     return {
-      dataSet: false,
-      isWaiting: true,
-      items: [],
       filter_fields: [
         { name: "date", label: "Date/Time", value: "" },
-        { name: "user_name", label: "Correspondent Name", value: "" },
+        { name: "debit_user_name", label: "Sender Name", value: "" },
+        { name: "crebit_user_name", label: "Recipient Name", value: "" },
         { name: "amount", label: "Amount", value: "" },
-        { name: "user_balance", label: "Resulting balance", value: "" }
       ],
-      sortKey: "",
       sortItems: [
         { name: "date", label: "Date/Time", sort: 0 },
-        { name: "user_name", label: "Correspondent Name", sort: 0 },
+        { name: "debit_user_name", label: "Sender Name", value: "" },
+        { name: "crebit_user_name", label: "Recipient Name", value: "" },
         { name: "amount", label: "Amount", sort: 0 },
-        { name: "user_balance", label: "Resulting balance", sort: 0 }
       ]
     };
   },
-  created() {
-    this.fetch();
-  },
-  computed: {
-    showNotFound() {
-      return !this.isWaiting && this.items.length == 0;
-    }
-  },
   methods: {
-    getBalanceWithLink(item) {
-      let balance = item.user_balance;
-      if (item.transaction_type == "DEBIT") {
-        balance += ` <a href="/transactions/create?key=${
-          item.transaction_key
-        }">Repeat</a>`;
-      }
-      return balance;
-    },
-   
+    getAmountWithLink(item) {
+      return `<a href="/admin/transactions/${item.transaction_key}">${item.amount}</a>`;
+    }
   }
 };
 </script>

@@ -31,16 +31,12 @@ export default {
   mixins: [common],
   data() {
     return {
-      dataSet: false,
-      isWaiting: true,
-      items: [],
       filter_fields: [
         { name: "date", label: "Date/Time", value: "" },
         { name: "user_name", label: "Correspondent Name", value: "" },
         { name: "amount", label: "Amount", value: "" },
         { name: "user_balance", label: "Resulting balance", value: "" }
       ],
-      sortKey: "",
       sortItems: [
         { name: "date", label: "Date/Time", sort: 0 },
         { name: "user_name", label: "Correspondent Name", sort: 0 },
@@ -48,14 +44,6 @@ export default {
         { name: "user_balance", label: "Resulting balance", sort: 0 }
       ]
     };
-  },
-  created() {
-    this.fetch();
-  },
-  computed: {
-    showNotFound() {
-      return !this.isWaiting && this.items.length == 0;
-    }
   },
   methods: {
     getBalanceWithLink(item) {

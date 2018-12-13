@@ -19,7 +19,7 @@ class UserController extends Controller
 
             $this->orderUsers($query, $fields);
 
-            return $query->paginate(5);
+            return $query->paginate(10);
         }
 
         return view('admin.users.index');

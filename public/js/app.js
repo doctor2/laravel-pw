@@ -621,10 +621,21 @@ module.exports = defaults;
 /* harmony default export */ __webpack_exports__["a"] = ({
     data: function data() {
         return {
-            items: []
+            dataSet: false,
+            isWaiting: true,
+            items: [],
+            sortKey: ""
         };
     },
+    created: function created() {
+        this.fetch();
+    },
 
+    computed: {
+        showNotFound: function showNotFound() {
+            return !this.isWaiting && this.items.length == 0;
+        }
+    },
     methods: {
         fetch: function fetch(params) {
             var url = this.getUrl(params);
@@ -47706,23 +47717,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_common__["a" /* default */]],
   data: function data() {
     return {
-      dataSet: false,
-      isWaiting: true,
-      items: [],
       filter_fields: [{ name: "date", label: "Date/Time", value: "" }, { name: "user_name", label: "Correspondent Name", value: "" }, { name: "amount", label: "Amount", value: "" }, { name: "user_balance", label: "Resulting balance", value: "" }],
-      sortKey: "",
       sortItems: [{ name: "date", label: "Date/Time", sort: 0 }, { name: "user_name", label: "Correspondent Name", sort: 0 }, { name: "amount", label: "Amount", sort: 0 }, { name: "user_balance", label: "Resulting balance", sort: 0 }]
     };
   },
-  created: function created() {
-    this.fetch();
-  },
 
-  computed: {
-    showNotFound: function showNotFound() {
-      return !this.isWaiting && this.items.length == 0;
-    }
-  },
   methods: {
     getBalanceWithLink: function getBalanceWithLink(item) {
       var balance = item.user_balance;
@@ -47936,30 +47935,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_common__["a" /* default */]],
   data: function data() {
     return {
-      dataSet: false,
-      isWaiting: true,
-      items: [],
-      filter_fields: [{ name: "date", label: "Date/Time", value: "" }, { name: "user_name", label: "Correspondent Name", value: "" }, { name: "amount", label: "Amount", value: "" }, { name: "user_balance", label: "Resulting balance", value: "" }],
-      sortKey: "",
-      sortItems: [{ name: "date", label: "Date/Time", sort: 0 }, { name: "user_name", label: "Correspondent Name", sort: 0 }, { name: "amount", label: "Amount", sort: 0 }, { name: "user_balance", label: "Resulting balance", sort: 0 }]
+      filter_fields: [{ name: "date", label: "Date/Time", value: "" }, { name: "debit_user_name", label: "Sender Name", value: "" }, { name: "crebit_user_name", label: "Recipient Name", value: "" }, { name: "amount", label: "Amount", value: "" }],
+      sortItems: [{ name: "date", label: "Date/Time", sort: 0 }, { name: "debit_user_name", label: "Sender Name", value: "" }, { name: "crebit_user_name", label: "Recipient Name", value: "" }, { name: "amount", label: "Amount", sort: 0 }]
     };
   },
-  created: function created() {
-    this.fetch();
-  },
 
-  computed: {
-    showNotFound: function showNotFound() {
-      return !this.isWaiting && this.items.length == 0;
-    }
-  },
   methods: {
-    getBalanceWithLink: function getBalanceWithLink(item) {
-      var balance = item.user_balance;
-      if (item.transaction_type == "DEBIT") {
-        balance += " <a href=\"/transactions/create?key=" + item.transaction_key + "\">Repeat</a>";
-      }
-      return balance;
+    getAmountWithLink: function getAmountWithLink(item) {
+      return "<a href=\"/admin/transactions/" + item.transaction_key + "\">" + item.amount + "</a>";
     }
   }
 });
@@ -48023,21 +48006,15 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("td", {
-                    domProps: { textContent: _vm._s(item.user_name) }
+                    domProps: { textContent: _vm._s(item.debit_user_name) }
                   }),
                   _vm._v(" "),
                   _c("td", {
-                    domProps: {
-                      textContent: _vm._s(
-                        item.amount + " ( " + item.transaction_type + " )"
-                      )
-                    }
+                    domProps: { textContent: _vm._s(item.crebit_user_name) }
                   }),
                   _vm._v(" "),
                   _c("td", {
-                    domProps: {
-                      innerHTML: _vm._s(_vm.getBalanceWithLink(item))
-                    }
+                    domProps: { innerHTML: _vm._s(_vm.getAmountWithLink(item)) }
                   })
                 ])
               }),
@@ -48166,23 +48143,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_common__["a" /* default */]],
   data: function data() {
     return {
-      dataSet: false,
-      isWaiting: true,
-      items: [],
       filter_fields: [{ name: "created_at", label: "Date/Time", value: "" }, { name: "name", label: "User name", value: "" }, { name: "email", label: "Email", value: "" }, { name: "banned", label: "Ban", value: "" }],
-      sortKey: "",
       sortItems: [{ name: "created_at", label: "Date/Time", sort: 0 }, { name: "name", label: "User Name", sort: 0 }, { name: "email", label: "Email", sort: 0 }, { name: "banned", label: "Ban", sort: 0 }]
     };
   },
-  created: function created() {
-    this.fetch();
-  },
 
-  computed: {
-    showNotFound: function showNotFound() {
-      return !this.isWaiting && this.items.length == 0;
-    }
-  },
   methods: {
     getNameWithLink: function getNameWithLink(item) {
       return "<a href=\"/admin/users/" + item.id + "\">" + item.name + "</a>";
@@ -48580,7 +48545,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     watch: {
         dataSet: function dataSet() {
-            // console.log(JSON.stringify(this.dataSet));
             this.page = this.dataSet.current_page;
             this.prevUrl = this.dataSet.prev_page_url;
             this.nextUrl = this.dataSet.next_page_url;
@@ -48597,7 +48561,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         broadcast: function broadcast() {
             return this.$emit('changed', [{ name: 'page', value: this.page }]);
-            // return this;
         }
     }
 });

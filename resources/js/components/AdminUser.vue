@@ -31,16 +31,12 @@ export default {
   mixins: [common],
   data() {
     return {
-      dataSet: false,
-      isWaiting: true,
-      items: [],
       filter_fields: [
         { name: "created_at", label: "Date/Time", value: "" },
         { name: "name", label: "User name", value: "" },
         { name: "email", label: "Email", value: "" },
         { name: "banned", label: "Ban", value: "" }
       ],
-      sortKey: "",
       sortItems: [
         { name: "created_at", label: "Date/Time", sort: 0 },
         { name: "name", label: "User Name", sort: 0 },
@@ -48,14 +44,6 @@ export default {
         { name: "banned", label: "Ban", sort: 0 }
       ]
     };
-  },
-  created() {
-    this.fetch();
-  },
-  computed: {
-    showNotFound() {
-      return !this.isWaiting && this.items.length == 0;
-    }
   },
   methods: {
     getNameWithLink(item) {

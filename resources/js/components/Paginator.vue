@@ -25,7 +25,6 @@
         },
         watch:{
             dataSet(){
-                // console.log(JSON.stringify(this.dataSet));
                 this.page = this.dataSet.current_page;
                 this.prevUrl = this.dataSet.prev_page_url;
                 this.nextUrl = this.dataSet.next_page_url;
@@ -42,7 +41,6 @@
         methods:{
             broadcast(){
                 return this.$emit('changed', [{name:'page', value: this.page}]);
-                // return this;
             }
         }
     }

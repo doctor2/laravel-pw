@@ -1,7 +1,18 @@
 export default {
     data() {
         return {
-            items: []
+            dataSet: false,
+            isWaiting: true,
+            items: [],
+            sortKey: "",
+        }
+    },
+    created() {
+        this.fetch();
+    },
+    computed: {
+        showNotFound() {
+            return !this.isWaiting && this.items.length == 0;
         }
     },
     methods: {

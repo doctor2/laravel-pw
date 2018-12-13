@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    
+
     public function index()
     {
         if (request()->expectsJson()) {
-            $transactionsQuery = $this->getTransactionsListQuery();
+            $query = $this->getTransactionListQuery();
 
-            $this->filterTransactionList($transactionsQuery);
+            $this->filterTransactionList($query);
 
-            $this->orderTransactionList($transactionsQuery);
+            $this->orderTransactionList($query);
 
-            $transactions = $transactionsQuery // ->get();
-            ->paginate(7);
+            $transactions = $query // ->get();
+            ->paginate(10);
 
             return $transactions;
         }
@@ -26,62 +26,84 @@ class TransactionController extends Controller
         return view('admin.transactions.index');
     }
 
-    public function getTransactionsListQuery()
+    public function show($key)
     {
-        $transactionsQuery =
+        $transactions = \App\Transaction::where('transaction_key', $key)->with('user')->get();
+        if ($transactions) {
+            $transaction = [];
+            foreach ($transactions as $tr) {
+                if ($tr->transaction_type == config('transaction.types.debit')) {
+                    $transaction['debit_user_name'] = $tr->user->name;
+                    $transaction['debit_user_balance'] = $tr->user_balance;
+                } else {
+                    $transaction['crebit_user_name'] = $tr->user->name;
+                    $transaction['crebit_user_balance'] = $tr->user_balance;
+
+                }
+                $transaction['amount'] = $tr->amount;
+                $transaction['created_at'] = $tr->created_at;
+            }
+        }
+
+        return view('admin.transactions.show', compact('transaction'));
+    }
+
+    public function getTransactionListQuery()
+    {
+        $query =
         \DB::table('transactions as tr')
-            ->select('tr.amount', 'tr.user_balance', 'tr.created_at', 'u.name as user_name', 'tr.transaction_type', 'tr.transaction_key')
+            ->select('tr.amount', 'tr.created_at', 'u.name as debit_user_name', 'user.name as crebit_user_name', 'tr.transaction_key')
             ->where('tr.transaction_type', config('transaction.types.debit'))
             ->join('transactions as trans', 'tr.transaction_key', '=', 'trans.transaction_key')
             ->where('trans.transaction_type', config('transaction.types.credit'))
-            ->join('users as u', 'trans.user_id', '=', 'u.id')
+            ->join('users as user', 'trans.user_id', '=', 'user.id')
+            ->join('users as u', 'tr.user_id', '=', 'u.id')
         ;
-        return $transactionsQuery;
+        return $query;
     }
 
-    public function filterTransactionList($transactionsQuery)
+    public function filterTransactionList($query)
     {
         if (request('date')) {
-            $transactionsQuery
+            $query
                 ->where('tr.created_at', 'like', '%' . request('date') . '%');
         }
 
-        if (request('user_name')) {
-            $transactionsQuery
-                ->where('u.name', 'like', '%' . request('user_name') . '%');
+        if (request('debit_user_name')) {
+            $query
+                ->where('u.name', 'like', '%' . request('debit_user_name') . '%');
+        }
+
+        if (request('crebit_user_name')) {
+            $query
+                ->where('user.name', 'like', '%' . request('crebit_user_name') . '%');
         }
 
         if (request('amount')) {
-            $transactionsQuery
+            $query
                 ->where('tr.amount', request('amount'));
         }
-
-        if (request('user_balance')) {
-            $transactionsQuery
-                ->where('tr.user_balance', request('user_balance'));
-        }
-
-        return $transactionsQuery;
+  
     }
 
-    public function orderTransactionList($transactionsQuery)
+    public function orderTransactionList($query)
     {
         $order = request('order') == 'asc' ? 'asc' : 'desc';
 
         if (request('sort') == 'date') {
-            $transactionsQuery->orderBy('tr.created_at', $order);
+            $query->orderBy('tr.created_at', $order);
 
-        } elseif (request('sort') == 'user_name') {
-            $transactionsQuery->orderBy('u.name', $order);
-            
+        } elseif (request('sort') == 'debit_user_name') {
+            $query->orderBy('u.name', $order);
+
         } elseif (request('sort') == 'amount') {
-            $transactionsQuery->orderBy('tr.amount', $order);
+            $query->orderBy('tr.amount', $order);
 
-        } elseif (request('sort') == 'user_balance') {
-            $transactionsQuery->orderBy('tr.user_balance', $order);
+        } elseif (request('sort') == 'crebit_user_name') {
+            $query->orderBy('user.name', $order);
 
         } else {
-            $transactionsQuery->orderBy('tr.id', 'desc');
+            $query->orderBy('tr.id', 'desc');
 
         }
     }

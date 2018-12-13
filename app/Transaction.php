@@ -15,7 +15,11 @@ class Transaction extends Model
 
     public function createTransaction($debit_user, $credit_user, $amount)
     {
-        $transaction_key = str_random(32);
+        while($transaction_key = str_random(32)){
+            if(!\App\Transaction::where('transaction_key', $transaction_key)->first()){
+                break;
+            }
+        }
         
         $debit_user_balance = $debit_user->balance->fresh()->balance - $amount;
         $credit_user_balance = $credit_user->balance->fresh()->balance + $amount;

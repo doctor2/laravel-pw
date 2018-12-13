@@ -21,16 +21,13 @@ class TransactionController extends Controller
     public function index()
     {
         if (request()->expectsJson()) {
-            $transactionsQuery = $this->getTransactionsListQuery(auth()->id());
+            $query = $this->getTransactionListQuery(auth()->id());
 
-            $this->filterTransactionList($transactionsQuery);
+            $this->filterTransactionList($query);
 
-            $this->orderTransactionList($transactionsQuery);
+            $this->orderTransactionList($query);
 
-            $transactions = $transactionsQuery // ->get();
-            ->paginate(7);
-
-            return $transactions;
+            return $query->paginate(10);;
         }
 
         return view('transactions.index');
@@ -66,7 +63,7 @@ class TransactionController extends Controller
             'amount' => ['required', $maxBalance],
             'user_name' => 'required|exists:users,name',
         ]);
-        
+
         $otherUser = \App\User::where('id', request('user_id'))
             ->where('name', request('user_name'))
             ->first();
@@ -80,9 +77,9 @@ class TransactionController extends Controller
             ->with('success', 'Your thread has been published!');
     }
 
-    public function getTransactionsListQuery($userId)
+    public function getTransactionListQuery($userId)
     {
-        $transactionsQuery =
+        $query =
         \DB::table('transactions as tr')
             ->select('tr.amount', 'tr.user_balance', 'tr.created_at', 'u.name as user_name', 'tr.transaction_type', 'tr.transaction_key')
             ->where('tr.user_id', $userId)
@@ -90,52 +87,50 @@ class TransactionController extends Controller
             ->where('trans.user_id', '!=', $userId)
             ->join('users as u', 'trans.user_id', '=', 'u.id')
         ;
-        return $transactionsQuery;
+        return $query;
     }
 
-    public function filterTransactionList($transactionsQuery)
+    public function filterTransactionList($query)
     {
         if (request('date')) {
-            $transactionsQuery
+            $query
                 ->where('tr.created_at', 'like', '%' . request('date') . '%');
         }
 
         if (request('user_name')) {
-            $transactionsQuery
+            $query
                 ->where('u.name', 'like', '%' . request('user_name') . '%');
         }
 
         if (request('amount')) {
-            $transactionsQuery
+            $query
                 ->where('tr.amount', request('amount'));
         }
 
         if (request('user_balance')) {
-            $transactionsQuery
+            $query
                 ->where('tr.user_balance', request('user_balance'));
         }
-
-        return $transactionsQuery;
     }
 
-    public function orderTransactionList($transactionsQuery)
+    public function orderTransactionList($query)
     {
         $order = request('order') == 'asc' ? 'asc' : 'desc';
 
         if (request('sort') == 'date') {
-            $transactionsQuery->orderBy('tr.created_at', $order);
+            $query->orderBy('tr.created_at', $order);
 
         } elseif (request('sort') == 'user_name') {
-            $transactionsQuery->orderBy('u.name', $order);
+            $query->orderBy('u.name', $order);
             
         } elseif (request('sort') == 'amount') {
-            $transactionsQuery->orderBy('tr.amount', $order);
+            $query->orderBy('tr.amount', $order);
 
         } elseif (request('sort') == 'user_balance') {
-            $transactionsQuery->orderBy('tr.user_balance', $order);
+            $query->orderBy('tr.user_balance', $order);
 
         } else {
-            $transactionsQuery->orderBy('tr.id', 'desc');
+            $query->orderBy('tr.id', 'desc');
 
         }
     }
