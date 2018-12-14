@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import common from './mixins/common';
+import common from './mixins/commonForTable';
 
 export default {
   mixins: [common],
@@ -35,7 +35,7 @@ export default {
         { name: "date", label: "Date/Time", value: "" },
         { name: "debit_user_name", label: "Sender Name", value: "" },
         { name: "crebit_user_name", label: "Recipient Name", value: "" },
-        { name: "amount", label: "Amount", value: "" },
+        { name: "amount", label: "Amount", value: "", type: 'number' },
       ],
       sortItems: [
         { name: "date", label: "Date/Time", sort: 0 },

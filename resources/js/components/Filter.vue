@@ -2,28 +2,34 @@
   <div class="filter_table">
     <div v-for="(field, index) in fields" class="form-group" :key="index">
       <label v-text="field.label" :for="field.name"></label>
-      <input :id="field.name" type="text" :name="field.name" :value="field.value" @input="change">
+      
+      <input v-if="field.type  == 'number'" v-int :id="field.name" type="text" :name="field.name" :value="field.value" @input="change">
+     
+      <input v-else-if="field.type  == 'checkbox'" v-int :id="field.name" type="checkbox" :name="field.name" v-model="field.value" @input="change">
+     
+      <input v-else :id="field.name" type="text" :name="field.name" :value="field.value" @input="change">
+      
     </div>
   </div>
 </template>
 <script>
-import debounce from 'debounce'
+import debounce from "debounce";
 
 export default {
   props: ["fields"],
-  created(){
-        this.change = debounce(this.change, 500)
+  created() {
+    this.change = debounce(this.change, 500);
   },
   methods: {
-    change(item) {
+    change() {
       let values = [];
       for (let i = 0; i < this.fields.length; i++) {
         let el = document.getElementById(this.fields[i].name);
-        if (el.value) {
-          values.push({
-            name: el.name,
-            value: el.value
-          });
+
+        if (el.type == "checkbox" && el.checked) {
+          values.push({ name: el.name, value: 1 });
+        } else if (el.value) {
+          values.push({ name: el.name, value: el.value });
         }
       }
 

@@ -104,12 +104,12 @@ class TransactionController extends Controller
 
         if (request('amount')) {
             $query
-                ->where('tr.amount', request('amount'));
+                ->where('tr.amount',  'like', '%' . request('amount') . '%' );
         }
 
         if (request('user_balance')) {
             $query
-                ->where('tr.user_balance', request('user_balance'));
+                ->where('tr.user_balance', 'like', '%' . request('user_balance') . '%');
         }
     }
 

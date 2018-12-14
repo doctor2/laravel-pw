@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import common from './mixins/common';
+import common from './mixins/commonForTable';
 
 export default {
   mixins: [common],

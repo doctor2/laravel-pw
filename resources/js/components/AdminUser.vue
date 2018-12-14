@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import common from "./mixins/common";
+import common from "./mixins/commonForTable";
 
 export default {
   mixins: [common],
@@ -35,7 +35,7 @@ export default {
         { name: "created_at", label: "Date/Time", value: "" },
         { name: "name", label: "User name", value: "" },
         { name: "email", label: "Email", value: "" },
-        { name: "banned", label: "Ban", value: "" }
+        { name: "banned", label: "Ban", value: "", type: 'checkbox' }
       ],
       sortItems: [
         { name: "created_at", label: "Date/Time", sort: 0 },
