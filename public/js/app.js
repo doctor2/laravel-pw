@@ -47715,7 +47715,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_common__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_commonForTable__ = __webpack_require__(4);
 //
 //
 //
@@ -47746,7 +47746,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_common__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_commonForTable__["a" /* default */]],
   data: function data() {
     return {
       filter_fields: [{ name: "date", label: "Date/Time", value: "" }, { name: "user_name", label: "Correspondent Name", value: "" }, { name: "amount", label: "Amount", value: "" }, { name: "user_balance", label: "Resulting balance", value: "" }],
@@ -47933,7 +47933,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_common__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_commonForTable__ = __webpack_require__(4);
 //
 //
 //
@@ -47964,7 +47964,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_common__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_commonForTable__["a" /* default */]],
   data: function data() {
     return {
       filter_fields: [{ name: "date", label: "Date/Time", value: "" }, { name: "debit_user_name", label: "Sender Name", value: "" }, { name: "crebit_user_name", label: "Recipient Name", value: "" }, { name: "amount", label: "Amount", value: "", type: 'number' }],
@@ -48141,7 +48141,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_common__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_commonForTable__ = __webpack_require__(4);
 //
 //
 //
@@ -48172,7 +48172,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_common__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_commonForTable__["a" /* default */]],
   data: function data() {
     return {
       filter_fields: [{ name: "created_at", label: "Date/Time", value: "" }, { name: "name", label: "User name", value: "" }, { name: "email", label: "Email", value: "" }, { name: "banned", label: "Ban", value: "", type: 'checkbox' }],
@@ -48251,7 +48251,11 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", { domProps: { textContent: _vm._s(item.email) } }),
                   _vm._v(" "),
-                  _c("td", { domProps: { innerHTML: _vm._s(item.banned) } })
+                  _c("td", {
+                    domProps: {
+                      textContent: _vm._s(item.banned ? "yes" : "no")
+                    }
+                  })
                 ])
               }),
               0

@@ -23,7 +23,7 @@ class Transaction extends Model
         
         $debit_user_balance = $debit_user->balance->fresh()->balance - $amount;
         $credit_user_balance = $credit_user->balance->fresh()->balance + $amount;
-
+        
         $tr1 = static::create([
             'user_id' => $credit_user->id,
             'transaction_key' => $transaction_key,

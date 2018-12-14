@@ -15,7 +15,7 @@
           <td v-text="item.created_at"></td>
           <td v-html="getNameWithLink(item)"></td>
           <td v-text="item.email"></td>
-          <td v-html="item.banned"></td>
+          <td v-text="item.banned?'yes': 'no'"></td>
         </tr>
       </tbody>
     </table>

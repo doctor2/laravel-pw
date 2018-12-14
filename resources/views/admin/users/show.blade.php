@@ -5,23 +5,35 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">
-                        User page
-                    </div>
-                
-                    <div class="card-body">
-                        Name: {{$user->name}}
-                        <hr>
-                        Email: {{$user->email}}
-                        <hr>
-
-                        Date created: {{$user->created_at}}
-
-                    </div>
+                        <table class="table " >
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col" colspan="2">User page</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                      <tr>
+                                        <th scope="row">Name</th>
+                                        <td>{{$user->name}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Email</th>
+                                        <td>{{$user->email}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Date created</th>
+                                        <td>{{$user->created_at}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Ban</th>
+                                        <td>{{$user->hasBan}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="card-body">
+                                <a href="{{route('admin.users.index')}}" ><- Back</a>    
+                            </div>
                 </div>
-                <br>
-            
-
         </div>
     </div>
 </div>

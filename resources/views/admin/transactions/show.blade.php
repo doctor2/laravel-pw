@@ -5,29 +5,44 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">
-                            Transaction page
-                    </div>
-                
-                    <div class="card-body">
-                        debit_user_name: {{$transaction['debit_user_name']}}
-                        <hr>
-                        debit_user_balance: {{$transaction['debit_user_balance']}}
-                        <hr>
-                        crebit_user_name: {{$transaction['crebit_user_name']}}
-                        <hr>
-                        crebit_user_balance: {{$transaction['crebit_user_balance']}}
-                        <hr>
-                        Amount: {{$transaction['amount']}}
-                        <hr>
-
-                        Date created: {{$transaction['created_at']}}
-
-                    </div>
+                   
+                            <table class="table " >
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col" colspan="2">Transaction page</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                      <tr>
+                                        <th scope="row">Sender name</th>
+                                        <td>{{$transaction['debit_user_name']}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Sender balance</th>
+                                        <td>{{$transaction['debit_user_balance']}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Recipient name</th>
+                                        <td>{{$transaction['crebit_user_name']}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Recipient balance</th>
+                                        <td>{{$transaction['crebit_user_balance']}}</td>
+                                    </tr>
+                                      <tr>
+                                        <th scope="row">Amount</th>
+                                        <td>{{$transaction['amount']}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Date created</th>
+                                        <td>{{$transaction['created_at']}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="card-body">
+                                <a href="{{route('admin.transactions.index')}}"><- Back</a>
+                            </div>
                 </div>
-                <br>
-            
-
         </div>
     </div>
 </div>

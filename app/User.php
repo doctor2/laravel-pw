@@ -28,6 +28,10 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    protected $appends= [
+        'hasBan'
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -40,6 +44,11 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return in_array($this->email,['brath1@example.org']);
+    }
+
+    public function getHasBanAttribute()
+    {
+        return $this->banned ? 'yes' : 'no';
     }
 
     public function balance()
