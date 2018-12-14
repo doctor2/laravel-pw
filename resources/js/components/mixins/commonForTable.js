@@ -2,6 +2,7 @@ export default {
     data() {
         return {
             dataSet: false,
+            showSessionMessage: false,
             isWaiting: true,
             items: [],
             sortKey: "",
@@ -9,10 +10,8 @@ export default {
     },
     created() {
         this.fetch();
-        
-        setTimeout(function(){
-            document.querySelector('[data-message]').style.display = "none";
-        }, 5000);
+        this.showSessionMessage = true;
+        setTimeout(() => this.showSessionMessage = false, 5000);
     },
     computed: {
         showNotFound() {

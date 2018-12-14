@@ -12,7 +12,7 @@
 */
 
 Route::get('/','TransactionController@index')->name('transactions.index');
-Route::get('/transactions/create','TransactionController@create');
+Route::get('/transactions/create','TransactionController@create')->name('transactions.create');
 Route::post('/transactions','TransactionController@store')->name('transactions.store');
 Route::get('/users','Api\UserController@index')->name('users.index');
 
@@ -33,6 +33,7 @@ Route::group([
 ],function(){
     Route::get('/transactions','TransactionController@index')->name('admin.transactions.index');
     Route::get('/transactions/{key}','TransactionController@show')->name('admin.transactions.show');
+    Route::patch('/transactions/edit/{key}','TransactionController@update')->name('admin.transactions.update');
 
     Route::get('/users','UserController@index')->name('admin.users.index');
     Route::get('/users/{user}','UserController@show')->name('admin.users.show');

@@ -1,6 +1,6 @@
 <template>
   <div class="card-body">
-    <div data-message>
+    <div v-if="showSessionMessage">
       <slot name="message"></slot>
     </div>
     <filter-table :fields="filter_fields" @changed="fetch"></filter-table>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import common from './mixins/commonForTable';
+import common from "./mixins/commonForTable";
 
 export default {
   mixins: [common],
@@ -57,7 +57,7 @@ export default {
         }">Repeat</a>`;
       }
       return balance;
-    },
+    }
   }
 };
 </script>

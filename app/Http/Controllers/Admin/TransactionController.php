@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use function GuzzleHttp\json_encode;
 use Illuminate\Http\Request;
+use App\Transaction;
 
 class TransactionController extends Controller
 {
@@ -29,23 +31,42 @@ class TransactionController extends Controller
     public function show($key)
     {
         $transactions = \App\Transaction::where('transaction_key', $key)->with('user')->get();
-        if ($transactions) {
-            $transaction = [];
-            foreach ($transactions as $tr) {
-                if ($tr->transaction_type == config('transaction.types.debit')) {
-                    $transaction['debit_user_name'] = $tr->user->name;
-                    $transaction['debit_user_balance'] = $tr->user_balance;
-                } else {
-                    $transaction['crebit_user_name'] = $tr->user->name;
-                    $transaction['crebit_user_balance'] = $tr->user_balance;
 
-                }
-                $transaction['amount'] = $tr->amount;
-                $transaction['created_at'] = $tr->created_at;
+        if ($transactions->isEmpty()) {
+            abort(404);
+        }
+
+        $transaction = [];
+
+        foreach ($transactions as $tr) {
+            if ($tr->transaction_type == config('transaction.types.debit')) {
+                $transaction['debit_user_name'] = $tr->user->name;
+                $transaction['debit_user_balance'] = $tr->user_balance;
+            } else {
+                $transaction['crebit_user_name'] = $tr->user->name;
+                $transaction['crebit_user_balance'] = $tr->user_balance;
             }
+            $transaction['transaction_key'] = $tr->transaction_key;
+            $transaction['amount'] = $tr->amount;
+            $transaction['created_at'] = (string) $tr->created_at;
+        }
+
+        if (request()->expectsJson()) {
+            return json_encode($transaction);
         }
 
         return view('admin.transactions.show', compact('transaction'));
+    }
+
+    public function update($key, Transaction $transaction)
+    {
+        request()->validate([
+            'amount' => ['required', 'numeric','min:1'],
+        ]);
+
+        $transaction->updateTransaction($key, request('amount'));
+
+        return $this->show($key);
     }
 
     public function getTransactionListQuery()
@@ -83,7 +104,7 @@ class TransactionController extends Controller
             $query
                 ->where('tr.amount', 'like', '%' . request('amount') . '%');
         }
-  
+
     }
 
     public function orderTransactionList($query)

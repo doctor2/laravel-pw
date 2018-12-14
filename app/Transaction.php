@@ -48,7 +48,51 @@ class Transaction extends Model
             }
 
             if(!$success){
-                throw new \Exception('Database error');
+                throw new \Exception('Database error!');
+            }
+        });
+    }
+
+    public function updateTransaction($key, $amount)
+    {
+
+        $transactions = \App\Transaction::where('transaction_key', $key)->get();
+
+        if ($transactions->isEmpty()) {
+            throw new \Exception('Not valid transaction key!');
+        }
+
+        \DB::transaction(function () use($transactions, $amount) {
+            
+            $success = true;
+            $oldAmount = $transactions->first()->amount;
+
+            foreach($transactions as $tr){
+                if($tr->transaction_type == config('transaction.types.debit')){
+                    $diffBalance = $oldAmount - $amount;
+                    $exceptionMessage = 'Too mutch amount!';
+                }else{
+                    $diffBalance =  $amount - $oldAmount;
+                    $exceptionMessage = 'Too small amount!';
+                }
+
+                $oldBalance = $tr->user_balance + $diffBalance;
+                $newBalanse = $tr->user->balance->balance + $diffBalance;
+
+                if($newBalanse < 0 || $oldBalance < 0){
+                    throw new \Exception($exceptionMessage);
+                }
+
+                $success &= $tr->update([
+                    'amount' => $amount,
+                    'user_balance' => $oldBalance,
+                ]);
+                
+                $success &= $tr->user->balance()->update(['balance' => $newBalanse]);
+            }
+
+            if(!$success){
+                throw new \Exception('Database error!');
             }
         });
     }

@@ -60,14 +60,14 @@ class TransactionController extends Controller
     public function store(Transaction $transaction, MaxUserBalance $maxBalance)
     {
         request()->validate([
-            'amount' => ['required', $maxBalance],
+            'amount' => ['required', 'numeric', 'min:1',  $maxBalance],
             'user_name' => 'required|exists:users,name',
         ]);
 
         $otherUser = \App\User::where('id', request('user_id'))
             ->where('name', request('user_name'))
             ->first();
-            
+
         try{
             $transaction->createTransaction(
                 auth()->user(),

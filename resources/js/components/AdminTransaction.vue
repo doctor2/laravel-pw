@@ -1,6 +1,6 @@
 <template>
   <div class="card-body">
-    <div data-message>
+    <div v-if="showSessionMessage">
       <slot name="message"></slot>
     </div>
     <filter-table :fields="filter_fields" @changed="fetch"></filter-table>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import common from './mixins/commonForTable';
+import common from "./mixins/commonForTable";
 
 export default {
   mixins: [common],
@@ -38,19 +38,21 @@ export default {
         { name: "date", label: "Date/Time", value: "" },
         { name: "debit_user_name", label: "Sender Name", value: "" },
         { name: "crebit_user_name", label: "Recipient Name", value: "" },
-        { name: "amount", label: "Amount", value: "", type: 'number' },
+        { name: "amount", label: "Amount", value: "", type: "number" }
       ],
       sortItems: [
         { name: "date", label: "Date/Time", sort: 0 },
         { name: "debit_user_name", label: "Sender Name", value: "" },
         { name: "crebit_user_name", label: "Recipient Name", value: "" },
-        { name: "amount", label: "Amount", sort: 0 },
+        { name: "amount", label: "Amount", sort: 0 }
       ]
     };
   },
   methods: {
     getAmountWithLink(item) {
-      return `<a href="/admin/transactions/${item.transaction_key}">${item.amount}</a>`;
+      return `<a href="/admin/transactions/${item.transaction_key}">${
+        item.amount
+      }</a>`;
     }
   }
 };

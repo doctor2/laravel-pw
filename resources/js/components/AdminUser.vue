@@ -1,6 +1,6 @@
 <template>
   <div class="card-body">
-    <div data-message>
+    <div v-if="showSessionMessage">
       <slot name="message"></slot>
     </div>
     <filter-table :fields="filter_fields" @changed="fetch"></filter-table>
@@ -38,7 +38,7 @@ export default {
         { name: "created_at", label: "Date/Time", value: "" },
         { name: "name", label: "User name", value: "" },
         { name: "email", label: "Email", value: "" },
-        { name: "banned", label: "Ban", value: "", type: 'checkbox' }
+        { name: "banned", label: "Ban", value: "", type: "checkbox" }
       ],
       sortItems: [
         { name: "created_at", label: "Date/Time", sort: 0 },
@@ -52,8 +52,11 @@ export default {
     getNameWithLink(item) {
       return `<a href="/admin/users/${item.id}">${item.name}</a>`;
     },
-     getBanWithLink(item) {
-      return (item.banned?'yes': 'no') + `  <a href="/admin/users/edit/${item.id}">Edit</a>`;
+    getBanWithLink(item) {
+      return (
+        (item.banned ? "yes" : "no") +
+        `  <a href="/admin/users/edit/${item.id}">Edit</a>`
+      );
     }
   }
 };
