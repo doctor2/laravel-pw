@@ -1,5 +1,8 @@
 <template>
   <div class="card-body">
+    <div data-message>
+      <slot name="message"></slot>
+    </div>
     <filter-table :fields="filter_fields" @changed="fetch"></filter-table>
     <table v-if="items.length != 0" class="table card-body-table">
       <thead>

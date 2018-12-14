@@ -1,5 +1,8 @@
 <template>
   <div class="card-body">
+    <div data-message>
+      <slot name="message"></slot>
+    </div>
     <filter-table :fields="filter_fields" @changed="fetch"></filter-table>
     <table v-if="items.length != 0" class="table card-body-table">
       <thead>
@@ -15,7 +18,7 @@
           <td v-text="item.created_at"></td>
           <td v-html="getNameWithLink(item)"></td>
           <td v-text="item.email"></td>
-          <td v-text="item.banned?'yes': 'no'"></td>
+          <td v-html="getBanWithLink(item)"></td>
         </tr>
       </tbody>
     </table>
@@ -48,6 +51,9 @@ export default {
   methods: {
     getNameWithLink(item) {
       return `<a href="/admin/users/${item.id}">${item.name}</a>`;
+    },
+     getBanWithLink(item) {
+      return (item.banned?'yes': 'no') + `  <a href="/admin/users/edit/${item.id}">Edit</a>`;
     }
   }
 };

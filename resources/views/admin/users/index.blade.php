@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             
-            <admin-user></admin-user>
+            <admin-user>
+                <div slot="message">@include('layouts._message')</div>
+            </admin-user>
 
         </div>
     </div>

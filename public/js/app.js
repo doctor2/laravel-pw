@@ -629,6 +629,10 @@ module.exports = defaults;
     },
     created: function created() {
         this.fetch();
+
+        setTimeout(function () {
+            document.querySelector('[data-message]').style.display = "none";
+        }, 5000);
     },
 
     computed: {
@@ -47742,6 +47746,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -47777,6 +47784,8 @@ var render = function() {
     "div",
     { staticClass: "card-body" },
     [
+      _c("div", { attrs: { "data-message": "" } }, [_vm._t("message")], 2),
+      _vm._v(" "),
       _c("filter-table", {
         attrs: { fields: _vm.filter_fields },
         on: { changed: _vm.fetch }
@@ -47960,6 +47969,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -47991,6 +48003,8 @@ var render = function() {
     "div",
     { staticClass: "card-body" },
     [
+      _c("div", { attrs: { "data-message": "" } }, [_vm._t("message")], 2),
+      _vm._v(" "),
       _c("filter-table", {
         attrs: { fields: _vm.filter_fields },
         on: { changed: _vm.fetch }
@@ -48168,6 +48182,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -48183,6 +48200,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     getNameWithLink: function getNameWithLink(item) {
       return "<a href=\"/admin/users/" + item.id + "\">" + item.name + "</a>";
+    },
+    getBanWithLink: function getBanWithLink(item) {
+      return (item.banned ? 'yes' : 'no') + ("  <a href=\"/admin/users/edit/" + item.id + "\">Edit</a>");
     }
   }
 });
@@ -48199,6 +48219,8 @@ var render = function() {
     "div",
     { staticClass: "card-body" },
     [
+      _c("div", { attrs: { "data-message": "" } }, [_vm._t("message")], 2),
+      _vm._v(" "),
       _c("filter-table", {
         attrs: { fields: _vm.filter_fields },
         on: { changed: _vm.fetch }
@@ -48252,9 +48274,7 @@ var render = function() {
                   _c("td", { domProps: { textContent: _vm._s(item.email) } }),
                   _vm._v(" "),
                   _c("td", {
-                    domProps: {
-                      textContent: _vm._s(item.banned ? "yes" : "no")
-                    }
+                    domProps: { innerHTML: _vm._s(_vm.getBanWithLink(item)) }
                   })
                 ])
               }),
@@ -48380,8 +48400,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       for (var i = 0; i < this.fields.length; i++) {
         var el = document.getElementById(this.fields[i].name);
 
-        if (el.type == "checkbox" && el.checked) {
-          values.push({ name: el.name, value: 1 });
+        if (el.type == "checkbox") {
+          if (el.checked) {
+            values.push({ name: el.name, value: 1 });
+          }
         } else if (el.value) {
           values.push({ name: el.name, value: el.value });
         }
@@ -48495,45 +48517,9 @@ var render = function() {
             })
           : field.type == "checkbox"
           ? _c("input", {
-              directives: [
-                { name: "int", rawName: "v-int" },
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: field.value,
-                  expression: "field.value"
-                }
-              ],
               attrs: { id: field.name, type: "checkbox", name: field.name },
-              domProps: {
-                checked: Array.isArray(field.value)
-                  ? _vm._i(field.value, null) > -1
-                  : field.value
-              },
-              on: {
-                input: _vm.change,
-                change: function($event) {
-                  var $$a = field.value,
-                    $$el = $event.target,
-                    $$c = $$el.checked ? true : false
-                  if (Array.isArray($$a)) {
-                    var $$v = null,
-                      $$i = _vm._i($$a, $$v)
-                    if ($$el.checked) {
-                      $$i < 0 && _vm.$set(field, "value", $$a.concat([$$v]))
-                    } else {
-                      $$i > -1 &&
-                        _vm.$set(
-                          field,
-                          "value",
-                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                        )
-                    }
-                  } else {
-                    _vm.$set(field, "value", $$c)
-                  }
-                }
-              }
+              domProps: { checked: field.value },
+              on: { click: _vm.change }
             })
           : _c("input", {
               attrs: { id: field.name, type: "text", name: field.name },

@@ -9,6 +9,10 @@ export default {
     },
     created() {
         this.fetch();
+        
+        setTimeout(function(){
+            document.querySelector('[data-message]').style.display = "none";
+        }, 5000);
     },
     computed: {
         showNotFound() {

@@ -29,6 +29,7 @@
                             @endforeach
                         </ul>        
                     @endif
+                    @include('layouts._message')
                 </div>
         </div>
     </div>

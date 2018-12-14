@@ -67,14 +67,20 @@ class TransactionController extends Controller
         $otherUser = \App\User::where('id', request('user_id'))
             ->where('name', request('user_name'))
             ->first();
-
-        $transaction->createTransaction(
-            auth()->user(),
-            $otherUser,
-            request('amount'));
+            
+        try{
+            $transaction->createTransaction(
+                auth()->user(),
+                $otherUser,
+                request('amount'));
+        }
+        catch(\Exception $e){
+            return redirect()->back()
+                ->with('error', 'Server error, please try again');
+        }
 
         return redirect()->route('transactions.index')
-            ->with('success', 'Your thread has been published!');
+            ->with('success', 'Your transaction has been completed!');
     }
 
     public function getTransactionListQuery($userId)

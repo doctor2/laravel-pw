@@ -4,7 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-        <transaction></transaction>
+        <transaction>
+            <div slot="message">@include('layouts._message')</div>
+        </transaction>
                 {{-- <div class="card">
                     <div class="card-header">Dashboard</div>
                     <div class="card-body">

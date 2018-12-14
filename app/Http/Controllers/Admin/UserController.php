@@ -13,7 +13,7 @@ class UserController extends Controller
         $fields = ['name', 'email', 'banned', 'created_at'];
 
         if (request()->expectsJson()) {
-            $query = User::select( array_merge($fields, ['id']) );
+            $query = User::select(array_merge($fields, ['id']));
 
             $this->filterUsers($query, $fields);
 
@@ -27,7 +27,25 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return  view('admin.users.show', compact('user'));
+        return view('admin.users.show', compact('user'));
+    }
+
+    public function edit(User $user)
+    {
+        return view('admin.users.edit', compact('user'));
+    }
+
+    public function update(User $user)
+    {
+        $ban = ['banned' => request('banned')== 'on'? true: false];
+
+        $res = $user->update(request()->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'. $user->id],
+        ]) + $ban);
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'User has been updated!');
     }
 
     public function filterUsers($query, $fields)

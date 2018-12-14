@@ -4,8 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            
-        <admin-transaction></admin-transaction>
+        <admin-transaction>
+            <div slot="message">@include('layouts._message')</div>
+        </admin-transaction>
+        
         </div>
     </div>
 </div>

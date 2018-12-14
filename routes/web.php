@@ -33,7 +33,10 @@ Route::group([
 ],function(){
     Route::get('/transactions','TransactionController@index')->name('admin.transactions.index');
     Route::get('/transactions/{key}','TransactionController@show')->name('admin.transactions.show');
+
     Route::get('/users','UserController@index')->name('admin.users.index');
     Route::get('/users/{user}','UserController@show')->name('admin.users.show');
+    Route::get('/users/edit/{user}','UserController@edit')->name('admin.users.edit');
+    Route::patch('/users/edit/{user}','UserController@update')->name('admin.users.update');
 
 });

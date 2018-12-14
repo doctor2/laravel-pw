@@ -5,7 +5,7 @@
       
       <input v-if="field.type  == 'number'" v-int :id="field.name" type="text" :name="field.name" :value="field.value" @input="change">
      
-      <input v-else-if="field.type  == 'checkbox'" v-int :id="field.name" type="checkbox" :name="field.name" v-model="field.value" @input="change">
+      <input v-else-if="field.type  == 'checkbox'" v-bind:id="field.name" type="checkbox" :name="field.name" :checked="field.value" @click="change">
      
       <input v-else :id="field.name" type="text" :name="field.name" :value="field.value" @input="change">
       
@@ -26,13 +26,15 @@ export default {
       for (let i = 0; i < this.fields.length; i++) {
         let el = document.getElementById(this.fields[i].name);
 
-        if (el.type == "checkbox" && el.checked) {
-          values.push({ name: el.name, value: 1 });
+        if (el.type == "checkbox") {
+          if(el.checked){
+            values.push({ name: el.name, value: 1 });
+          }
         } else if (el.value) {
           values.push({ name: el.name, value: el.value });
         }
       }
-
+      
       this.$emit("changed", values);
     }
   }
