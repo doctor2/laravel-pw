@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Rules\MaxUserBalance;
 use App\Transaction;
+use App\UseCases\TransactionService;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -27,7 +28,7 @@ class TransactionController extends Controller
 
             $this->orderTransactionList($query);
 
-            return $query->paginate(10);;
+            return $query->paginate(10);
         }
 
         return view('transactions.index');
@@ -57,10 +58,10 @@ class TransactionController extends Controller
         return view('transactions.create', compact('transaction'));
     }
 
-    public function store(Transaction $transaction, MaxUserBalance $maxBalance)
+    public function store(TransactionService $service, MaxUserBalance $maxBalance)
     {
         request()->validate([
-            'amount' => ['required', 'numeric', 'min:1',  $maxBalance],
+            'amount' => ['required', 'numeric', 'min:1', $maxBalance],
             'user_name' => 'required|exists:users,name',
         ]);
 
@@ -68,13 +69,9 @@ class TransactionController extends Controller
             ->where('name', request('user_name'))
             ->first();
 
-        try{
-            $transaction->createTransaction(
-                auth()->user(),
-                $otherUser,
-                request('amount'));
-        }
-        catch(\Exception $e){
+        try {
+            $service->create(auth()->user(), $otherUser, request('amount'));
+        } catch (\Exception $e) {
             return redirect()->back()
                 ->with('error', 'Server error, please try again');
         }
@@ -110,7 +107,7 @@ class TransactionController extends Controller
 
         if (request('amount')) {
             $query
-                ->where('tr.amount',  'like', '%' . request('amount') . '%' );
+                ->where('tr.amount', 'like', '%' . request('amount') . '%');
         }
 
         if (request('user_balance')) {
@@ -128,7 +125,7 @@ class TransactionController extends Controller
 
         } elseif (request('sort') == 'user_name') {
             $query->orderBy('u.name', $order);
-            
+
         } elseif (request('sort') == 'amount') {
             $query->orderBy('tr.amount', $order);
 

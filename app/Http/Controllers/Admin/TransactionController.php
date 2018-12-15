@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use function GuzzleHttp\json_encode;
+use App\UseCases\TransactionService;
 use Illuminate\Http\Request;
-use App\Transaction;
 
 class TransactionController extends Controller
 {
@@ -28,45 +27,26 @@ class TransactionController extends Controller
         return view('admin.transactions.index');
     }
 
-    public function show($key)
+    public function show($key, TransactionService $service)
     {
-        $transactions = \App\Transaction::where('transaction_key', $key)->with('user')->get();
+        $transaction = $service->getByKey($key);
 
-        if ($transactions->isEmpty()) {
+        if (empty($transaction)) {
             abort(404);
-        }
-
-        $transaction = [];
-
-        foreach ($transactions as $tr) {
-            if ($tr->transaction_type == config('transaction.types.debit')) {
-                $transaction['debit_user_name'] = $tr->user->name;
-                $transaction['debit_user_balance'] = $tr->user_balance;
-            } else {
-                $transaction['crebit_user_name'] = $tr->user->name;
-                $transaction['crebit_user_balance'] = $tr->user_balance;
-            }
-            $transaction['transaction_key'] = $tr->transaction_key;
-            $transaction['amount'] = $tr->amount;
-            $transaction['created_at'] = (string) $tr->created_at;
-        }
-
-        if (request()->expectsJson()) {
-            return json_encode($transaction);
         }
 
         return view('admin.transactions.show', compact('transaction'));
     }
 
-    public function update($key, Transaction $transaction)
+    public function update($key, TransactionService $service)
     {
         request()->validate([
-            'amount' => ['required', 'numeric','min:1'],
+            'amount' => ['required', 'numeric', 'min:1'],
         ]);
 
-        $transaction->updateTransaction($key, request('amount'));
+        $service->update($key, request('amount'));
 
-        return $this->show($key);
+        return json_encode($service->getByKey($key));
     }
 
     public function getTransactionListQuery()

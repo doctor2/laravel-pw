@@ -20,17 +20,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'brath1@example.org',
             'password' => '$2y$10$SHOpPjq2SAlrZ.Uv1ljZjuYY1eSt2Df57E8tBTYh8fby65tCflnX.',
         ]);
-        $transaction = new \App\Transaction();
+        $service = new \App\UseCases\TransactionService();
 
         foreach ($users as $user) {
             $amount = rand(100, 400);
            
-            $transaction->createTransaction($user, $myUser, $amount);
+            $service->create($user, $myUser, $amount);
         }
         foreach ($users as $user) {
             $amount = rand(100, 300);
            
-            $transaction->createTransaction($myUser, $user, $amount);
+            $service->create($myUser, $user, $amount);
         }
 
     }
