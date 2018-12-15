@@ -18,10 +18,7 @@ class TransactionController extends Controller
 
             $this->orderTransactionList($query);
 
-            $transactions = $query // ->get();
-            ->paginate(10);
-
-            return $transactions;
+            return $query->paginate(10);
         }
 
         return view('admin.transactions.index');
