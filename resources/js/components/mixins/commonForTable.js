@@ -125,9 +125,9 @@ export default {
 
             return obj;
         },
-        addParamstoSearch(name, regex, value, search = location.search) {
+        addParamstoSearch(name, pattern, value, search = location.search) {
             if (search.indexOf(`${name}=`) != -1) {
-                search = search.replace(regex, `${name}=` + value);
+                search = search.replace(pattern, `${name}=` + value);
             } else if (search.indexOf("?") != -1) {
                 search += `&${name}=` + value;
             } else {

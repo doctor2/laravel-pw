@@ -19,7 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('amount');
             $table->unsignedInteger('user_balance');
-            $table->enum('transaction_type', ['DEBIT', 'CREDIT']);
+            $table->unsignedInteger('transaction_type_id')->references('id')->on('transaction_types')->onDelete('restrict');;
             $table->timestamps();
         });
     }

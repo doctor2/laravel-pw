@@ -21,6 +21,9 @@ const API_URL = location.origin +'/users?name=:query'
 
 export default {
   props:['user_name', 'user_id'],
+  components: {
+        VueBootstrapTypeahead
+    },
   data() {
     return {
       userNames: [],
@@ -32,9 +35,7 @@ export default {
       this.selectedUser = {name:this.user_name, id: this.user_id};
       this.$refs.typeahead.$data.inputValue = this.user_name;
   },
-  components: {
-        VueBootstrapTypeahead
-    },
+  
   methods: {
     async getNames(query) {
       const res = await fetch(API_URL.replace(':query', query))

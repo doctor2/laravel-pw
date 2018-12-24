@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->createTransactionTypes();
+
         factory(App\User::class, 25)->create();
 
         $users = App\User::all();
@@ -33,5 +35,15 @@ class DatabaseSeeder extends Seeder
             $service->create($myUser, $user, $amount);
         }
 
+    }
+
+    public function createTransactionTypes()
+    {
+        factory(\App\TransactionType::class)->create([
+            'name'=> \App\TransactionType::DEBIT
+            ]);
+        factory(\App\TransactionType::class)->create([
+            'name'=> \App\TransactionType::CREDIT
+            ]);
     }
 }

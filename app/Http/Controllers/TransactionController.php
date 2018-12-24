@@ -84,52 +84,54 @@ class TransactionController extends Controller
     {
         $query =
         \DB::table('transactions as tr')
-            ->select('tr.amount', 'tr.user_balance', 'tr.created_at', 'u.name as user_name', 'tr.transaction_type', 'tr.transaction_key')
+            ->select('tr.amount', 'tr.user_balance', 'tr.created_at', 'u.name as user_name', 'type.name as transaction_type', 'tr.transaction_key')
             ->where('tr.user_id', $userId)
             ->join('transactions as trans', 'tr.transaction_key', '=', 'trans.transaction_key')
             ->where('trans.user_id', '!=', $userId)
             ->join('users as u', 'trans.user_id', '=', 'u.id')
+            ->join('transaction_types as type', 'tr.transaction_type_id', '=', 'type.id')
         ;
         return $query;
     }
 
     public function filterTransactionList($query)
-    {
-        if (request('date')) {
+    {       
+        if (!empty($value = request('date'))) {
             $query
-                ->where('tr.created_at', 'like', '%' . request('date') . '%');
+                ->where('tr.created_at', 'like', '%' . $value . '%');
         }
 
-        if (request('user_name')) {
+        if (!empty($value = request('user_name'))) {
             $query
-                ->where('u.name', 'like', '%' . request('user_name') . '%');
+                ->where('u.name', 'like', '%' . $value . '%');
         }
 
-        if (request('amount')) {
+        if (!empty($value = request('amount'))) {
             $query
-                ->where('tr.amount', 'like', '%' . request('amount') . '%');
+                ->where('tr.amount', 'like', '%' . $value . '%');
         }
 
-        if (request('user_balance')) {
+        if (!empty($value = request('user_balance'))) {
             $query
-                ->where('tr.user_balance', 'like', '%' . request('user_balance') . '%');
+                ->where('tr.user_balance', 'like', '%' . $value . '%');
         }
     }
 
     public function orderTransactionList($query)
     {
         $order = request('order') == 'asc' ? 'asc' : 'desc';
+        $sort = request('sort');
 
-        if (request('sort') == 'date') {
+        if ($sort == 'date') {
             $query->orderBy('tr.created_at', $order);
 
-        } elseif (request('sort') == 'user_name') {
+        } elseif ($sort == 'user_name') {
             $query->orderBy('u.name', $order);
 
-        } elseif (request('sort') == 'amount') {
+        } elseif ($sort == 'amount') {
             $query->orderBy('tr.amount', $order);
 
-        } elseif (request('sort') == 'user_balance') {
+        } elseif ($sort == 'user_balance') {
             $query->orderBy('tr.user_balance', $order);
 
         } else {

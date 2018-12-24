@@ -37,11 +37,11 @@ class UserController extends Controller
 
     public function update(User $user)
     {
-        $ban = ['banned' => request('banned')== 'on'? true: false];
+        $ban = ['banned' => request('banned') == 'on' ? true : false];
 
         $res = $user->update(request()->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'. $user->id],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
         ]) + $ban);
 
         return redirect()->route('admin.users.index')
@@ -51,9 +51,9 @@ class UserController extends Controller
     public function filterUsers($query, $fields)
     {
         foreach ($fields as $field) {
-            if (request($field)) {
+            if (!empty($value = request($field))) {
                 $query
-                    ->where($field, 'like', '%' . request($field) . '%');
+                    ->where($field, 'like', '%' . $value . '%');
             }
         }
     }

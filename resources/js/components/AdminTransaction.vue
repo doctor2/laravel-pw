@@ -42,8 +42,8 @@ export default {
       ],
       sortItems: [
         { name: "date", label: "Date/Time", sort: 0 },
-        { name: "debit_user_name", label: "Sender Name", value: "" },
-        { name: "crebit_user_name", label: "Recipient Name", value: "" },
+        { name: "debit_user_name", label: "Sender Name", sort: "" },
+        { name: "crebit_user_name", label: "Recipient Name", sort: "" },
         { name: "amount", label: "Amount", sort: 0 }
       ]
     };

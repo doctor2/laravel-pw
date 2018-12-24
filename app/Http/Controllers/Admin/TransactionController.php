@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\UseCases\TransactionService;
+use App\UseCases\TransactionTypeService;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -48,12 +49,13 @@ class TransactionController extends Controller
 
     public function getTransactionListQuery()
     {
+        $typeService = new TransactionTypeService();
         $query =
         \DB::table('transactions as tr')
             ->select('tr.amount', 'tr.created_at', 'u.name as debit_user_name', 'user.name as crebit_user_name', 'tr.transaction_key')
-            ->where('tr.transaction_type', config('transaction.types.debit'))
+            ->where('tr.transaction_type_id', $typeService->getDebitId())
             ->join('transactions as trans', 'tr.transaction_key', '=', 'trans.transaction_key')
-            ->where('trans.transaction_type', config('transaction.types.credit'))
+            ->where('trans.transaction_type_id', $typeService->getCreditId())
             ->join('users as user', 'trans.user_id', '=', 'user.id')
             ->join('users as u', 'tr.user_id', '=', 'u.id')
         ;
@@ -62,24 +64,24 @@ class TransactionController extends Controller
 
     public function filterTransactionList($query)
     {
-        if (request('date')) {
+        if (!empty($value = request('date'))) {
             $query
                 ->where('tr.created_at', 'like', '%' . request('date') . '%');
         }
 
-        if (request('debit_user_name')) {
+        if (!empty($value = request('debit_user_name'))) {
             $query
-                ->where('u.name', 'like', '%' . request('debit_user_name') . '%');
+                ->where('u.name', 'like', '%' . $value . '%');
         }
 
-        if (request('crebit_user_name')) {
+        if (!empty($value = request('crebit_user_name'))) {
             $query
-                ->where('user.name', 'like', '%' . request('crebit_user_name') . '%');
+                ->where('user.name', 'like', '%' . $value . '%');
         }
 
-        if (request('amount')) {
+        if (!empty($value = request('amount'))) {
             $query
-                ->where('tr.amount', 'like', '%' . request('amount') . '%');
+                ->where('tr.amount', 'like', '%' . $value . '%');
         }
 
     }
@@ -87,17 +89,18 @@ class TransactionController extends Controller
     public function orderTransactionList($query)
     {
         $order = request('order') == 'asc' ? 'asc' : 'desc';
+        $sort = request('sort');
 
-        if (request('sort') == 'date') {
+        if ($sort == 'date') {
             $query->orderBy('tr.created_at', $order);
 
-        } elseif (request('sort') == 'debit_user_name') {
+        } elseif ($sort == 'debit_user_name') {
             $query->orderBy('u.name', $order);
 
-        } elseif (request('sort') == 'amount') {
+        } elseif ($sort == 'amount') {
             $query->orderBy('tr.amount', $order);
 
-        } elseif (request('sort') == 'crebit_user_name') {
+        } elseif ($sort == 'crebit_user_name') {
             $query->orderBy('user.name', $order);
 
         } else {

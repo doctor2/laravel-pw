@@ -741,11 +741,11 @@ module.exports = defaults;
 
             return obj;
         },
-        addParamstoSearch: function addParamstoSearch(name, regex, value) {
+        addParamstoSearch: function addParamstoSearch(name, pattern, value) {
             var search = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : location.search;
 
             if (search.indexOf(name + "=") != -1) {
-                search = search.replace(regex, name + "=" + value);
+                search = search.replace(pattern, name + "=" + value);
             } else if (search.indexOf("?") != -1) {
                 search += "&" + name + "=" + value;
             } else {
@@ -47984,7 +47984,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       filter_fields: [{ name: "date", label: "Date/Time", value: "" }, { name: "debit_user_name", label: "Sender Name", value: "" }, { name: "crebit_user_name", label: "Recipient Name", value: "" }, { name: "amount", label: "Amount", value: "", type: "number" }],
-      sortItems: [{ name: "date", label: "Date/Time", sort: 0 }, { name: "debit_user_name", label: "Sender Name", value: "" }, { name: "crebit_user_name", label: "Recipient Name", value: "" }, { name: "amount", label: "Amount", sort: 0 }]
+      sortItems: [{ name: "date", label: "Date/Time", sort: 0 }, { name: "debit_user_name", label: "Sender Name", sort: "" }, { name: "crebit_user_name", label: "Recipient Name", sort: "" }, { name: "amount", label: "Amount", sort: 0 }]
     };
   },
 
@@ -49148,6 +49148,9 @@ var API_URL = location.origin + '/users?name=:query';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user_name', 'user_id'],
+  components: {
+    VueBootstrapTypeahead: __WEBPACK_IMPORTED_MODULE_1_vue_bootstrap_typeahead___default.a
+  },
   data: function data() {
     return {
       userNames: [],
@@ -49160,9 +49163,7 @@ var API_URL = location.origin + '/users?name=:query';
     this.$refs.typeahead.$data.inputValue = this.user_name;
   },
 
-  components: {
-    VueBootstrapTypeahead: __WEBPACK_IMPORTED_MODULE_1_vue_bootstrap_typeahead___default.a
-  },
+
   methods: {
     getNames: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(query) {

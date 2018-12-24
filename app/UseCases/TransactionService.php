@@ -7,9 +7,18 @@ use App\Transaction;
 
 class TransactionService
 {
+    private $typeService;
+
+    public function __construct()
+    {
+        $this->typeService = new TransactionTypeService();
+    }
+
     public function create($debit_user, $credit_user, $amount)
     {
-        \DB::transaction(function () use($debit_user, $credit_user, $amount) {
+        $typeService = $this->typeService;
+
+        \DB::transaction(function () use($debit_user, $credit_user, $amount, $typeService) {
             
             while ($transaction_key = str_random(32)) {
                 if (!\App\Transaction::where('transaction_key', $transaction_key)->first()) {
@@ -25,7 +34,7 @@ class TransactionService
                 'transaction_key' => $transaction_key,
                 'amount' => $amount,
                 'user_balance' => $credit_user_balance,
-                'transaction_type' => config('transaction.types.credit'),
+                'transaction_type_id' => $typeService->getCreditId(),
             ]);
 
             $tr2 = Transaction::create([
@@ -33,7 +42,7 @@ class TransactionService
                 'transaction_key' => $transaction_key,
                 'amount' => $amount,
                 'user_balance' => $debit_user_balance,
-                'transaction_type' => config('transaction.types.debit'),
+                'transaction_type_id' => $typeService->getDebitId(),
             ]);
 
             if ($success = $tr1 && $tr2) {
@@ -49,23 +58,23 @@ class TransactionService
 
     public function update($key, $amount)
     {
-
+        $typeService = $this->typeService;  
         $transactions = Transaction::where('transaction_key', $key)->get();
 
         if ($transactions->isEmpty()) {
             throw new \Exception('Not valid transaction key!');
         }
-
-        \DB::transaction(function () use($transactions, $amount) {
+        
+        \DB::transaction(function () use($transactions, $amount, $typeService) {
             
             $success = true;
             $oldAmount = $transactions->first()->amount;
 
             foreach($transactions as $tr){
-                if($tr->transaction_type == config('transaction.types.debit')){
+                if($tr->transaction_type_id == $typeService->getDebitId()){
                     $diffBalance = $oldAmount - $amount;
                     $exceptionMessage = 'Too mutch amount!';
-                }else{
+                }elseif($tr->transaction_type_id == $typeService->getCreditId()) {
                     $diffBalance =  $amount - $oldAmount;
                     $exceptionMessage = 'Too small amount!';
                 }
@@ -98,10 +107,10 @@ class TransactionService
         $transaction = [];
 
         foreach ($transactions as $tr) {
-            if ($tr->transaction_type == config('transaction.types.debit')) {
+            if ($tr->transaction_type_id == $this->typeService->getDebitId()) {
                 $transaction['debit_user_name'] = $tr->user->name;
                 $transaction['debit_user_balance'] = $tr->user_balance;
-            } else {
+            } elseif($tr->transaction_type_id == $this->typeService->getCreditId()) {
                 $transaction['crebit_user_name'] = $tr->user->name;
                 $transaction['crebit_user_balance'] = $tr->user_balance;
             }
