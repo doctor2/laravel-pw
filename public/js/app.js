@@ -48724,26 +48724,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["fields"],
+  data: function data() {
+    return {
+      data: []
+    };
+  },
   created: function created() {
     this.change = __WEBPACK_IMPORTED_MODULE_0_debounce___default()(this.change, 500);
+
+    for (var i = 0; i < this.fields.length; i++) {
+      this.data.push({
+        name: this.fields[i].name,
+        value: this.fields[i].value
+      });
+    }
   },
 
   methods: {
-    change: function change() {
-      var values = [];
-      for (var i = 0; i < this.fields.length; i++) {
-        var el = document.getElementById(this.fields[i].name);
+    change: function change(index, el) {
 
-        if (el.type == "checkbox") {
-          if (el.checked) {
-            values.push({ name: el.name, value: 1 });
-          }
-        } else if (el.value) {
-          values.push({ name: el.name, value: el.value });
-        }
+      if (el.type == "checkbox") {
+        this.data[index].value = el.checked ? 1 : '';
+      } else {
+        this.data[index].value = el.value;
       }
 
-      this.$emit("changed", values);
+      this.$emit("changed", this.data.filter(function (item) {
+        return !!item.value;
+      }));
     }
   }
 });
@@ -48845,20 +48853,32 @@ var render = function() {
         field.type == "number"
           ? _c("input", {
               directives: [{ name: "int", rawName: "v-int" }],
-              attrs: { id: field.name, type: "text", name: field.name },
-              domProps: { value: field.value },
-              on: { input: _vm.change }
+              attrs: { type: "text", name: field.name },
+              domProps: { value: _vm.data.value },
+              on: {
+                input: function($event) {
+                  _vm.change(index, $event.target)
+                }
+              }
             })
           : field.type == "checkbox"
           ? _c("input", {
-              attrs: { id: field.name, type: "checkbox", name: field.name },
-              domProps: { checked: field.value },
-              on: { click: _vm.change }
+              attrs: { type: "checkbox", name: field.name },
+              domProps: { checked: _vm.data.value },
+              on: {
+                click: function($event) {
+                  _vm.change(index, $event.target)
+                }
+              }
             })
           : _c("input", {
-              attrs: { id: field.name, type: "text", name: field.name },
-              domProps: { value: field.value },
-              on: { input: _vm.change }
+              attrs: { type: "text", name: field.name },
+              domProps: { value: _vm.data.value },
+              on: {
+                input: function($event) {
+                  _vm.change(index, $event.target)
+                }
+              }
             })
       ])
     }),

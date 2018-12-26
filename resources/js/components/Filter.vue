@@ -2,13 +2,13 @@
   <div class="filter_table">
     <div v-for="(field, index) in fields" class="form-group" :key="index">
       <label v-text="field.label" :for="field.name"></label>
-      
-      <input v-if="field.type  == 'number'" v-int :id="field.name" type="text" :name="field.name" :value="field.value" @input="change">
+
+      <input v-if="field.type  == 'number'" v-int type="text" :name="field.name" :value="data.value" @input="change(index, $event.target)">
      
-      <input v-else-if="field.type  == 'checkbox'" v-bind:id="field.name" type="checkbox" :name="field.name" :checked="field.value" @click="change">
+      <input v-else-if="field.type  == 'checkbox'"  type="checkbox" :name="field.name" :checked="data.value" @click="change(index, $event.target)">
      
-      <input v-else :id="field.name" type="text" :name="field.name" :value="field.value" @input="change">
-      
+      <input v-else  type="text" :name="field.name" :value="data.value" @input="change(index, $event.target)">
+
     </div>
   </div>
 </template>
@@ -17,25 +17,31 @@ import debounce from "debounce";
 
 export default {
   props: ["fields"],
+  data() {
+    return {
+      data: []
+    };
+  },
   created() {
     this.change = debounce(this.change, 500);
+
+    for (let i = 0; i < this.fields.length; i++) {
+      this.data.push({
+        name: this.fields[i].name,
+        value: this.fields[i].value
+      });
+    }
   },
   methods: {
-    change() {
-      let values = [];
-      for (let i = 0; i < this.fields.length; i++) {
-        let el = document.getElementById(this.fields[i].name);
+    change(index, el) {
 
-        if (el.type == "checkbox") {
-          if(el.checked){
-            values.push({ name: el.name, value: 1 });
-          }
-        } else if (el.value) {
-          values.push({ name: el.name, value: el.value });
-        }
+      if (el.type == "checkbox") {
+        this.data[index].value = el.checked ? 1 : '';
+      } else {
+        this.data[index].value = el.value;
       }
-      
-      this.$emit("changed", values);
+
+      this.$emit("changed", this.data.filter((item) => !!item.value));
     }
   }
 };

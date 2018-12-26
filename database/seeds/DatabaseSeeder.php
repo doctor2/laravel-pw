@@ -1,5 +1,6 @@
 <?php
 
+use App\UseCases\TransactionService;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -9,7 +10,7 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(TransactionService $service)
     {
         $this->createTransactionTypes();
 
@@ -22,16 +23,16 @@ class DatabaseSeeder extends Seeder
             'email' => 'brath1@example.org',
             'password' => '$2y$10$SHOpPjq2SAlrZ.Uv1ljZjuYY1eSt2Df57E8tBTYh8fby65tCflnX.',
         ]);
-        $service = new \App\UseCases\TransactionService();
 
         foreach ($users as $user) {
             $amount = rand(100, 400);
-           
+
             $service->create($user, $myUser, $amount);
         }
+
         foreach ($users as $user) {
             $amount = rand(100, 300);
-           
+
             $service->create($myUser, $user, $amount);
         }
 
@@ -40,10 +41,10 @@ class DatabaseSeeder extends Seeder
     public function createTransactionTypes()
     {
         factory(\App\TransactionType::class)->create([
-            'name'=> \App\TransactionType::DEBIT
-            ]);
+            'name' => \App\TransactionType::DEBIT,
+        ]);
         factory(\App\TransactionType::class)->create([
-            'name'=> \App\TransactionType::CREDIT
-            ]);
+            'name' => \App\TransactionType::CREDIT,
+        ]);
     }
 }

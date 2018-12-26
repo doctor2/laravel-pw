@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+    private $typeService;
+
+    public function __construct(?TransactionTypeService $typeService)
+    {
+        $this->typeService = $typeService;
+    }
 
     public function index()
     {
@@ -49,13 +55,12 @@ class TransactionController extends Controller
 
     public function getTransactionListQuery()
     {
-        $typeService = new TransactionTypeService();
         $query =
         \DB::table('transactions as tr')
             ->select('tr.amount', 'tr.created_at', 'u.name as debit_user_name', 'user.name as crebit_user_name', 'tr.transaction_key')
-            ->where('tr.transaction_type_id', $typeService->getDebitId())
+            ->where('tr.transaction_type_id', $this->typeService->getDebitId())
             ->join('transactions as trans', 'tr.transaction_key', '=', 'trans.transaction_key')
-            ->where('trans.transaction_type_id', $typeService->getCreditId())
+            ->where('trans.transaction_type_id', $this->typeService->getCreditId())
             ->join('users as user', 'trans.user_id', '=', 'user.id')
             ->join('users as u', 'tr.user_id', '=', 'u.id')
         ;

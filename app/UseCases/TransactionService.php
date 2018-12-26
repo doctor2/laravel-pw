@@ -9,9 +9,9 @@ class TransactionService
 {
     private $typeService;
 
-    public function __construct()
+    public function __construct(TransactionTypeService $typeService)
     {
-        $this->typeService = new TransactionTypeService();
+        $this->typeService = $typeService;
     }
 
     public function create($debit_user, $credit_user, $amount)
