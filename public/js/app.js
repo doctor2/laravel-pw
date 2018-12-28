@@ -48854,7 +48854,7 @@ var render = function() {
           ? _c("input", {
               directives: [{ name: "int", rawName: "v-int" }],
               attrs: { type: "text", name: field.name },
-              domProps: { value: _vm.data.value },
+              domProps: { value: field.value },
               on: {
                 input: function($event) {
                   _vm.change(index, $event.target)
@@ -48864,7 +48864,7 @@ var render = function() {
           : field.type == "checkbox"
           ? _c("input", {
               attrs: { type: "checkbox", name: field.name },
-              domProps: { checked: _vm.data.value },
+              domProps: { checked: field.value },
               on: {
                 click: function($event) {
                   _vm.change(index, $event.target)
@@ -48873,7 +48873,7 @@ var render = function() {
             })
           : _c("input", {
               attrs: { type: "text", name: field.name },
-              domProps: { value: _vm.data.value },
+              domProps: { value: field.value },
               on: {
                 input: function($event) {
                   _vm.change(index, $event.target)

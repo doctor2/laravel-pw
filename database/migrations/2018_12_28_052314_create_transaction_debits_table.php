@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionsTable extends Migration
+class CreateTransactionDebitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('transaction_debits', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('transaction_key', 32);
+            $table->unsignedInteger('transaction_amounts_id')->references('id')->on('transaction_types')->onDelete('CASCADE');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('amount');
             $table->unsignedInteger('user_balance');
-            $table->unsignedInteger('transaction_type_id')->references('id')->on('transaction_types')->onDelete('restrict');;
-            $table->timestamps();
         });
     }
 
@@ -31,6 +28,6 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('transaction_debits');
     }
 }

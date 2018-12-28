@@ -3,11 +3,11 @@
     <div v-for="(field, index) in fields" class="form-group" :key="index">
       <label v-text="field.label" :for="field.name"></label>
 
-      <input v-if="field.type  == 'number'" v-int type="text" :name="field.name" :value="data.value" @input="change(index, $event.target)">
+      <input v-if="field.type  == 'number'" v-int type="text" :name="field.name" :value="field.value" @input="change(index, $event.target)">
      
-      <input v-else-if="field.type  == 'checkbox'"  type="checkbox" :name="field.name" :checked="data.value" @click="change(index, $event.target)">
+      <input v-else-if="field.type  == 'checkbox'"  type="checkbox" :name="field.name" :checked="field.value" @click="change(index, $event.target)">
      
-      <input v-else  type="text" :name="field.name" :value="data.value" @input="change(index, $event.target)">
+      <input v-else  type="text" :name="field.name" :value="field.value" @input="change(index, $event.target)">
 
     </div>
   </div>
