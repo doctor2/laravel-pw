@@ -123,39 +123,18 @@ class TransactionService
         }
     }
 
-    public function getByKeyForCurentUser($key)
+    public function getByKeyAndUserId($key, $userId)
     {
-        $transaction = [
-            'user_name' => '',
-            'user_id' => '',
-            'amount' => '',
-        ];
-
-        if ($key) {
-            $userId = auth()->id();
-            $oldTransaction = \DB::table('transactions as tr')
-                ->select('tr.amount', 'u_d.name as debit_user_name', 'u_c.name as credit_user_name', 'tr.credit_user_id', 'tr.debit_user_id')
-                ->where('tr.id', $key)
-                ->where(function ($query) use ($userId) {
-                    $query->where('tr.credit_user_id', $userId)
-                        ->orWhere('tr.debit_user_id', $userId);
-                })
-                ->join('users as u_c', 'tr.credit_user_id', '=', 'u_c.id')
-                ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id')
-                ->first();
-
-            if ($oldTransaction) {
-
-                $transaction['amount'] = $oldTransaction->amount;
-                if ($oldTransaction->debit_user_id == $userId) {
-                    $transaction['user_name'] = $oldTransaction->credit_user_name;
-                    $transaction['user_id'] = $oldTransaction->credit_user_id;
-                } else {
-                    $transaction['user_name'] = $oldTransaction->debit_user_name;
-                    $transaction['user_id'] = $oldTransaction->debit_user_id;
-                }
-            }
-        }
+        $transaction = \DB::table('transactions as tr')
+            ->select('tr.amount', 'u_d.name as debit_user_name', 'u_c.name as credit_user_name', 'tr.credit_user_id', 'tr.debit_user_id')
+            ->where('tr.id', $key)
+            ->where(function ($query) use ($userId) {
+                $query->where('tr.credit_user_id', $userId)
+                    ->orWhere('tr.debit_user_id', $userId);
+            })
+            ->join('users as u_c', 'tr.credit_user_id', '=', 'u_c.id')
+            ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id')
+            ->first();
 
         return $transaction;
     }

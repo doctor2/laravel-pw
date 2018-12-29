@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Rules\MaxUserBalance;
 use App\Services\TransactionService;
-use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
@@ -32,7 +32,27 @@ class TransactionController extends Controller
 
     public function create()
     {
-        $transaction = $this->service->getByKeyForCurentUser(request('key'));
+        $transaction = [
+            'user_name' => '',
+            'user_id' => '',
+            'amount' => '',
+        ];
+
+        if ($key = request('key')) {
+            $oldTransaction = $this->service->getByKeyAndUserId($key, $userId = auth()->id());
+
+            if ($oldTransaction) {
+
+                $transaction['amount'] = $oldTransaction->amount;
+                if ($oldTransaction->debit_user_id == $userId) {
+                    $transaction['user_name'] = $oldTransaction->credit_user_name;
+                    $transaction['user_id'] = $oldTransaction->credit_user_id;
+                } else {
+                    $transaction['user_name'] = $oldTransaction->debit_user_name;
+                    $transaction['user_id'] = $oldTransaction->debit_user_id;
+                }
+            }
+        }
 
         return view('transactions.create', compact('transaction'));
     }
