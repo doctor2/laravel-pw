@@ -17,7 +17,7 @@
         <tr v-for="(item, index) in items" :key="index">
           <td v-text="item.created_at"></td>
           <td v-text="item.debit_user_name"></td>
-          <td v-text="item.crebit_user_name"></td>
+          <td v-text="item.credit_user_name"></td>
           <td v-html="getAmountWithLink(item)"></td>
         </tr>
       </tbody>
@@ -37,13 +37,13 @@ export default {
       filter_fields: [
         { name: "date", label: "Date/Time", value: "" },
         { name: "debit_user_name", label: "Sender Name", value: "" },
-        { name: "crebit_user_name", label: "Recipient Name", value: "" },
+        { name: "credit_user_name", label: "Recipient Name", value: "" },
         { name: "amount", label: "Amount", value: "", type: "number" }
       ],
       sortItems: [
         { name: "date", label: "Date/Time", sort: 0 },
         { name: "debit_user_name", label: "Sender Name", sort: "" },
-        { name: "crebit_user_name", label: "Recipient Name", sort: "" },
+        { name: "credit_user_name", label: "Recipient Name", sort: "" },
         { name: "amount", label: "Amount", sort: 0 }
       ]
     };

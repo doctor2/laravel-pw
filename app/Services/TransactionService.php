@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\TransactionAmount;
-use App\TransactionCredit;
-use App\TransactionDebit;
+use App\Transaction;
 
 class TransactionService
 {
+    public const CREDIT = "CREDIT";
+    public const DEBIT = "DEBIT";
     public function create($debit_user, $credit_user, $amount)
     {
         \DB::transaction(function () use ($debit_user, $credit_user, $amount) {
@@ -15,23 +15,15 @@ class TransactionService
             $debit_user_balance = $debit_user->balance->fresh()->balance - $amount;
             $credit_user_balance = $credit_user->balance->fresh()->balance + $amount;
 
-            $transactionAmount = TransactionAmount::create([
+            $tr = Transaction::create([
                 'amount' => $amount,
+                'debit_user_id' => $debit_user->id,
+                'debit_user_balance' => $debit_user_balance,
+                'credit_user_id' => $credit_user->id,
+                'credit_user_balance' => $credit_user_balance,
             ]);
 
-            $tr1 = TransactionCredit::create([
-                'user_id' => $credit_user->id,
-                'user_balance' => $credit_user_balance,
-                'transaction_amounts_id' => $transactionAmount->id,
-            ]);
-
-            $tr2 = TransactionDebit::create([
-                'user_id' => $debit_user->id,
-                'user_balance' => $debit_user_balance,
-                'transaction_amounts_id' => $transactionAmount->id,
-            ]);
-
-            if ($success = $tr1 && $tr2) {
+            if ($success = !empty($tr)) {
                 $success &= $debit_user->balance()->update(['balance' => $debit_user_balance]);
                 $success &= $credit_user->balance()->update(['balance' => $credit_user_balance]);
             }
@@ -46,11 +38,11 @@ class TransactionService
     {
         $debitQuery = $this->getDebitTransactionsQuery($userId);
 
-        $this->filterTransactions($debitQuery, 'tr_d');
+        $this->filterTransactions($debitQuery, self::DEBIT);
 
         $query = $this->getCreditTransactionsQuery($userId);
 
-        $this->filterTransactions($query, 'tr_c');
+        $this->filterTransactions($query, self::CREDIT);
 
         $query->union($debitQuery);
 
@@ -61,13 +53,11 @@ class TransactionService
 
     public function getDebitTransactionsQuery($userId)
     {
-        $query = \DB::table('transaction_debits as tr_d')
-            ->select('tr.amount', 'tr_d.user_balance', 'tr.created_at', 'u.name as user_name', 'tr.id as transaction_key')
+        $query = \DB::table('transactions as tr')
+            ->select('tr.amount', 'tr.debit_user_balance as user_balance', 'tr.created_at', 'u_c.name as user_name', 'tr.id as transaction_key')
             ->addSelect(\DB::raw("'DEBIT' AS transaction_type"))
-            ->where('tr_d.user_id', $userId)
-            ->join('transaction_amounts as tr', 'tr_d.transaction_amounts_id', '=', 'tr.id')
-            ->join('transaction_credits as tr_c', 'tr_c.transaction_amounts_id', '=', 'tr.id')
-            ->join('users as u', 'tr_c.user_id', '=', 'u.id');
+            ->where('tr.debit_user_id', $userId)
+            ->join('users as u_c', 'tr.credit_user_id', '=', 'u_c.id');
 
         return $query;
     }
@@ -75,18 +65,16 @@ class TransactionService
     public function getCreditTransactionsQuery($userId)
     {
         $query =
-        \DB::table('transaction_credits as tr_c')
-            ->select('tr.amount', 'tr_c.user_balance', 'tr.created_at', 'u.name as user_name', 'tr.id as transaction_key')
+        \DB::table('transactions as tr')
+            ->select('tr.amount', 'tr.credit_user_balance as user_balance', 'tr.created_at', 'u_d.name as user_name', 'tr.id as transaction_key')
             ->addSelect(\DB::raw("'CREDIT' AS transaction_type"))
-            ->where('tr_c.user_id', $userId)
-            ->join('transaction_amounts as tr', 'tr_c.transaction_amounts_id', '=', 'tr.id')
-            ->join('transaction_debits as tr_d', 'tr_d.transaction_amounts_id', '=', 'tr.id')
-            ->join('users as u', 'tr_d.user_id', '=', 'u.id');
+            ->where('tr.credit_user_id', $userId)
+            ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id');
 
         return $query;
     }
 
-    public function filterTransactions($query, $table)
+    public function filterTransactions($query, $transactionType)
     {
         if (!empty($value = request('date'))) {
             $query
@@ -94,8 +82,17 @@ class TransactionService
         }
 
         if (!empty($value = request('user_balance'))) {
-            $query
-                ->where($table . '.user_balance', 'like', '%' . $value . '%');
+
+            $queryParam = $transactionType == self::DEBIT ? 'tr.debit_user_balance' : 'tr.credit_user_balance';
+
+            $query->where($queryParam, 'like', '%' . $value . '%');
+        }
+
+        if (!empty($value = request('user_name'))) {
+
+            $queryParam = $transactionType == self::DEBIT ? 'u_c.name' : 'u_d.name';
+
+            $query->where($queryParam, 'like', '%' . $value . '%');
         }
 
         if (!empty($value = request('amount'))) {
@@ -136,24 +133,22 @@ class TransactionService
 
         if ($key) {
             $userId = auth()->id();
-            $oldTransaction = \DB::table('transaction_amounts as tr')
-                ->select('tr.amount', 'u.name as debit_user_name', 'user.name as crebit_user_name', 'tr_c.user_id as credit_user_id', 'tr_d.user_id as debit_user_id')
+            $oldTransaction = \DB::table('transactions as tr')
+                ->select('tr.amount', 'u_d.name as debit_user_name', 'u_c.name as credit_user_name', 'tr.credit_user_id', 'tr.debit_user_id')
                 ->where('tr.id', $key)
-                ->join('transaction_credits as tr_c', 'tr_c.transaction_amounts_id', '=', 'tr.id')
-                ->join('transaction_debits as tr_d', 'tr_c.transaction_amounts_id', '=', 'tr.id')
                 ->where(function ($query) use ($userId) {
-                    $query->where('tr_c.user_id', $userId)
-                        ->orWhere('tr_d.user_id', $userId);
+                    $query->where('tr.credit_user_id', $userId)
+                        ->orWhere('tr.debit_user_id', $userId);
                 })
-                ->join('users as user', 'tr_c.user_id', '=', 'user.id')
-                ->join('users as u', 'tr_d.user_id', '=', 'u.id')
+                ->join('users as u_c', 'tr.credit_user_id', '=', 'u_c.id')
+                ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id')
                 ->first();
 
             if ($oldTransaction) {
 
                 $transaction['amount'] = $oldTransaction->amount;
                 if ($oldTransaction->debit_user_id == $userId) {
-                    $transaction['user_name'] = $oldTransaction->crebit_user_name;
+                    $transaction['user_name'] = $oldTransaction->credit_user_name;
                     $transaction['user_id'] = $oldTransaction->credit_user_id;
                 } else {
                     $transaction['user_name'] = $oldTransaction->debit_user_name;

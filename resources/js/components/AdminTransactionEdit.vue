@@ -17,11 +17,11 @@
         </tr>
         <tr>
           <th scope="row">Recipient name</th>
-          <td v-text="item.crebit_user_name"></td>
+          <td v-text="item.credit_user_name"></td>
         </tr>
         <tr>
           <th scope="row">Recipient balance</th>
-          <td v-text="item.crebit_user_balance"></td>
+          <td v-text="item.credit_user_balance"></td>
         </tr>
         <tr v-if="editing">
           <th scope="row">Amount</th>

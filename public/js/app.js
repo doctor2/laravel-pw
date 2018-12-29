@@ -47760,7 +47760,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_commonForTable__["a" /* default */]],
   data: function data() {
     return {
-      filter_fields: [{ name: "date", label: "Date/Time", value: "" }, { name: "user_name", label: "Correspondent Name", value: "" }, { name: "amount", label: "Amount", value: "" }, { name: "user_balance", label: "Resulting balance", value: "" }],
+      filter_fields: [{ name: "date", label: "Date/Time", value: "" }, { name: "user_name", label: "Correspondent Name", value: "" }, { name: "amount", label: "Amount", value: "", type: "number" }, { name: "user_balance", label: "Resulting balance", value: "", type: "number" }],
       sortItems: [{ name: "date", label: "Date/Time", sort: 0 }, { name: "user_name", label: "Correspondent Name", sort: 0 }, { name: "amount", label: "Amount", sort: 0 }, { name: "user_balance", label: "Resulting balance", sort: 0 }]
     };
   },
@@ -47983,8 +47983,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_commonForTable__["a" /* default */]],
   data: function data() {
     return {
-      filter_fields: [{ name: "date", label: "Date/Time", value: "" }, { name: "debit_user_name", label: "Sender Name", value: "" }, { name: "crebit_user_name", label: "Recipient Name", value: "" }, { name: "amount", label: "Amount", value: "", type: "number" }],
-      sortItems: [{ name: "date", label: "Date/Time", sort: 0 }, { name: "debit_user_name", label: "Sender Name", sort: "" }, { name: "crebit_user_name", label: "Recipient Name", sort: "" }, { name: "amount", label: "Amount", sort: 0 }]
+      filter_fields: [{ name: "date", label: "Date/Time", value: "" }, { name: "debit_user_name", label: "Sender Name", value: "" }, { name: "credit_user_name", label: "Recipient Name", value: "" }, { name: "amount", label: "Amount", value: "", type: "number" }],
+      sortItems: [{ name: "date", label: "Date/Time", sort: 0 }, { name: "debit_user_name", label: "Sender Name", sort: "" }, { name: "credit_user_name", label: "Recipient Name", sort: "" }, { name: "amount", label: "Amount", sort: 0 }]
     };
   },
 
@@ -48060,7 +48060,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("td", {
-                    domProps: { textContent: _vm._s(item.crebit_user_name) }
+                    domProps: { textContent: _vm._s(item.credit_user_name) }
                   }),
                   _vm._v(" "),
                   _c("td", {
@@ -48294,7 +48294,7 @@ var render = function() {
           _c("th", { attrs: { scope: "row" } }, [_vm._v("Recipient name")]),
           _vm._v(" "),
           _c("td", {
-            domProps: { textContent: _vm._s(_vm.item.crebit_user_name) }
+            domProps: { textContent: _vm._s(_vm.item.credit_user_name) }
           })
         ]),
         _vm._v(" "),
@@ -48302,7 +48302,7 @@ var render = function() {
           _c("th", { attrs: { scope: "row" } }, [_vm._v("Recipient balance")]),
           _vm._v(" "),
           _c("td", {
-            domProps: { textContent: _vm._s(_vm.item.crebit_user_balance) }
+            domProps: { textContent: _vm._s(_vm.item.credit_user_balance) }
           })
         ]),
         _vm._v(" "),

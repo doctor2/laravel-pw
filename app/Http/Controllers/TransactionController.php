@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Rules\MaxUserBalance;
 use App\Services\TransactionService;
 use Illuminate\Http\Request;
-use App\TransactionAmount;
 use App\User;
 
 class TransactionController extends Controller
