@@ -21,6 +21,9 @@ class CreateTransactionsTable extends Migration
             $table->unsignedInteger('credit_user_id');
             $table->unsignedInteger('credit_user_balance');
             $table->timestamps();
+
+            $table->foreign('debit_user_id')->references('id')->on('users')->onDelete('RESTRICT');
+            $table->foreign('credit_user_id')->references('id')->on('users')->onDelete('RESTRICT');
         });
     }
 
