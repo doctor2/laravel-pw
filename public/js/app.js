@@ -48248,7 +48248,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           return _this.updateSuccess = false;
         }, 5000);
       }).catch(function (error) {
-        _this.errorMessage = error.response.data.message;
+        _this.errorMessage = error.response.data.error;
 
         _this.updateFail = true;
 

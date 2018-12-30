@@ -85,8 +85,8 @@ export default {
           setTimeout(() => (this.updateSuccess = false), 5000);
         })
         .catch(error => {
-          this.errorMessage = error.response.data.message;
-
+          this.errorMessage = error.response.data.error;
+          
           this.updateFail = true;
 
           setTimeout(() => (this.updateFail = false), 5000);

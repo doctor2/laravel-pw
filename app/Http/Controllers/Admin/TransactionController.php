@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\AdminTransactionService;
-use App\Services\TransactionService;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -49,7 +48,14 @@ class TransactionController extends Controller
             'amount' => ['required', 'numeric', 'min:1'],
         ]);
 
-        $this->adminService->update($key, request('amount'));
+        try {
+            $this->adminService->update($key, request('amount'));
+        } catch (\Exception $e) {
+            return response([
+                'code' => '400',
+                'error' => $e->getMessage(),
+            ], 400);
+        }
 
         return json_encode($this->adminService->getByKey($key));
     }
