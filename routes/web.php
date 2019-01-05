@@ -32,8 +32,8 @@ Route::group([
     'middleware' => ['auth','admin']
 ],function(){
     Route::get('/transactions','TransactionController@index')->name('admin.transactions.index');
-    Route::get('/transactions/{key}','TransactionController@show')->name('admin.transactions.show');
-    Route::patch('/transactions/edit/{key}','TransactionController@update')->name('admin.transactions.update');
+    Route::get('/transactions/{id}','TransactionController@show')->name('admin.transactions.show');
+    Route::patch('/transactions/edit/{id}','TransactionController@update')->name('admin.transactions.update');
 
     Route::get('/users','UserController@index')->name('admin.users.index');
     Route::get('/users/{user}','UserController@show')->name('admin.users.show');

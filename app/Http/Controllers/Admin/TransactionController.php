@@ -31,9 +31,9 @@ class TransactionController extends Controller
         return view('admin.transactions.index');
     }
 
-    public function show($key)
+    public function show($id)
     {
-        $transaction = $this->adminService->getByKey($key);
+        $transaction = $this->adminService->getById($id);
 
         if (empty($transaction)) {
             abort(404);
@@ -42,14 +42,14 @@ class TransactionController extends Controller
         return view('admin.transactions.show', compact('transaction'));
     }
 
-    public function update($key)
+    public function update($id)
     {
         request()->validate([
             'amount' => ['required', 'numeric', 'min:1'],
         ]);
 
         try {
-            $this->adminService->update($key, request('amount'));
+            $this->adminService->update($id, request('amount'));
         } catch (\Exception $e) {
             return response([
                 'code' => '400',
@@ -57,7 +57,7 @@ class TransactionController extends Controller
             ], 400);
         }
 
-        return json_encode($this->adminService->getByKey($key));
+        return json_encode($this->adminService->getById($id));
     }
 
 }

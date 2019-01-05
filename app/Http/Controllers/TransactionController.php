@@ -38,8 +38,8 @@ class TransactionController extends Controller
             'amount' => '',
         ];
 
-        if ($key = request('key')) {
-            $oldTransaction = $this->service->getByKeyAndUserId($key, $userId = auth()->id());
+        if ($id = request('key')) {
+            $oldTransaction = $this->service->getByIdAndUserId($id, $userId = auth()->id());
 
             if ($oldTransaction) {
 

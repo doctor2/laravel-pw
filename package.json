@@ -22,6 +22,7 @@
     "dependencies": {
         "debounce": "^1.2.0",
         "vue-bootstrap-typeahead": "^0.2.6",
-        "vue-input-only-number": "^1.1.0"
+        "vue-input-only-number": "^1.1.0",
+        "vue-router": "^3.0.2"
     }
 }

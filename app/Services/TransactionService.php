@@ -54,7 +54,7 @@ class TransactionService
     public function getDebitTransactionsQuery($userId)
     {
         $query = \DB::table('transactions as tr')
-            ->select('tr.amount', 'tr.debit_user_balance as user_balance', 'tr.created_at', 'u_c.name as user_name', 'tr.id as transaction_key')
+            ->select('tr.amount', 'tr.debit_user_balance as user_balance', 'tr.created_at', 'u_c.name as user_name', 'tr.id')
             ->addSelect(\DB::raw("'DEBIT' AS transaction_type"))
             ->where('tr.debit_user_id', $userId)
             ->join('users as u_c', 'tr.credit_user_id', '=', 'u_c.id');
@@ -66,7 +66,7 @@ class TransactionService
     {
         $query =
         \DB::table('transactions as tr')
-            ->select('tr.amount', 'tr.credit_user_balance as user_balance', 'tr.created_at', 'u_d.name as user_name', 'tr.id as transaction_key')
+            ->select('tr.amount', 'tr.credit_user_balance as user_balance', 'tr.created_at', 'u_d.name as user_name', 'tr.id')
             ->addSelect(\DB::raw("'CREDIT' AS transaction_type"))
             ->where('tr.credit_user_id', $userId)
             ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id');
@@ -119,15 +119,15 @@ class TransactionService
             $query->orderBy('user_balance', $order);
 
         } else {
-            $query->orderBy('transaction_key', 'desc');
+            $query->orderBy('id', 'desc');
         }
     }
 
-    public function getByKeyAndUserId($key, $userId)
+    public function getByIdAndUserId($id, $userId)
     {
         $transaction = \DB::table('transactions as tr')
             ->select('tr.amount', 'u_d.name as debit_user_name', 'u_c.name as credit_user_name', 'tr.credit_user_id', 'tr.debit_user_id')
-            ->where('tr.id', $key)
+            ->where('tr.id', $id)
             ->where(function ($query) use ($userId) {
                 $query->where('tr.credit_user_id', $userId)
                     ->orWhere('tr.debit_user_id', $userId);

@@ -74,7 +74,7 @@ export default {
   methods: {
     update() {
       axios
-        .patch("/admin/transactions/edit/" + this.item.transaction_key, {
+        .patch("/admin/transactions/edit/" + this.item.id, {
           amount: this.item.amount
         })
         .then(response => {

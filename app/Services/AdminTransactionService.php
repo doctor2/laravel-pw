@@ -10,7 +10,7 @@ class AdminTransactionService
     public function getTransactionListQuery()
     {
         $query = \DB::table('transactions as tr')
-            ->select('tr.amount', 'tr.created_at', 'u_d.name as debit_user_name', 'u_c.name as credit_user_name', 'tr.id as transaction_key')
+            ->select('tr.amount', 'tr.created_at', 'u_d.name as debit_user_name', 'u_c.name as credit_user_name', 'tr.id')
             ->join('users as u_c', 'tr.credit_user_id', '=', 'u_c.id')
             ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id')
         ;
@@ -64,20 +64,20 @@ class AdminTransactionService
         }
     }
 
-    public function getByKey($key)
+    public function getById($id)
     {
         $transaction = $this->getTransactionListQuery()
             ->addSelect('tr.credit_user_balance')
             ->addSelect('tr.debit_user_balance')
-            ->where('tr.id', $key)
+            ->where('tr.id', $id)
             ->first();
 
         return $transaction ? collect($transaction)->toArray() : null;
     }
 
-    public function update($key, $amount)
+    public function update($id, $amount)
     {
-        $transaction = Transaction::where('id', $key)->first();
+        $transaction = Transaction::where('id', $id)->first();
 
         if (empty($transaction)) {
             throw new \Exception('Not valid transaction key!');
