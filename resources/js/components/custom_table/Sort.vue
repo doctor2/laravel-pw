@@ -2,7 +2,7 @@
   <tr>
     <th v-for="(item, index) in sortItems" :key="index" scope="col" @click="sortBy(index)">
       <span v-text="item.label"></span>
-      <span class="arrow" :class="item.sort? 'asc' : 'dsc'"></span>
+      <span class="arrow" :class="itemsOrder[index]? 'asc' : 'dsc'"></span>
     </th>
   </tr>
 </template>
@@ -12,31 +12,38 @@ export default {
   created() {
     this.setDefaultValuesFromUrl();
   },
+  data() {
+    return {
+      itemsOrder: []
+    };
+  },
   methods: {
     sortBy(index) {
-      let newVal = !this.sortItems[index].sort;
+      let newVal = !this.itemsOrder[index];
 
       this.resetAllSort();
 
-      this.sortItems[index].sort = newVal;
+      this.$set(this.itemsOrder, index, newVal);
 
       this.$router.replace({
         query: Object.assign({}, this.$route.query, {
           sort: this.sortItems[index].name,
-          order: this.sortItems[index].sort ? "asc" : "dsc"
+          order: this.itemsOrder[index] ? "asc" : "dsc"
         })
       });
     },
     setDefaultValuesFromUrl() {
       for (let i of Object.keys(this.sortItems)) {
         if (this.sortItems[i].name == this.$route.query.sort) {
-          this.sortItems[i].sort = this.$route.query.order == "asc" ? 1 : 0;
+          this.itemsOrder.push(this.$route.query.order == "asc" ? 1 : 0);
+        } else {
+          this.itemsOrder.push(0);
         }
       }
     },
-    resetAllSort(){
-       this.sortItems.forEach(function(item, i, items) {
-        items[i].sort = 0;
+    resetAllSort() {
+      this.itemsOrder.forEach(function(item, i, items) {
+        items[i] = 0;
       });
     }
   }

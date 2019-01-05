@@ -7,18 +7,18 @@
         v-if="field.type  == 'number'"
         v-int
         type="text"
-        :value="field.value"
+        :value="values[field.name]"
         @input="change(index, $event.target)"
       >
       
       <input
         v-else-if="field.type  == 'checkbox'"
         type="checkbox"
-        :checked="field.value"
+        :checked="values[field.name]"
         @click="change(index, $event.target)"
       >
       
-      <input v-else type="text" :value="field.value" @input="change(index, $event.target)">
+      <input v-else type="text" :value="values[field.name]" @input="change(index, $event.target)">
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
   props: ["fields"],
   data() {
     return {
-      data: {}
+      values: {}
     };
   },
   created() {
@@ -41,15 +41,15 @@ export default {
     change(index, el) {
       let fieldName = this.fields[index].name;
       if (el.type == "checkbox") {
-        this.data[fieldName] = el.checked ? 1 : "";
+        this.values[fieldName] = el.checked ? 1 : "";
       } else {
-        this.data[fieldName] = el.value;
+        this.values[fieldName] = el.value;
       }
 
       let result = {};
-      for (let key of Object.keys(this.data)) {
-        if (!!this.data[key]) {
-          result[key] = this.data[key];
+      for (let key of Object.keys(this.values)) {
+        if (!!this.values[key]) {
+          result[key] = this.values[key];
         }
       }
 
@@ -57,10 +57,13 @@ export default {
     },
     setDefaultValuesFromUrl() {
       for (let i = 0; i < this.fields.length; i++) {
-        if (this.$route.query[this.fields[i].name]) {
-          this.fields[i].value = this.$route.query[this.fields[i].name];
+        let item = this.fields[i];
+
+        if (this.$route.query[item.name]) {
+          this.values[item.name] = this.$route.query[item.name];
+        } else {
+          this.values[item.name] = "";
         }
-        this.data[this.fields[i].name] = this.fields[i].value;
       }
     }
   }

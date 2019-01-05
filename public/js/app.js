@@ -50584,8 +50584,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: { CustomTable: __WEBPACK_IMPORTED_MODULE_0__custom_table_Table_vue___default.a },
   data: function data() {
     return {
-      filterFields: [{ name: "date", label: "Date/Time", value: "" }, { name: "debit_user_name", label: "Sender Name", value: "" }, { name: "credit_user_name", label: "Recipient Name", value: "" }, { name: "amount", label: "Amount", value: "", type: "number" }],
-      sortItems: [{ name: "date", label: "Date/Time", sort: 0 }, { name: "debit_user_name", label: "Sender Name", sort: "" }, { name: "credit_user_name", label: "Recipient Name", sort: "" }, { name: "amount", label: "Amount", sort: 0 }]
+      filterFields: [{ name: "date", label: "Date/Time" }, { name: "debit_user_name", label: "Sender Name" }, { name: "credit_user_name", label: "Recipient Name" }, { name: "amount", label: "Amount", type: "number" }],
+      sortItems: [{ name: "date", label: "Date/Time" }, { name: "debit_user_name", label: "Sender Name" }, { name: "credit_user_name", label: "Recipient Name" }, { name: "amount", label: "Amount" }]
     };
   }
 });
@@ -50797,7 +50797,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ["fields"],
   data: function data() {
     return {
-      data: {}
+      values: {}
     };
   },
   created: function created() {
@@ -50810,9 +50810,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     change: function change(index, el) {
       var fieldName = this.fields[index].name;
       if (el.type == "checkbox") {
-        this.data[fieldName] = el.checked ? 1 : "";
+        this.values[fieldName] = el.checked ? 1 : "";
       } else {
-        this.data[fieldName] = el.value;
+        this.values[fieldName] = el.value;
       }
 
       var result = {};
@@ -50821,11 +50821,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = Object.keys(this.data)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (var _iterator = Object.keys(this.values)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var key = _step.value;
 
-          if (!!this.data[key]) {
-            result[key] = this.data[key];
+          if (!!this.values[key]) {
+            result[key] = this.values[key];
           }
         }
       } catch (err) {
@@ -50847,10 +50847,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     setDefaultValuesFromUrl: function setDefaultValuesFromUrl() {
       for (var i = 0; i < this.fields.length; i++) {
-        if (this.$route.query[this.fields[i].name]) {
-          this.fields[i].value = this.$route.query[this.fields[i].name];
+        var item = this.fields[i];
+
+        if (this.$route.query[item.name]) {
+          this.values[item.name] = this.$route.query[item.name];
+        } else {
+          this.values[item.name] = "";
         }
-        this.data[this.fields[i].name] = this.fields[i].value;
       }
     }
   }
@@ -50954,7 +50957,7 @@ var render = function() {
           ? _c("input", {
               directives: [{ name: "int", rawName: "v-int" }],
               attrs: { type: "text" },
-              domProps: { value: field.value },
+              domProps: { value: _vm.values[field.name] },
               on: {
                 input: function($event) {
                   _vm.change(index, $event.target)
@@ -50964,7 +50967,7 @@ var render = function() {
           : field.type == "checkbox"
           ? _c("input", {
               attrs: { type: "checkbox" },
-              domProps: { checked: field.value },
+              domProps: { checked: _vm.values[field.name] },
               on: {
                 click: function($event) {
                   _vm.change(index, $event.target)
@@ -50973,7 +50976,7 @@ var render = function() {
             })
           : _c("input", {
               attrs: { type: "text" },
-              domProps: { value: field.value },
+              domProps: { value: _vm.values[field.name] },
               on: {
                 input: function($event) {
                   _vm.change(index, $event.target)
@@ -51062,19 +51065,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
     this.setDefaultValuesFromUrl();
   },
+  data: function data() {
+    return {
+      itemsOrder: []
+    };
+  },
 
   methods: {
     sortBy: function sortBy(index) {
-      var newVal = !this.sortItems[index].sort;
+      var newVal = !this.itemsOrder[index];
 
       this.resetAllSort();
 
-      this.sortItems[index].sort = newVal;
+      this.$set(this.itemsOrder, index, newVal);
 
       this.$router.replace({
         query: Object.assign({}, this.$route.query, {
           sort: this.sortItems[index].name,
-          order: this.sortItems[index].sort ? "asc" : "dsc"
+          order: this.itemsOrder[index] ? "asc" : "dsc"
         })
       });
     },
@@ -51088,7 +51096,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           var i = _step.value;
 
           if (this.sortItems[i].name == this.$route.query.sort) {
-            this.sortItems[i].sort = this.$route.query.order == "asc" ? 1 : 0;
+            this.itemsOrder.push(this.$route.query.order == "asc" ? 1 : 0);
+          } else {
+            this.itemsOrder.push(0);
           }
         }
       } catch (err) {
@@ -51107,8 +51117,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     resetAllSort: function resetAllSort() {
-      this.sortItems.forEach(function (item, i, items) {
-        items[i].sort = 0;
+      this.itemsOrder.forEach(function (item, i, items) {
+        items[i] = 0;
       });
     }
   }
@@ -51139,7 +51149,10 @@ var render = function() {
         [
           _c("span", { domProps: { textContent: _vm._s(item.label) } }),
           _vm._v(" "),
-          _c("span", { staticClass: "arrow", class: item.sort ? "asc" : "dsc" })
+          _c("span", {
+            staticClass: "arrow",
+            class: _vm.itemsOrder[index] ? "asc" : "dsc"
+          })
         ]
       )
     }),
@@ -51868,7 +51881,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -51876,8 +51888,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: { CustomTable: __WEBPACK_IMPORTED_MODULE_0__custom_table_Table_vue___default.a },
   data: function data() {
     return {
-      filterFields: [{ name: "created_at", label: "Date/Time", value: "" }, { name: "name", label: "User name", value: "" }, { name: "email", label: "Email", value: "" }, { name: "banned", label: "Ban", value: "", type: "checkbox" }],
-      sortItems: [{ name: "created_at", label: "Date/Time", sort: 0 }, { name: "name", label: "User Name", sort: 0 }, { name: "email", label: "Email", sort: 0 }, { name: "banned", label: "Ban", sort: 0 }]
+      filterFields: [{ name: "created_at", label: "Date/Time" }, { name: "name", label: "User name" }, { name: "email", label: "Email" }, { name: "banned", label: "Ban", type: "checkbox" }],
+      sortItems: [{ name: "created_at", label: "Date/Time" }, { name: "name", label: "User Name" }, { name: "email", label: "Email" }, { name: "banned", label: "Ban" }]
     };
   }
 });
@@ -51991,8 +52003,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: { CustomTable: __WEBPACK_IMPORTED_MODULE_0__custom_table_Table_vue___default.a },
   data: function data() {
     return {
-      filterFields: [{ name: "date", label: "Date/Time", value: "" }, { name: "user_name", label: "Correspondent Name", value: "" }, { name: "amount", label: "Amount", value: "", type: "number" }, { name: "user_balance", label: "Resulting balance", value: "", type: "number" }],
-      sortItems: [{ name: "date", label: "Date/Time", sort: 0 }, { name: "user_name", label: "Correspondent Name", sort: 0 }, { name: "amount", label: "Amount", sort: 0 }, { name: "user_balance", label: "Resulting balance", sort: 0 }]
+      filterFields: [{ name: "date", label: "Date/Time" }, { name: "user_name", label: "Correspondent Name" }, { name: "amount", label: "Amount", type: "number" }, { name: "user_balance", label: "Resulting balance", type: "number" }],
+      sortItems: [{ name: "date", label: "Date/Time" }, { name: "user_name", label: "Correspondent Name" }, { name: "amount", label: "Amount" }, { name: "user_balance", label: "Resulting balance" }]
     };
   }
 });

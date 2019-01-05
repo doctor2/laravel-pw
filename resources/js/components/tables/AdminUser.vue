@@ -6,7 +6,6 @@
   >
     <slot slot="message" name="message"></slot>
     <slot slot="messageNotFound" name="messageNotFound">Not a user has been found.</slot>
-    
   </custom-table>
 </template>
 
@@ -18,16 +17,16 @@ export default {
   data() {
     return {
       filterFields: [
-        { name: "created_at", label: "Date/Time", value: "" },
-        { name: "name", label: "User name", value: "" },
-        { name: "email", label: "Email", value: "" },
-        { name: "banned", label: "Ban", value: "", type: "checkbox" }
+        { name: "created_at", label: "Date/Time" },
+        { name: "name", label: "User name" },
+        { name: "email", label: "Email" },
+        { name: "banned", label: "Ban", type: "checkbox" }
       ],
       sortItems: [
-        { name: "created_at", label: "Date/Time", sort: 0 },
-        { name: "name", label: "User Name", sort: 0 },
-        { name: "email", label: "Email", sort: 0 },
-        { name: "banned", label: "Ban", sort: 0 }
+        { name: "created_at", label: "Date/Time"},
+        { name: "name", label: "User Name"},
+        { name: "email", label: "Email"},
+        { name: "banned", label: "Ban"}
       ]
     };
   },
