@@ -23,6 +23,7 @@
         "debounce": "^1.2.0",
         "vue-bootstrap-typeahead": "^0.2.6",
         "vue-input-only-number": "^1.1.0",
-        "vue-router": "^3.0.2"
+        "vue-router": "^3.0.2",
+        "webpack-dev-server": "^3.1.14"
     }
 }
