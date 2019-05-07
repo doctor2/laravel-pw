@@ -43,7 +43,7 @@
                                     <label for="banned" class="col-md-4 col-form-label text-md-right">Ban</label>
         
                                     <div class="col-md-6">
-                                       
+                                        <input name="banned" type="hidden" value="0">
                                         <input id="banned" type="checkbox" class="form-control" name="banned" 
                                         @if (old('banned', $user->banned))
                                             checked="checked"

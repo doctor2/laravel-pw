@@ -43,12 +43,17 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return in_array($this->email,['brath1@example.org']);
+        return in_array($this->attributes['email'],['brath1@example.org']);
+    }
+
+    public function setBannedAttribute($value)
+    {
+        $this->attributes['banned'] = ($value=='on');
     }
 
     public function getHasBanAttribute()
     {
-        return $this->banned ? 'yes' : 'no';
+        return $this->attributes['banned'] ? 'yes' : 'no';
     }
 
     public function balance()

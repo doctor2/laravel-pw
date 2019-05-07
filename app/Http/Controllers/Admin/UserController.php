@@ -37,12 +37,12 @@ class UserController extends Controller
 
     public function update(User $user)
     {
-        $ban = ['banned' => request('banned') == 'on' ? true : false];
-
-        $res = $user->update(request()->validate([
+        $user->update(request()->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-        ]) + $ban);
+            'banned' => 'required',
+        ])
+        );
 
         return redirect()->route('admin.users.index')
             ->with('success', 'User has been updated!');
