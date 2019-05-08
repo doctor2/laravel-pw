@@ -50,7 +50,7 @@ class TransactionTest extends TestCase
         $this->assertEquals($this->user2->fresh()->balance->balance, $balance2 + $data['amount']);
     }
 
-    public function test_a_error_while_user_create_transaction()
+    public function test_an_error_while_user_create_transaction()
     {
         $this->post(route('transactions.store'),$data = [
             'amount' => 333,
@@ -69,7 +69,7 @@ class TransactionTest extends TestCase
         ;
     }
 
-    public function test_a_error_while_user_try_to_transact_more_pw_than_he_can()
+    public function test_an_error_while_user_try_to_transact_more_pw_than_he_can()
     {
         $balance1 = $this->user1->balance->balance;
         $this->post(route('transactions.store'),$data = [
@@ -83,7 +83,7 @@ class TransactionTest extends TestCase
 
     }
 
-    public function test_a_error_while_user_try_to_transact_pw_less_than_zero()
+    public function test_an_error_while_user_try_to_transact_pw_less_than_zero()
     {
         $this->post(route('transactions.store'),$data = [
             'amount' => -50,
