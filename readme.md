@@ -3,6 +3,11 @@
 login: brath1@example.org
 password: 123123
 
+## Installation
+service mysql stop
+systemctl stop redis
+sh Makefile
+
 ## Application Overview
 
 The application is for Parrot Wings (PW, “internal money”) transfer between system users.

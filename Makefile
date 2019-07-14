@@ -18,5 +18,8 @@ docker-compose exec pw-server php artisan migrate --seed
 docker-compose exec pw-server php artisan serve
 echo "${NC}"
 
+sudo chgrp -R www-data storage bootstrap/cache
+sudo chmod -R ug+rwx storage bootstrap/cache
+
 #sudo chown 777 bootstrap/cache -R
 #sudo chown 777 storage -R
