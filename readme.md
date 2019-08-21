@@ -5,8 +5,13 @@ password: 123123
 
 ## Installation
 service mysql stop
+
 systemctl stop redis
+
 sh Makefile
+
+## Testing
+docker-compose exec pw-server php ./vendor/bin/phpunit --no-coverage
 
 ## Application Overview
 

@@ -4,7 +4,7 @@
       <slot name="message"></slot>
     </div>
 
-    <filter-table :fields="filterFields" @changed="fetch"></filter-table>
+    <filter-table :fields="filterFields"></filter-table>
 
     <table v-if="items.length != 0" class="table card-body-table">
       <thead>
@@ -18,7 +18,7 @@
       </h3>
 
     <pagination :meta="meta"></pagination>
-    
+
   </div>
 </template>
 
