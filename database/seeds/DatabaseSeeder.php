@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $myUser = factory(App\User::class)->create([
             'name' => 'brath1',
             'email' => 'brath1@example.org',
-            'password' => '$2y$10$SHOpPjq2SAlrZ.Uv1ljZjuYY1eSt2Df57E8tBTYh8fby65tCflnX.',
+            'password' => bcrypt(123123123),
         ]);
 
         foreach ($users as $user) {
@@ -33,6 +33,5 @@ class DatabaseSeeder extends Seeder
 
             $service->create($myUser, $user, $amount);
         }
-
     }
 }

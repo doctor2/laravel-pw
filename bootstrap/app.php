@@ -1,5 +1,13 @@
 <?php
 
+//if (file_exists(__DIR__.'/../.env'))
+//{
+//    (new Dotenv\Dotenv(__DIR__.'/../'))->load();
+//
+//    if (getenv('APP_ENV') && file_exists(__DIR__.'/../.' .getenv('APP_ENV') .'.env')) {
+//        (new Dotenv\Dotenv(__DIR__.'/../', '.' . getenv('APP_ENV') . '.env'))->load();
+//    }
+//}
 /*
 |--------------------------------------------------------------------------
 | Create The Application

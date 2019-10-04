@@ -1,7 +1,7 @@
 
 ## Admin
 login: brath1@example.org
-password: 123123
+password: 123123123
 
 ## Installation
 
