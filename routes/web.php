@@ -14,7 +14,7 @@
 Route::get('/','TransactionController@index')->name('transactions.index');
 Route::get('/transactions/create','TransactionController@create')->name('transactions.create');
 Route::post('/transactions','TransactionController@store')->name('transactions.store');
-Route::get('/users','Api\UserController@index')->name('users.index');
+Route::get('/users','UserController@index')->middleware('auth')->name('users.index');
 
 
 // Authentication Routes...
