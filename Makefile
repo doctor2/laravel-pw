@@ -14,13 +14,13 @@ echo "\n${GREEN}DONE"
 
 echo "Now run"
 docker-compose up -d
-docker-compose exec pw-server php artisan migrate --seed
 
 echo "${NC}"
 
 sudo chgrp -R www-data storage bootstrap/cache
 sudo chmod -R ug+rwx storage bootstrap/cache
 
+docker-compose exec pw-server php artisan migrate --seed
 docker-compose exec pw-server php artisan serve
 
 #sudo chown doctor bootstrap/cache -R
