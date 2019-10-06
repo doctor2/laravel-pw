@@ -13,6 +13,8 @@ docker-compose exec pw-server php ./vendor/bin/phpunit --no-coverage
 
 ## Application Overview
 
+<h5>master-branch is a jquery version, vue-handmade-branch is a vue version.</h5>
+
 The application is for Parrot Wings (PW, “internal money”) transfer between system users.
 
 The application will be very “polite” and will inform a user of any problems (i.e. login not successful, not enough PW to remit the transaction, etc.)
