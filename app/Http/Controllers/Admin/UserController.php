@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\User;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     public function index()
     {

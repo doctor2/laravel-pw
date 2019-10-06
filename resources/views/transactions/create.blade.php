@@ -39,7 +39,7 @@
 
     <script>
         $(function () {
-            const URL =  "{{route('auto-users.index')}}?name=:query";
+            const URL =  "{{route('users.index')}}?name=:query";
             let autoInput = $('[data-autocomplete]');
             let autoUsers = [];
             let autoInputUserId = $('input[name="user_id"]');

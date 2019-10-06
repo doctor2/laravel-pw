@@ -6,7 +6,7 @@ use App\Rules\MaxUserBalance;
 use App\Services\TransactionService;
 use App\User;
 
-class TransactionController extends Controller
+class TransactionController extends BaseController
 {
     private $service;
 

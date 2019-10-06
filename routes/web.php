@@ -14,7 +14,7 @@
 Route::get('/','TransactionController@index')->middleware('auth')->name('transactions.index');
 Route::get('/transactions/create','TransactionController@create')->middleware('auth')->name('transactions.create');
 Route::post('/transactions','TransactionController@store')->middleware('auth')->name('transactions.store');
-Route::get('/users','UserAutocompleteController@index')->middleware('auth')->name('auto-users.index');
+Route::get('/users','UserController@index')->middleware('auth')->name('users.index');
 
 
 // Authentication Routes...

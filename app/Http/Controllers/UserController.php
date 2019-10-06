@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class UserAutocompleteController extends Controller
+class UserController extends BaseController
 {
     public function index()
     {

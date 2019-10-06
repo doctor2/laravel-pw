@@ -10,22 +10,4 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    public function formedErrorResult($message, $code)
-    {
-        return response([
-            'status' => 'error',
-            'code' => $code,
-            'message' => $message,
-        ], $code);
-    }
-
-    public function formedSuccessResult($data, $code = 200)
-    {
-        return response([
-            'status' => 'ok',
-            'data' => $data,
-            'code' => $code,
-        ], $code);
-    }
 }

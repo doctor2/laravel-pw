@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Services\AdminTransactionService;
 
-class TransactionController extends Controller
+class TransactionController extends BaseController
 {
     private $adminService;
 
