@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/','TransactionController@index')->name('transactions.index');
-Route::get('/transactions/create','TransactionController@create')->name('transactions.create');
-Route::post('/transactions','TransactionController@store')->name('transactions.store');
-Route::get('/users','Api\UserController@index')->name('users.index');
+Route::get('/','TransactionController@index')->middleware('auth')->name('transactions.index');
+Route::get('/transactions/create','TransactionController@create')->middleware('auth')->name('transactions.create');
+Route::post('/transactions','TransactionController@store')->middleware('auth')->name('transactions.store');
+Route::get('/users','UserAutocompleteController@index')->middleware('auth')->name('auto-users.index');
 
 
 // Authentication Routes...
@@ -34,6 +34,7 @@ Route::group([
     Route::get('/transactions','TransactionController@index')->name('admin.transactions.index');
     Route::get('/transactions/{id}','TransactionController@show')->name('admin.transactions.show');
     Route::patch('/transactions/edit/{id}','TransactionController@update')->name('admin.transactions.update');
+
 
     Route::get('/users','UserController@index')->name('admin.users.index');
     Route::get('/users/{user}','UserController@show')->name('admin.users.show');

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Rules\MaxUserBalance;
 use App\Services\TransactionService;
 use App\User;
-use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
@@ -13,8 +12,6 @@ class TransactionController extends Controller
 
     public function __construct(TransactionService $service)
     {
-        $this->middleware('auth');
-
         $this->service = $service;
     }
 
@@ -22,9 +19,9 @@ class TransactionController extends Controller
     {
         if (request()->expectsJson()) {
 
-            $query = $this->service->getTransactionsQueryWithFilterAndOrder(auth()->id());
+            $query = $this->service->getTransactionsQueryWithFilter(auth()->id());
 
-            return $query->paginate(10);
+            return $this->formedSuccessResult(datatables()->query($query)->make(true));
         }
 
         return view('transactions.index');

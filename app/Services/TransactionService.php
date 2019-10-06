@@ -8,6 +8,7 @@ class TransactionService
 {
     public const CREDIT = "CREDIT";
     public const DEBIT = "DEBIT";
+
     public function create($debit_user, $credit_user, $amount)
     {
         \DB::transaction(function () use ($debit_user, $credit_user, $amount) {
@@ -34,7 +35,7 @@ class TransactionService
         });
     }
 
-    public function getTransactionsQueryWithFilterAndOrder($userId)
+    public function getTransactionsQueryWithFilter($userId)
     {
         $debitQuery = $this->getDebitTransactionsQuery($userId);
 
@@ -45,8 +46,6 @@ class TransactionService
         $this->filterTransactions($query, self::CREDIT);
 
         $query->union($debitQuery);
-
-        $this->orderTransactions($query);
 
         return $query;
     }
@@ -65,40 +64,40 @@ class TransactionService
     public function getCreditTransactionsQuery($userId)
     {
         $query =
-        \DB::table('transactions as tr')
-            ->select('tr.amount', 'tr.credit_user_balance as user_balance', 'tr.created_at', 'u_d.name as user_name', 'tr.id')
-            ->addSelect(\DB::raw("'CREDIT' AS transaction_type"))
-            ->where('tr.credit_user_id', $userId)
-            ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id');
+            \DB::table('transactions as tr')
+                ->select('tr.amount', 'tr.credit_user_balance as user_balance', 'tr.created_at', 'u_d.name as user_name', 'tr.id')
+                ->addSelect(\DB::raw("'CREDIT' AS transaction_type"))
+                ->where('tr.credit_user_id', $userId)
+                ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id');
 
         return $query;
     }
 
     public function filterTransactions($query, $transactionType)
     {
-        if (!empty($value = request('date'))) {
-            $query
-                ->where('tr.created_at', 'like', '%' . $value . '%');
+        $q = request('search');
+        if (empty($q['value']) || empty($q = trim($q['value']))) {
+            return;
         }
 
-        if (!empty($value = request('user_balance'))) {
+        $query->where(function ($queryLocal) use ($q, $transactionType) {
+
+            $queryLocal
+                ->orWhere('tr.created_at', 'like', '%' . $q . '%');
 
             $queryParam = $transactionType == self::DEBIT ? 'tr.debit_user_balance' : 'tr.credit_user_balance';
-
-            $query->where($queryParam, 'like', '%' . $value . '%');
-        }
-
-        if (!empty($value = request('user_name'))) {
+            $queryLocal
+                ->orWhere($queryParam, 'like', '%' . $q . '%');
 
             $queryParam = $transactionType == self::DEBIT ? 'u_c.name' : 'u_d.name';
+            $queryLocal
+                ->orWhere($queryParam, 'like', '%' . $q . '%');
 
-            $query->where($queryParam, 'like', '%' . $value . '%');
-        }
+            $queryLocal
+                ->orWhere('tr.amount', 'like', '%' . $q . '%');
+        });
 
-        if (!empty($value = request('amount'))) {
-            $query
-                ->where('tr.amount', 'like', '%' . $value . '%');
-        }
+
     }
 
     public function orderTransactions($query)

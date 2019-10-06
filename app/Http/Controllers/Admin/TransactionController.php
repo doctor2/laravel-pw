@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\AdminTransactionService;
-use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
@@ -18,14 +17,11 @@ class TransactionController extends Controller
     public function index()
     {
         if (request()->expectsJson()) {
-
             $query = $this->adminService->getTransactionListQuery();
 
             $this->adminService->filterTransactionList($query);
 
-            $this->adminService->orderTransactionList($query);
-
-            return $query->paginate(10);
+            return $this->formedSuccessResult(datatables()->query($query)->make(true));
         }
 
         return view('admin.transactions.index');
@@ -51,13 +47,9 @@ class TransactionController extends Controller
         try {
             $this->adminService->update($id, request('amount'));
         } catch (\Exception $e) {
-            return response([
-                'code' => '400',
-                'error' => $e->getMessage(),
-            ], 400);
+            return $this->formedErrorResult($e->getMessage(), 400);
         }
 
-        return json_encode($this->adminService->getById($id));
+        return $this->formedSuccessResult($this->adminService->getById($id));
     }
-
 }

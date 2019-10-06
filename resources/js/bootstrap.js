@@ -14,6 +14,17 @@ try {
     require('bootstrap');
 } catch (e) {}
 
+import 'jquery-ui/themes/base/core.css';
+import 'jquery-ui/themes/base/theme.css';
+import 'jquery-ui/themes/base/base.css';
+import 'jquery-ui/themes/base/autocomplete.css';
+import 'jquery-ui/ui/core';
+import 'jquery-ui/ui/widgets/autocomplete';
+
+import 'datatables.net';
+import 'datatables.net-dt/css/jquery.dataTables.css';
+
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

@@ -12,32 +12,28 @@ class AdminTransactionService
         $query = \DB::table('transactions as tr')
             ->select('tr.amount', 'tr.created_at', 'u_d.name as debit_user_name', 'u_c.name as credit_user_name', 'tr.id')
             ->join('users as u_c', 'tr.credit_user_id', '=', 'u_c.id')
-            ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id')
-        ;
+            ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id');
         return $query;
     }
 
     public function filterTransactionList($query)
     {
-        if (!empty($value = request('date'))) {
-            $query
-                ->where('tr.created_at', 'like', '%' . request('date') . '%');
+        $q = request('search');
+        if(empty($q['value']) || empty($q = trim($q['value']))){
+            return;
         }
 
-        if (!empty($value = request('debit_user_name'))) {
-            $query
-                ->where('u_d.name', 'like', '%' . $value . '%');
-        }
+        $query
+            ->orWhere('tr.created_at', 'like', '%' . $q . '%');
 
-        if (!empty($value = request('credit_user_name'))) {
-            $query
-                ->where('u_c.name', 'like', '%' . $value . '%');
-        }
+        $query
+            ->orWhere('u_d.name', 'like', '%' . $q . '%');
 
-        if (!empty($value = request('amount'))) {
-            $query
-                ->where('tr.amount', 'like', '%' . $value . '%');
-        }
+        $query
+            ->orWhere('u_c.name', 'like', '%' . $q . '%');
+
+        $query
+            ->orWhere('tr.amount', 'like', '%' . $q . '%');
 
     }
 
@@ -52,7 +48,8 @@ class AdminTransactionService
         } elseif ($sort == 'debit_user_name') {
             $query->orderBy('u_d.name', $order);
 
-        } elseif ($sort == 'amount') {
+        } elseif (request('amount')) {
+//        } elseif ($sort == 'amount') {
             $query->orderBy('tr.amount', $order);
 
         } elseif ($sort == 'credit_user_name') {
@@ -72,7 +69,7 @@ class AdminTransactionService
             ->where('tr.id', $id)
             ->first();
 
-        return $transaction ? collect($transaction)->toArray() : null;
+        return $transaction;
     }
 
     public function update($id, $amount)
@@ -91,7 +88,7 @@ class AdminTransactionService
             $newDebitUserBalance = $transaction->debit_user_balance + $oldAmount - $amount;
             $newUserBalanse = $transaction->debitUser->balance->balance + $oldAmount - $amount;
 
-            if($newDebitUserBalance < 0 || $newUserBalanse < 0){
+            if ($newDebitUserBalance < 0 || $newUserBalanse < 0) {
                 throw new \Exception('Too large amount!');
             }
             $success = $transaction->debitUser->balance()->update(['balance' => $newUserBalanse]);
@@ -99,12 +96,12 @@ class AdminTransactionService
             // Изменения баланса кредита
             $newCreditUserBalance = $transaction->credit_user_balance + $amount - $oldAmount;
             $newUserBalanse = $transaction->creditUser->balance->balance + $amount - $oldAmount;
-            
-            if($newCreditUserBalance < 0 || $newUserBalanse < 0){
+
+            if ($newCreditUserBalance < 0 || $newUserBalanse < 0) {
                 throw new \Exception('Too small amount!');
             }
             $success &= $transaction->creditUser->balance()->update(['balance' => $newUserBalanse]);
-            
+
 
             $success &= $transaction->update([
                 'amount' => $amount,
