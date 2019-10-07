@@ -15,14 +15,7 @@ window.Vue.use(VueRouter)
 
 import onlyInt from 'vue-input-only-number';
 window.Vue.use(onlyInt);
-//Vue.use(onlyFloat); // v-float>
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+
 
 const AdminTransactions = require('./components/tables/AdminTransaction.vue');
 const AdminUsers = require('./components/tables/AdminUser.vue');
@@ -32,9 +25,6 @@ Vue.component('admin-transaction', AdminTransactions);
 Vue.component('admin-user', AdminUsers);
 Vue.component('admin-transaction-edit', require('./components/AdminTransactionEdit.vue'));
 Vue.component('autocomplete', require('./components/Autocomplete.vue'));
-    
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

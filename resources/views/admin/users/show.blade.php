@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-                <div class="card">
+        <div class="col-md-12">
+                <div class="card card-thin">
                         <table class="table " >
                                 <thead class="thead-light">
                                     <tr>
@@ -31,7 +31,7 @@
                                 </tbody>
                             </table>
                             <div class="card-body">
-                                <a href="{{route('admin.users.index')}}" ><- Back</a>    
+                                <a href="{{route('admin.users.index')}}" ><- Back</a>
                             </div>
                 </div>
         </div>

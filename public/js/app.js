@@ -14350,14 +14350,6 @@ window.Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 
 window.Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_input_only_number__["a" /* default */]);
-//Vue.use(onlyFloat); // v-float>
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
 
 var AdminTransactions = __webpack_require__(43);
 var AdminUsers = __webpack_require__(67);
@@ -14367,9 +14359,6 @@ Vue.component('admin-transaction', AdminTransactions);
 Vue.component('admin-user', AdminUsers);
 Vue.component('admin-transaction-edit', __webpack_require__(73));
 Vue.component('autocomplete', __webpack_require__(76));
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -53019,7 +53008,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "card-body" },
+    { staticClass: "card-body card-thin" },
     [
       _vm.showSessionMessage ? _c("div", [_vm._t("message")], 2) : _vm._e(),
       _vm._v(" "),

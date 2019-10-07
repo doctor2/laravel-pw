@@ -1,5 +1,5 @@
 <template>
-  <div class="card-body">
+  <div class="card-body card-thin">
     <div v-if="showSessionMessage">
       <slot name="message"></slot>
     </div>

@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-                <div class="card-header">Create a new transaction</div>
-                <div class="card-body">
+        <div class="col-md-12">
+                <div class="card-header card-thin">Create a new transaction</div>
+                <div class="card-body card-thin">
                     <form action="{{route('transactions.store')}}" method="POST" class="card-body-form">
                         @csrf
                         <div class="form-group">
@@ -25,9 +25,9 @@
                     @if (count($errors))
                         <ul class="alert alert-danger">
                             @foreach ($errors->all() as $error)
-                                <li>{{$error}}</li>                            
+                                <li>{{$error}}</li>
                             @endforeach
-                        </ul>        
+                        </ul>
                     @endif
                     @include('layouts._message')
                 </div>
