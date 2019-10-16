@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Transaction;
+use Exception;
 
 
 class AdminTransactionService
@@ -16,6 +17,9 @@ class AdminTransactionService
         return $query;
     }
 
+    /**
+     * @param $query
+     */
     public function filterTransactionList($query)
     {
         $q = request('search');
@@ -37,6 +41,9 @@ class AdminTransactionService
 
     }
 
+    /**
+     * @param $query
+     */
     public function orderTransactionList($query)
     {
         $order = request('order') == 'asc' ? 'asc' : 'desc';
@@ -48,8 +55,7 @@ class AdminTransactionService
         } elseif ($sort == 'debit_user_name') {
             $query->orderBy('u_d.name', $order);
 
-        } elseif (request('amount')) {
-//        } elseif ($sort == 'amount') {
+        } elseif ($sort == 'amount') {
             $query->orderBy('tr.amount', $order);
 
         } elseif ($sort == 'credit_user_name') {
@@ -61,7 +67,11 @@ class AdminTransactionService
         }
     }
 
-    public function getById($id)
+    /**
+     * @param int $id - transaction id
+     * @return mixed
+     */
+    public function getById(int $id)
     {
         $transaction = $this->getTransactionListQuery()
             ->addSelect('tr.credit_user_balance')
@@ -72,12 +82,17 @@ class AdminTransactionService
         return $transaction;
     }
 
-    public function update($id, $amount)
+    /**
+     * @param int $id - transaction id
+     * @param int $amount - amount
+     * @throws Exception
+     */
+    public function update(int $id, int $amount)
     {
         $transaction = Transaction::where('id', $id)->first();
 
         if (empty($transaction)) {
-            throw new \Exception('Not valid transaction key!');
+            throw new Exception('Not valid transaction key!');
         }
 
         \DB::transaction(function () use ($transaction, $amount) {
@@ -89,7 +104,7 @@ class AdminTransactionService
             $newUserBalanse = $transaction->debitUser->balance->balance + $oldAmount - $amount;
 
             if ($newDebitUserBalance < 0 || $newUserBalanse < 0) {
-                throw new \Exception('Too large amount!');
+                throw new Exception('Too large amount!');
             }
             $success = $transaction->debitUser->balance()->update(['balance' => $newUserBalanse]);
 
@@ -98,7 +113,7 @@ class AdminTransactionService
             $newUserBalanse = $transaction->creditUser->balance->balance + $amount - $oldAmount;
 
             if ($newCreditUserBalance < 0 || $newUserBalanse < 0) {
-                throw new \Exception('Too small amount!');
+                throw new Exception('Too small amount!');
             }
             $success &= $transaction->creditUser->balance()->update(['balance' => $newUserBalanse]);
 
@@ -110,7 +125,7 @@ class AdminTransactionService
             ]);
 
             if (!$success) {
-                throw new \Exception('Database error!');
+                throw new Exception('Database error!');
             }
         });
     }

@@ -6,7 +6,13 @@ namespace App\Http\Controllers;
 
 class BaseController extends Controller
 {
-    public function formedErrorResult($message, $code)
+    /**
+     * @param string $message - error message
+     * @param int $code - response code
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function formedErrorResult(string $message, int $code)
     {
         return response([
             'status' => 'error',
@@ -15,6 +21,12 @@ class BaseController extends Controller
         ], $code);
     }
 
+    /**
+     * @param $data
+     * @param int $code - response code
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function formedSuccessResult($data, $code = 200)
     {
         return response([

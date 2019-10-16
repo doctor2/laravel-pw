@@ -45,7 +45,7 @@ class TransactionController extends BaseController
         ]);
 
         try {
-            $this->adminService->update($id, request('amount'));
+            $this->adminService->update($id, (int)request('amount'));
         } catch (\Exception $e) {
             return $this->formedErrorResult($e->getMessage(), 400);
         }

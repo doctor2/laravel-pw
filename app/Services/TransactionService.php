@@ -9,7 +9,12 @@ class TransactionService
     public const CREDIT = "CREDIT";
     public const DEBIT = "DEBIT";
 
-    public function create($debit_user, $credit_user, $amount)
+    /**
+     * @param $debit_user - debit user object
+     * @param $credit_user - credit user object
+     * @param int $amount - amount
+     */
+    public function create($debit_user, $credit_user, int $amount)
     {
         \DB::transaction(function () use ($debit_user, $credit_user, $amount) {
 
@@ -35,7 +40,11 @@ class TransactionService
         });
     }
 
-    public function getTransactionsQueryWithFilter($userId)
+    /**
+     * @param int $userId
+     * @return mixed
+     */
+    public function getTransactionsQueryWithFilter(int $userId)
     {
         $debitQuery = $this->getDebitTransactionsQuery($userId);
 
@@ -50,7 +59,11 @@ class TransactionService
         return $query;
     }
 
-    public function getDebitTransactionsQuery($userId)
+    /**
+     * @param int $userId
+     * @return mixed
+     */
+    protected function getDebitTransactionsQuery(int $userId)
     {
         $query = \DB::table('transactions as tr')
             ->select('tr.amount', 'tr.debit_user_balance as user_balance', 'tr.created_at', 'u_c.name as user_name', 'tr.id')
@@ -61,7 +74,11 @@ class TransactionService
         return $query;
     }
 
-    public function getCreditTransactionsQuery($userId)
+    /**
+     * @param int $userId
+     * @return mixed
+     */
+    protected function getCreditTransactionsQuery(int $userId)
     {
         $query =
             \DB::table('transactions as tr')
@@ -73,7 +90,11 @@ class TransactionService
         return $query;
     }
 
-    public function filterTransactions($query, $transactionType)
+    /**
+     * @param $query
+     * @param $transactionType - DEBIT/CREDIT
+     */
+    protected function filterTransactions($query, $transactionType)
     {
         $q = request('search');
         if (empty($q['value']) || empty($q = trim($q['value']))) {
@@ -96,10 +117,11 @@ class TransactionService
             $queryLocal
                 ->orWhere('tr.amount', 'like', '%' . $q . '%');
         });
-
-
     }
 
+    /**
+     * @param $query
+     */
     public function orderTransactions($query)
     {
         $order = request('order') == 'asc' ? 'asc' : 'desc';
@@ -122,7 +144,12 @@ class TransactionService
         }
     }
 
-    public function getByIdAndUserId($id, $userId)
+    /**
+     * @param int $id - transaction id
+     * @param int $userId - user id
+     * @return mixed - amount, debit_user_name, credit_user_name, credit_user_id, debit_user_id
+     */
+    public function getByIdAndUserId(int $id, int $userId)
     {
         $transaction = \DB::table('transactions as tr')
             ->select('tr.amount', 'u_d.name as debit_user_name', 'u_c.name as credit_user_name', 'tr.credit_user_id', 'tr.debit_user_id')

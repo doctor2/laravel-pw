@@ -45,6 +45,10 @@ class UserController extends BaseController
             ->with('success', 'User has been updated!');
     }
 
+    /**
+     * @param $query
+     * @param $fields - request fields
+     */
     public function filterUsers($query, $fields)
     {
         $q = request('search');
@@ -57,6 +61,10 @@ class UserController extends BaseController
         }
     }
 
+    /**
+     * @param $query
+     * @param $fields - request fields
+     */
     public function orderUsers($query, $fields)
     {
         $order = request('order') == 'asc' ? 'asc' : 'desc';
