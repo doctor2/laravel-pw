@@ -5,59 +5,38 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+import './bootstrap';
 
-
-window.Vue = require('vue');
-
+import Vue from 'vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+import VueAuth from '@websanova/vue-auth';
 import VueRouter from 'vue-router'
-window.Vue.use(VueRouter)
+import App from './components/App.vue';
+
+import auth from './auth'
+import {router} from './routes.js';
+import {store} from './store';
+
+// Set Vue router
+Vue.router = router
+Vue.use(VueRouter)
+
+// Set Vue authentication
+Vue.use(VueAxios, axios);
+axios.defaults.baseURL = `/api`;
+Vue.use(VueAuth, auth);
+
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue)
 
 import onlyInt from 'vue-input-only-number';
-window.Vue.use(onlyInt);
+Vue.use(onlyInt);
 
-
-const AdminTransactions = require('./components/tables/AdminTransaction.vue');
-const AdminUsers = require('./components/tables/AdminUser.vue');
-const Transactions = require('./components/tables/Transaction.vue');
-Vue.component('transaction', Transactions);
-Vue.component('admin-transaction', AdminTransactions);
-Vue.component('admin-user', AdminUsers);
-Vue.component('admin-transaction-edit', require('./components/AdminTransactionEdit.vue'));
-Vue.component('autocomplete', require('./components/Autocomplete.vue'));
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-
-const routes = [
-    {
-        path: '/admin/transactions',
-        name: 'admin.transactions.index',
-        component: AdminTransactions
-    },
-    {
-        path: '/admin/users',
-        name: 'admin.users.index',
-        component: AdminUsers
-    },
-    {
-        path: '/',
-        name: 'transactions.index',
-        component: Transactions
-    },
-]
-
-
-const router = new VueRouter({
-    mode: 'history',
-    routes
-})
 
 const app = new Vue({
     el: '#app',
-    router
+    store,
+    router,
+    render: h => h(App)
 });

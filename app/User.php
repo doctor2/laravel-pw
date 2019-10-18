@@ -5,8 +5,9 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
@@ -29,7 +30,9 @@ class User extends Authenticatable
     ];
 
     protected $appends= [
-        'hasBan'
+        'hasBan',
+        'isAdmin',
+        'currentBalance'
     ];
 
     /**
@@ -41,9 +44,24 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function isAdmin()
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    public function getIsAdminAttribute()
     {
         return in_array($this->attributes['email'],['brath1@example.org']);
+    }
+
+    public function getCurrentBalanceAttribute()
+    {
+        return $this->balance->balance;
     }
 
     public function setBannedAttribute($value)

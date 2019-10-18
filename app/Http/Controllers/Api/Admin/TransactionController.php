@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Services\AdminTransactionService;
-use Illuminate\Http\Request;
 
-class TransactionController extends Controller
+class TransactionController extends BaseController
 {
     private $adminService;
 
@@ -17,18 +16,13 @@ class TransactionController extends Controller
 
     public function index()
     {
-        if (request()->expectsJson()) {
+        $query = $this->adminService->getTransactionListQuery();
 
-            $query = $this->adminService->getTransactionListQuery();
+        $this->adminService->filterTransactionList($query);
 
-            $this->adminService->filterTransactionList($query);
+        $this->adminService->orderTransactionList($query);
 
-            $this->adminService->orderTransactionList($query);
-
-            return $query->paginate(10);
-        }
-
-        return view('admin.transactions.index');
+        return $this->formedSuccessResult($query->paginate(10));
     }
 
     public function show($id)
@@ -51,13 +45,9 @@ class TransactionController extends Controller
         try {
             $this->adminService->update($id, request('amount'));
         } catch (\Exception $e) {
-            return response([
-                'code' => '400',
-                'error' => $e->getMessage(),
-            ], 400);
+            return $this->formedErrorResult($e->getMessage(), 400);
         }
 
-        return json_encode($this->adminService->getById($id));
+        return $this->formedSuccessResult($this->adminService->getById($id));
     }
-
 }

@@ -1,28 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\User;
-use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     public function index()
     {
         $fields = ['name', 'email', 'banned', 'created_at'];
 
-        if (request()->expectsJson()) {
-            $query = User::select(array_merge($fields, ['id']));
+        $query = \DB::table('users')->select(array_merge($fields, ['id']));
 
-            $this->filterUsers($query, $fields);
+        $this->filterUsers($query, $fields);
 
-            $this->orderUsers($query, $fields);
+        return $this->formedSuccessResult($query->paginate(10));
 
-            return $query->paginate(10);
-        }
-
-        return view('admin.users.index');
     }
 
     public function show(User $user)
@@ -50,11 +44,13 @@ class UserController extends Controller
 
     public function filterUsers($query, $fields)
     {
+        $q = request('search');
+        if (empty($q['value']) || empty($q = trim($q['value']))) {
+            return;
+        }
+
         foreach ($fields as $field) {
-            if (!empty($value = request($field))) {
-                $query
-                    ->where($field, 'like', '%' . $value . '%');
-            }
+            $query->orWhere($field, 'like', '%' . $q . '%');
         }
     }
 

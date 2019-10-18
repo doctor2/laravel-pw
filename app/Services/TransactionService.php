@@ -8,6 +8,7 @@ class TransactionService
 {
     public const CREDIT = "CREDIT";
     public const DEBIT = "DEBIT";
+
     public function create($debit_user, $credit_user, $amount)
     {
         \DB::transaction(function () use ($debit_user, $credit_user, $amount) {
@@ -34,15 +35,17 @@ class TransactionService
         });
     }
 
-    public function getTransactionsQueryWithFilterAndOrder($userId)
+    public function getTransactionsQueryWithFilter($userId)
     {
         $debitQuery = $this->getDebitTransactionsQuery($userId);
 
         $this->filterTransactions($debitQuery, self::DEBIT);
 
+
         $query = $this->getCreditTransactionsQuery($userId);
 
         $this->filterTransactions($query, self::CREDIT);
+
 
         $query->union($debitQuery);
 
@@ -65,18 +68,18 @@ class TransactionService
     public function getCreditTransactionsQuery($userId)
     {
         $query =
-        \DB::table('transactions as tr')
-            ->select('tr.amount', 'tr.credit_user_balance as user_balance', 'tr.created_at', 'u_d.name as user_name', 'tr.id')
-            ->addSelect(\DB::raw("'CREDIT' AS transaction_type"))
-            ->where('tr.credit_user_id', $userId)
-            ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id');
+            \DB::table('transactions as tr')
+                ->select('tr.amount', 'tr.credit_user_balance as user_balance', 'tr.created_at', 'u_d.name as user_name', 'tr.id')
+                ->addSelect(\DB::raw("'CREDIT' AS transaction_type"))
+                ->where('tr.credit_user_id', $userId)
+                ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id');
 
         return $query;
     }
 
     public function filterTransactions($query, $transactionType)
     {
-        if (!empty($value = request('date'))) {
+        if (!empty($value = request('created_at'))) {
             $query
                 ->where('tr.created_at', 'like', '%' . $value . '%');
         }
@@ -99,6 +102,8 @@ class TransactionService
             $query
                 ->where('tr.amount', 'like', '%' . $value . '%');
         }
+
+
     }
 
     public function orderTransactions($query)
@@ -106,7 +111,7 @@ class TransactionService
         $order = request('order') == 'asc' ? 'asc' : 'desc';
         $sort = request('sort');
 
-        if ($sort == 'date') {
+        if ($sort == 'created_at') {
             $query->orderBy('created_at', $order);
 
         } elseif ($sort == 'user_name') {

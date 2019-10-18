@@ -22,6 +22,10 @@
         "axios": "^0.18.1",
         "debounce": "^1.2.0",
         "vue": "^2.5.17",
+        "vuex": "^3.1.1",
+        "vue-axios": "^2.1.5",
+        "@websanova/vue-auth": "^2.21.14-beta",
+        "bootstrap-vue": "^2.0.*",
         "vue-bootstrap-typeahead": "^0.2.6",
         "vue-input-only-number": "^1.1.0",
         "vue-router": "^3.0.2"

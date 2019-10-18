@@ -12,14 +12,13 @@ class AdminTransactionService
         $query = \DB::table('transactions as tr')
             ->select('tr.amount', 'tr.created_at', 'u_d.name as debit_user_name', 'u_c.name as credit_user_name', 'tr.id')
             ->join('users as u_c', 'tr.credit_user_id', '=', 'u_c.id')
-            ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id')
-        ;
+            ->join('users as u_d', 'tr.debit_user_id', '=', 'u_d.id');
         return $query;
     }
 
     public function filterTransactionList($query)
     {
-        if (!empty($value = request('date'))) {
+        if (!empty($value = request('created_at'))) {
             $query
                 ->where('tr.created_at', 'like', '%' . request('date') . '%');
         }
@@ -72,7 +71,7 @@ class AdminTransactionService
             ->where('tr.id', $id)
             ->first();
 
-        return $transaction ? collect($transaction)->toArray() : null;
+        return $transaction;
     }
 
     public function update($id, $amount)
@@ -91,7 +90,7 @@ class AdminTransactionService
             $newDebitUserBalance = $transaction->debit_user_balance + $oldAmount - $amount;
             $newUserBalanse = $transaction->debitUser->balance->balance + $oldAmount - $amount;
 
-            if($newDebitUserBalance < 0 || $newUserBalanse < 0){
+            if ($newDebitUserBalance < 0 || $newUserBalanse < 0) {
                 throw new \Exception('Too large amount!');
             }
             $success = $transaction->debitUser->balance()->update(['balance' => $newUserBalanse]);
@@ -99,12 +98,12 @@ class AdminTransactionService
             // Изменения баланса кредита
             $newCreditUserBalance = $transaction->credit_user_balance + $amount - $oldAmount;
             $newUserBalanse = $transaction->creditUser->balance->balance + $amount - $oldAmount;
-            
-            if($newCreditUserBalance < 0 || $newUserBalanse < 0){
+
+            if ($newCreditUserBalance < 0 || $newUserBalanse < 0) {
                 throw new \Exception('Too small amount!');
             }
             $success &= $transaction->creditUser->balance()->update(['balance' => $newUserBalanse]);
-            
+
 
             $success &= $transaction->update([
                 'amount' => $amount,

@@ -1,33 +1,30 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\BaseController;
 use App\Rules\MaxUserBalance;
 use App\Services\TransactionService;
 use App\User;
-use Illuminate\Http\Request;
 
-class TransactionController extends Controller
+class TransactionController extends BaseController
 {
     private $service;
 
     public function __construct(TransactionService $service)
     {
-        $this->middleware('auth');
-
         $this->service = $service;
     }
 
     public function index()
     {
-        if (request()->expectsJson()) {
-
-            $query = $this->service->getTransactionsQueryWithFilterAndOrder(auth()->id());
-
-            return $query->paginate(10);
+        $query = $this->service->getTransactionsQueryWithFilter(auth()->id());
+        $page = (int)request()->get('limit');
+        if(empty($page) || $page > 50){
+            $page =  10;
         }
 
-        return view('transactions.index');
+        return $this->formedSuccessResult($query->paginate($page));
     }
 
     public function create()
