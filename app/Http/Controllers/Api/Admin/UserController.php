@@ -21,7 +21,7 @@ class UserController extends BaseController
 
     public function show(User $user)
     {
-        return view('admin.users.show', compact('user'));
+        return $this->formedSuccessResult($user);
     }
 
     public function edit(User $user)

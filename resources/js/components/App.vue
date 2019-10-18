@@ -78,14 +78,6 @@
 <!--                                                        >-->
 <!--                                                            Transactions-->
 <!--                                                        </router-link>-->
-<!--                                                        <router-link :to="{'name': 'admin.transactions.index'}"-->
-<!--                                                                     :key="3"-->
-<!--                                                                     tag="li"-->
-<!--                                                                     class="list-group-item"-->
-<!--                                                                     active-class="active"-->
-<!--                                                        >-->
-<!--                                                            Admin-->
-<!--                                                        </router-link>-->
                         </ul>
                     </div>
                     <div class="col col-sm-9">

@@ -10,7 +10,9 @@ import E404 from './components/pages/E404';
 // import  AdminUsers from './components/old/tables/AdminUser.vue';
 import Transactions from './components/pages/Transaction.vue';
 import AdminTransactions from './components/pages/Admin/Transaction.vue';
-import AdminUsers from './components/pages/Admin/User.vue';
+import AdminTransactionsEdit from './components/pages/Admin/TransactionEdit.vue';
+import AdminUsersShow from './components/pages/Admin/User/Show.vue';
+import AdminUsers from './components/pages/Admin/User/Index.vue';
 import Register from './components/pages/Register.vue'
 import Login from './components/pages/Login.vue'
 // Vue.component('admin-transaction', AdminTransactions);
@@ -63,6 +65,31 @@ const routes = [
         meta: {
             auth: true
             // auth: {isAdmin: true, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
+        }
+    },
+    {
+        path: '/admin/transactions/edit/:id',
+        name: 'admin.transactions.edit',
+        component: AdminTransactionsEdit,
+        meta: {
+            auth: true
+            // auth: {isAdmin: true, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
+        }
+    },
+    {
+        path: '/admin/users/edit/:id',
+        name: 'admin.users.edit',
+        // component: AdminTransactions,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        path: '/admin/users/:id',
+        name: 'admin.users.show',
+        component: AdminUsersShow,
+        meta: {
+            auth: true
         }
     },
     {

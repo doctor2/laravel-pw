@@ -25,15 +25,15 @@ class TransactionController extends BaseController
         return $this->formedSuccessResult($query->paginate(10));
     }
 
-    public function show($id)
+    public function edit($id)
     {
         $transaction = $this->adminService->getById($id);
 
         if (empty($transaction)) {
-            abort(404);
+            $this->formedErrorResult('Not found', 404);
         }
 
-        return view('admin.transactions.show', compact('transaction'));
+        return $this->formedSuccessResult($transaction);
     }
 
     public function update($id)

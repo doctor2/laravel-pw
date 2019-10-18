@@ -16,6 +16,11 @@
                 </td>
             </template>
 
+            <template v-slot:cell(amount)="data">
+                <stan v-text="data.item.amount + ' - ' + data.item.transaction_type + ''">
+                </stan>
+            </template>
+
             <template v-slot:cell(user_balance)="data">
                 {{data.item.user_balance}}
                 <template v-if="data.item.transaction_type == 'DEBIT'">
@@ -36,7 +41,7 @@
         data() {
             return {
                 sortBy: 'created_at',
-                sortDesc: false,
+                sortDesc: true,
                 isBusy: false,
                 items: [],
                 fields: [

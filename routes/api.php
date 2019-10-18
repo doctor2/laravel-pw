@@ -36,7 +36,7 @@ Route::group([
         'middleware' => ['admin'],
     ], function () {
         Route::get('/', 'TransactionController@index')->name('api.admin.transactions.index');
-        Route::get('/transactions/{id}', 'TransactionController@show')->name('api.admin.transactions.show');
+        Route::get('/transactions/edit/{id}', 'TransactionController@edit')->name('api.admin.transactions.edit');
         Route::patch('/transactions/edit/{id}', 'TransactionController@update')->name('api.admin.transactions.update');
 
         Route::get('/users', 'UserController@index')->name('api.admin.users.index');

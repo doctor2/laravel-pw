@@ -17,6 +17,10 @@
                 </td>
             </template>
 
+            <template v-slot:cell(amount)="data">
+                    <router-link :to="{'name': 'admin.transactions.edit', params: { id: data.item.id}}" :key="3" active-class="active">{{data.item.amount}}</router-link>
+            </template>
+
         </b-table>
         <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0 pagination-sm"/>
     </div>
@@ -30,7 +34,7 @@
         data() {
             return {
                 sortBy: 'created_at',
-                sortDesc: false,
+                sortDesc: true,
                 isBusy: false,
                 items: [],
                 fields: [

@@ -17,20 +17,29 @@
                 </td>
             </template>
 
+            <template v-slot:cell(name)="data">
+                    <router-link :to="{'name': 'admin.users.show', params: { id: data.item.id}}" :key="3" active-class="active">{{data.item.name}}</router-link>
+            </template>
+
+            <template v-slot:cell(banned)="data">
+                <b v-text="data.item.banned ? 'yes' : 'no'"></b>
+                <router-link :to="{'name': 'admin.users.edit', params: { id: data.item.id}}" :key="3" active-class="active">Edit</router-link>
+            </template>
+
         </b-table>
         <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0 pagination-sm"/>
     </div>
 </template>
 
 <script>
-    import methods from "../../mixins/apiMethods";
+    import methods from "../../../mixins/apiMethods";
 
     export default {
         mixins: [methods],
         data() {
             return {
                 sortBy: 'created_at',
-                sortDesc: false,
+                sortDesc: true,
                 isBusy: false,
                 items: [],
                 fields: [
@@ -48,7 +57,6 @@
                         key: 'email',
                         label: 'Email',
                         sortable: true
-
                     },
                     {
                         key: 'banned',
