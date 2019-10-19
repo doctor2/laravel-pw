@@ -17,7 +17,7 @@
 <script>
 import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
 
-const API_URL = location.origin +'/users?name=:query'
+const API_URL = '/users?name=:query'
 
 export default {
   props:['user_name', 'user_id'],
@@ -35,11 +35,14 @@ export default {
       this.selectedUser = {name:this.user_name, id: this.user_id};
       this.$refs.typeahead.$data.inputValue = this.user_name;
   },
-  
+
   methods: {
     async getNames(query) {
-      const res = await fetch(API_URL.replace(':query', query))
-      const users = await res.json()
+        let users = [];
+      const res = await axios(API_URL.replace(':query', query))
+          .then(({data})=>{
+              users = data.data;
+          });
 
       this.userNames = users
     },
@@ -49,8 +52,8 @@ export default {
   },
 
   watch: {
-    nameSearch: _.debounce(function(name) { 
-      this.getNames(name);  
+    nameSearch: _.debounce(function(name) {
+      this.getNames(name);
       if(this.nameSearch != this.selectedUser.name){
         this.selectedUser = this.defaultUser();
       }

@@ -24,7 +24,7 @@
             <template v-slot:cell(user_balance)="data">
                 {{data.item.user_balance}}
                 <template v-if="data.item.transaction_type == 'DEBIT'">
-                    <router-link :to="{'name': 'transactions.create', params: { key: data.item.id}}" :key="3" active-class="active">Repeat</router-link>
+                    <router-link :to="{'name': 'transactions.create', query: { key: data.item.id}}" :key="3" active-class="active">Repeat</router-link>
                 </template>
             </template>
 

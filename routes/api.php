@@ -29,6 +29,9 @@ Route::group([
     'middleware' => ['auth:api']
 ], function () {
     Route::get('/', 'TransactionController@index')->name('api.transactions.index');
+    Route::get('/users','UserController@index')->name('api.users.index');
+    Route::get('/transactions/create','TransactionController@create')->name('api.transactions.create');
+    Route::post('/transactions/','TransactionController@store')->name('api.transactions.store');
 
     Route::group([
         'prefix' => 'admin',
@@ -37,11 +40,11 @@ Route::group([
     ], function () {
         Route::get('/', 'TransactionController@index')->name('api.admin.transactions.index');
         Route::get('/transactions/edit/{id}', 'TransactionController@edit')->name('api.admin.transactions.edit');
-        Route::patch('/transactions/edit/{id}', 'TransactionController@update')->name('api.admin.transactions.update');
+        Route::patch('/transactions/{id}', 'TransactionController@update')->name('api.admin.transactions.update');
 
         Route::get('/users', 'UserController@index')->name('api.admin.users.index');
         Route::get('/users/{user}', 'UserController@show')->name('api.admin.users.show');
-        Route::patch('/users/edit/{user}', 'UserController@update')->name('api.admin.users.update');
+        Route::patch('/users/{user}', 'UserController@update')->name('api.admin.users.update');
     });
 
 });

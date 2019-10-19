@@ -27,7 +27,7 @@
 </template>
 
 <script>
-    import methods from "../../mixins/apiMethods";
+    import methods from "../../../mixins/apiMethods";
 
     export default {
         mixins: [methods],

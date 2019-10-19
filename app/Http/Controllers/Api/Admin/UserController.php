@@ -17,17 +17,30 @@ class UserController extends BaseController
 
         $this->orderUsers($query, $fields);
 
-        return $this->formedSuccessResult($query->paginate(10));
+        $page = (int)request()->get('limit');
+        if(empty($page) || $page > 50){
+            $page =  10;
+        }
+
+        return $this->formedSuccessResult($query->paginate($page));
 
     }
 
-    public function show(User $user)
+    public function show($id)
     {
+        if (empty($user = User::find($id))) {
+            return $this->formedErrorResult('Not found', 404);
+        }
+
         return $this->formedSuccessResult($user);
     }
 
-    public function update(User $user)
+    public function update($id)
     {
+        if (empty($user = User::find($id))) {
+            return $this->formedErrorResult('Not found', 404);
+        }
+
         $user->update(request()->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],

@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Rules\MaxUserBalance;
 use App\Services\TransactionService;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends BaseController
 {
@@ -18,7 +19,8 @@ class TransactionController extends BaseController
 
     public function index()
     {
-        $query = $this->service->getTransactionsQueryWithFilter(auth()->id());
+        $query = $this->service->getTransactionsQueryWithFilterAndOrder(auth()->id());
+
         $page = (int)request()->get('limit');
         if(empty($page) || $page > 50){
             $page =  10;
@@ -51,7 +53,7 @@ class TransactionController extends BaseController
             }
         }
 
-        return view('transactions.create', compact('transaction'));
+        return $this->formedSuccessResult($transaction);
     }
 
     public function store(MaxUserBalance $maxBalance)
@@ -68,11 +70,9 @@ class TransactionController extends BaseController
         try {
             $this->service->create(auth()->user(), $otherUser, request('amount'));
         } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Server error, please try again');
+            return $this->formedErrorResult('Server error, please try again');
         }
 
-        return redirect()->route('transactions.index')
-            ->with('success', 'Your transaction has been completed!');
+        return $this->formedSuccessResult(['balance' => Auth::user()->fresh()->currentBalance]);
     }
 }

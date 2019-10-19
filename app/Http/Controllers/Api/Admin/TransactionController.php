@@ -22,7 +22,12 @@ class TransactionController extends BaseController
 
         $this->adminService->orderTransactionList($query);
 
-        return $this->formedSuccessResult($query->paginate(10));
+        $page = (int)request()->get('limit');
+        if(empty($page) || $page > 50){
+            $page =  10;
+        }
+
+        return $this->formedSuccessResult($query->paginate($page));
     }
 
     public function edit($id)

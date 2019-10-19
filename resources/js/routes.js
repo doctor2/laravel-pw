@@ -6,20 +6,15 @@ Vue.use(VueRouter);
 import E404 from './components/pages/E404';
 
 
-// import  AdminTransactions from './components/old/tables/AdminTransaction.vue';
-// import  AdminUsers from './components/old/tables/AdminUser.vue';
 import Transactions from './components/pages/Transaction.vue';
-import AdminTransactions from './components/pages/Admin/Transaction.vue';
-import AdminTransactionsEdit from './components/pages/Admin/TransactionEdit.vue';
+import CreateTransaction from './components/pages/CreateTransaction.vue';
+import AdminTransactions from './components/pages/Admin/Transaction/Index.vue';
+import AdminTransactionsEdit from './components/pages/Admin/Transaction/Edit.vue';
 import AdminUsersShow from './components/pages/Admin/User/Show.vue';
 import AdminUsersEdit from './components/pages/Admin/User/Edit.vue';
 import AdminUsers from './components/pages/Admin/User/Index.vue';
 import Register from './components/pages/Register.vue'
 import Login from './components/pages/Login.vue'
-// Vue.component('admin-transaction', AdminTransactions);
-// Vue.component('admin-user', AdminUsers);
-// Vue.component('admin-transaction-edit', require('./components/old/AdminTransactionEdit.vue'));
-// Vue.component('autocomplete', require('./components/old/Autocomplete.vue'));
 
 
 const routes = [
@@ -38,7 +33,7 @@ const routes = [
     {
         path: '/transactions/create',
         name: 'transactions.create',
-        // component: TransactionsCreate,
+        component: CreateTransaction,
         meta: {
             auth: true
         }
@@ -103,6 +98,7 @@ const routes = [
     },
     {
         path: '*',
+        name: 'E404',
         component: E404
     }
 ];

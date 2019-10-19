@@ -8,6 +8,11 @@ export default {
                 forAdmin: false
             },
             {
+                url: '/transactions/create',
+                text: 'Create transaction',
+                forAdmin: false
+            },
+            {
                 url: '/admin/transactions',
                 text: 'Admin transactions',
                 forAdmin: true

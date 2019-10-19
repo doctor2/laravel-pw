@@ -35,7 +35,7 @@ class TransactionService
         });
     }
 
-    public function getTransactionsQueryWithFilter($userId)
+    public function getTransactionsQueryWithFilterAndOrder($userId)
     {
         $debitQuery = $this->getDebitTransactionsQuery($userId);
 

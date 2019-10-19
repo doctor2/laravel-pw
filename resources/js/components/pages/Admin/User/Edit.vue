@@ -78,13 +78,14 @@
                 has_error: false,
                 error: '',
                 errors: {},
-                success: false
+                success: false,
+                API_URL: '/admin/users/' + this.$route.params.id
             }
         },
         methods: {
             update() {
                 axios
-                    .patch('/admin/users/edit/' + this.$route.params.id, {
+                    .patch(this.API_URL, {
                         banned: this.banned,
                         name: this.name,
                         email: this.email
@@ -104,15 +105,21 @@
             }
         },
         mounted() {
-            let that = this;
-            axios.get('/admin/users/' + this.$route.params.id)
-                .then(function ({data}) {
-                        that.banned = data.data.banned;
-                        that.name = data.data.name;
-                        that.title = data.data.name;
-                        that.email = data.data.email;
+            axios.get(this.API_URL)
+                .then(({data}) => {
+                    // console.log(JSON.stringify(data));
+
+                    this.banned = data.data.banned;
+                        this.name = data.data.name;
+                        this.title = data.data.name;
+                        this.email = data.data.email;
                     }
                 )
+                .catch(error => {
+                    if(error.response.data.code == 404){
+                        this.$router.push({name: 'E404'});
+                    }
+                });
         },
     };
 </script>

@@ -35,16 +35,21 @@
     export default {
         data() {
             return {
-                user: {}
+                user: {},
+                API_URL: '/admin/users/' + this.$route.params.id
             };
         },
         mounted() {
-            let that = this;
-            axios.get('/admin/users/'+ this.$route.params.id)
-                .then(function ({data}) {
-                        that.user = data.data;
+            axios.get(this.API_URL)
+                .then(({data}) => {
+                        this.user = data.data;
                     }
                 )
+                .catch(error => {
+                    if(error.response.data.code == 404){
+                        this.$router.push({name: 'E404'});
+                    }
+                });
         },
     };
 </script>

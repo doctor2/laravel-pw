@@ -77830,20 +77830,22 @@ module.exports = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_pages_E404___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_pages_E404__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_pages_Transaction_vue__ = __webpack_require__(276);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_pages_Transaction_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_pages_Transaction_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_pages_Admin_Transaction_vue__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_pages_Admin_Transaction_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_pages_Admin_Transaction_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_pages_Admin_TransactionEdit_vue__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_pages_Admin_TransactionEdit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_pages_Admin_TransactionEdit_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_pages_Admin_User_Show_vue__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_pages_Admin_User_Show_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_pages_Admin_User_Show_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_pages_Admin_User_Edit_vue__ = __webpack_require__(291);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_pages_Admin_User_Edit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_pages_Admin_User_Edit_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_pages_Admin_User_Index_vue__ = __webpack_require__(294);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_pages_Admin_User_Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_pages_Admin_User_Index_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_pages_Register_vue__ = __webpack_require__(297);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_pages_Register_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_pages_Register_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_pages_Login_vue__ = __webpack_require__(300);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_pages_Login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__components_pages_Login_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_pages_CreateTransaction_vue__ = __webpack_require__(340);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_pages_CreateTransaction_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_pages_CreateTransaction_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_pages_Admin_Transaction_Index_vue__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_pages_Admin_Transaction_Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_pages_Admin_Transaction_Index_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_pages_Admin_Transaction_Edit_vue__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_pages_Admin_Transaction_Edit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_pages_Admin_Transaction_Edit_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_pages_Admin_User_Show_vue__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_pages_Admin_User_Show_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_pages_Admin_User_Show_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_pages_Admin_User_Edit_vue__ = __webpack_require__(291);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_pages_Admin_User_Edit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_pages_Admin_User_Edit_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_pages_Admin_User_Index_vue__ = __webpack_require__(294);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_pages_Admin_User_Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_pages_Admin_User_Index_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_pages_Register_vue__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_pages_Register_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__components_pages_Register_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_pages_Login_vue__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_pages_Login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__components_pages_Login_vue__);
 
 
 
@@ -77851,8 +77853,6 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 
 
 
-// import  AdminTransactions from './components/old/tables/AdminTransaction.vue';
-// import  AdminUsers from './components/old/tables/AdminUser.vue';
 
 
 
@@ -77861,10 +77861,6 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 
 
 
-// Vue.component('admin-transaction', AdminTransactions);
-// Vue.component('admin-user', AdminUsers);
-// Vue.component('admin-transaction-edit', require('./components/old/AdminTransactionEdit.vue'));
-// Vue.component('autocomplete', require('./components/old/Autocomplete.vue'));
 
 
 var routes = [{
@@ -77880,28 +77876,28 @@ var routes = [{
 }, {
     path: '/transactions/create',
     name: 'transactions.create',
-    // component: TransactionsCreate,
+    component: __WEBPACK_IMPORTED_MODULE_4__components_pages_CreateTransaction_vue___default.a,
     meta: {
         auth: true
     }
 }, {
     path: '/register',
     name: 'register',
-    component: __WEBPACK_IMPORTED_MODULE_9__components_pages_Register_vue___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_10__components_pages_Register_vue___default.a,
     meta: {
         auth: false
     }
 }, {
     path: '/login',
     name: 'login',
-    component: __WEBPACK_IMPORTED_MODULE_10__components_pages_Login_vue___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_11__components_pages_Login_vue___default.a,
     meta: {
         auth: false
     }
 }, {
     path: '/admin/transactions',
     name: 'admin.transactions.index',
-    component: __WEBPACK_IMPORTED_MODULE_4__components_pages_Admin_Transaction_vue___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_5__components_pages_Admin_Transaction_Index_vue___default.a,
     meta: {
         auth: true
         // auth: {isAdmin: true, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
@@ -77909,7 +77905,7 @@ var routes = [{
 }, {
     path: '/admin/transactions/edit/:id',
     name: 'admin.transactions.edit',
-    component: __WEBPACK_IMPORTED_MODULE_5__components_pages_Admin_TransactionEdit_vue___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_6__components_pages_Admin_Transaction_Edit_vue___default.a,
     meta: {
         auth: true
         // auth: {isAdmin: true, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
@@ -77917,26 +77913,27 @@ var routes = [{
 }, {
     path: '/admin/users/edit/:id',
     name: 'admin.users.edit',
-    component: __WEBPACK_IMPORTED_MODULE_7__components_pages_Admin_User_Edit_vue___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_8__components_pages_Admin_User_Edit_vue___default.a,
     meta: {
         auth: true
     }
 }, {
     path: '/admin/users/:id',
     name: 'admin.users.show',
-    component: __WEBPACK_IMPORTED_MODULE_6__components_pages_Admin_User_Show_vue___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_7__components_pages_Admin_User_Show_vue___default.a,
     meta: {
         auth: true
     }
 }, {
     path: '/admin/users',
     name: 'admin.users.index',
-    component: __WEBPACK_IMPORTED_MODULE_8__components_pages_Admin_User_Index_vue___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_9__components_pages_Admin_User_Index_vue___default.a,
     meta: {
         auth: true
     }
 }, {
     path: '*',
+    name: 'E404',
     component: __WEBPACK_IMPORTED_MODULE_2__components_pages_E404___default.a
 }];
 
@@ -79037,7 +79034,7 @@ var render = function() {
                           attrs: {
                             to: {
                               name: "transactions.create",
-                              params: { key: data.item.id }
+                              query: { key: data.item.id }
                             },
                             "active-class": "active"
                           }
@@ -79105,7 +79102,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/js/components/pages/Admin/Transaction.vue"
+Component.options.__file = "resources/js/components/pages/Admin/Transaction/Index.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -79114,9 +79111,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-75bacc58", Component.options)
+    hotAPI.createRecord("data-v-18565e8a", Component.options)
   } else {
-    hotAPI.reload("data-v-75bacc58", Component.options)
+    hotAPI.reload("data-v-18565e8a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -79299,7 +79296,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-75bacc58", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-18565e8a", module.exports)
   }
 }
 
@@ -79329,7 +79326,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/js/components/pages/Admin/TransactionEdit.vue"
+Component.options.__file = "resources/js/components/pages/Admin/Transaction/Edit.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -79338,9 +79335,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5c70acfc", Component.options)
+    hotAPI.createRecord("data-v-0506619e", Component.options)
   } else {
-    hotAPI.reload("data-v-5c70acfc", Component.options)
+    hotAPI.reload("data-v-0506619e", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -79429,38 +79426,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        var that = this;
+        var _this = this;
+
         axios.get('/admin/transactions/edit/' + this.$route.params.id).then(function (_ref) {
             var data = _ref.data;
 
-            that.item = data.data;
+            _this.item = data.data;
         });
     },
 
     methods: {
         update: function update() {
-            var _this = this;
+            var _this2 = this;
 
             axios.patch("/admin/transactions/edit/" + this.item.id, {
                 amount: this.item.amount
             }).then(function (_ref2) {
                 var data = _ref2.data;
 
-                _this.item = data.data;
+                _this2.item = data.data;
 
-                _this.updateSuccess = true;
+                _this2.updateSuccess = true;
 
                 setTimeout(function () {
-                    return _this.updateSuccess = false;
+                    return _this2.updateSuccess = false;
                 }, 5000);
             }).catch(function (error) {
                 // console.log(JSON.stringify(error.response));
-                _this.errorMessage = error.response.data.message;
+                _this2.errorMessage = error.response.data.message;
 
-                _this.updateFail = true;
+                _this2.updateFail = true;
 
                 setTimeout(function () {
-                    return _this.updateFail = false;
+                    return _this2.updateFail = false;
                 }, 5000);
             });
             this.editing = false;
@@ -79639,7 +79637,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-5c70acfc", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-0506619e", module.exports)
   }
 }
 
@@ -79733,15 +79731,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            user: {}
+            user: {},
+            API_URL: '/admin/users/' + this.$route.params.id
         };
     },
     mounted: function mounted() {
-        var that = this;
-        axios.get('/admin/users/' + this.$route.params.id).then(function (_ref) {
+        var _this = this;
+
+        axios.get(this.API_URL).then(function (_ref) {
             var data = _ref.data;
 
-            that.user = data.data;
+            _this.user = data.data;
+        }).catch(function (error) {
+            if (error.response.data.code == 404) {
+                _this.$router.push({ name: 'E404' });
+            }
         });
     }
 });
@@ -79961,7 +79965,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             has_error: false,
             error: '',
             errors: {},
-            success: false
+            success: false,
+            API_URL: '/admin/users/' + this.$route.params.id
         };
     },
 
@@ -79969,7 +79974,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         update: function update() {
             var _this = this;
 
-            axios.patch('/admin/users/edit/' + this.$route.params.id, {
+            axios.patch(this.API_URL, {
                 banned: this.banned,
                 name: this.name,
                 email: this.email
@@ -79991,14 +79996,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        var that = this;
-        axios.get('/admin/users/' + this.$route.params.id).then(function (_ref2) {
+        var _this2 = this;
+
+        axios.get(this.API_URL).then(function (_ref2) {
             var data = _ref2.data;
 
-            that.banned = data.data.banned;
-            that.name = data.data.name;
-            that.title = data.data.name;
-            that.email = data.data.email;
+            // console.log(JSON.stringify(data));
+
+            _this2.banned = data.data.banned;
+            _this2.name = data.data.name;
+            _this2.title = data.data.name;
+            _this2.email = data.data.email;
+        }).catch(function (error) {
+            if (error.response.data.code == 404) {
+                _this2.$router.push({ name: 'E404' });
+            }
         });
     }
 });
@@ -81108,6 +81120,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         items: [{
             url: '/',
             text: 'Transactions',
+            forAdmin: false
+        }, {
+            url: '/transactions/create',
+            text: 'Create transaction',
             forAdmin: false
         }, {
             url: '/admin/transactions',
@@ -85309,6 +85325,2211 @@ const onlyInt = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(16)
+/* script */
+var __vue_script__ = __webpack_require__(341)
+/* template */
+var __vue_template__ = __webpack_require__(357)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/pages/CreateTransaction.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-20a4529c", Component.options)
+  } else {
+    hotAPI.reload("data-v-20a4529c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 341 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Autocomplete_vue__ = __webpack_require__(342);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Autocomplete_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Autocomplete_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        autocomplete: __WEBPACK_IMPORTED_MODULE_0__Autocomplete_vue___default.a
+    },
+    data: function data() {
+        return {
+            user_name: '',
+            user_id: '',
+            amount: '',
+            has_error: false,
+            error: '',
+            errors: {},
+            success: false,
+            fail: false,
+            isLoaded: false
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        axios.get('/transactions/create/?key=' + this.$route.query.key).then(function (_ref) {
+            var data = _ref.data;
+
+            _this.user_name = data.data.user_name;
+            _this.user_id = data.data.user_id;
+            _this.amount = data.data.amount;
+        }).catch(function (error) {
+            if (error.response.data.code == 404) {
+                _this.$router.push({ name: 'E404' });
+            }
+        }).then(function () {
+            _this.isLoaded = true;
+        });
+    },
+
+    methods: {
+        update: function update() {
+            var _this2 = this;
+
+            axios.post("/transactions/", {
+                user_name: this.user_name,
+                user_id: this.user_id,
+                amount: this.amount
+            }).then(function (_ref2) {
+                var data = _ref2.data;
+
+                _this2.success = true;
+
+                _this2.amount = 0;
+                _this2.user_name = '';
+                _this2.user_id = '';
+
+                setTimeout(function () {
+                    return _this2.success = false;
+                }, 5000);
+            }).catch(function (error) {
+                _this2.error = error.response.data.message;
+
+                _this2.fail = true;
+
+                setTimeout(function () {
+                    return _this2.fail = false;
+                }, 5000);
+            });
+            this.editing = false;
+        }
+    }
+});
+
+/***/ }),
+/* 342 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(16)
+/* script */
+var __vue_script__ = __webpack_require__(343)
+/* template */
+var __vue_template__ = __webpack_require__(356)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/Autocomplete.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c191a05a", Component.options)
+  } else {
+    hotAPI.reload("data-v-c191a05a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 343 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(278);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_bootstrap_typeahead__ = __webpack_require__(344);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_bootstrap_typeahead___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_bootstrap_typeahead__);
+
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+var API_URL = '/users?name=:query';
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user_name', 'user_id'],
+  components: {
+    VueBootstrapTypeahead: __WEBPACK_IMPORTED_MODULE_1_vue_bootstrap_typeahead___default.a
+  },
+  data: function data() {
+    return {
+      userNames: [],
+      nameSearch: '',
+      selectedUser: this.defaultUser()
+    };
+  },
+  mounted: function mounted() {
+    this.selectedUser = { name: this.user_name, id: this.user_id };
+    this.$refs.typeahead.$data.inputValue = this.user_name;
+  },
+
+
+  methods: {
+    getNames: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(query) {
+        var users, res;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                users = [];
+                _context.next = 3;
+                return axios(API_URL.replace(':query', query)).then(function (_ref2) {
+                  var data = _ref2.data;
+
+                  users = data.data;
+                });
+
+              case 3:
+                res = _context.sent;
+
+
+                this.userNames = users;
+
+              case 5:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getNames(_x) {
+        return _ref.apply(this, arguments);
+      }
+
+      return getNames;
+    }(),
+    defaultUser: function defaultUser() {
+      return { name: null, id: null };
+    }
+  },
+
+  watch: {
+    nameSearch: _.debounce(function (name) {
+      this.getNames(name);
+      if (this.nameSearch != this.selectedUser.name) {
+        this.selectedUser = this.defaultUser();
+      }
+    }, 500)
+  }
+});
+
+/***/ }),
+/* 344 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(345)
+}
+var normalizeComponent = __webpack_require__(16)
+/* script */
+var __vue_script__ = __webpack_require__(347)
+/* template */
+var __vue_template__ = __webpack_require__(355)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-9a21a6f4"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue-bootstrap-typeahead/src/components/VueBootstrapTypeahead.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-9a21a6f4", Component.options)
+  } else {
+    hotAPI.reload("data-v-9a21a6f4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 345 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(346);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(264)("4eb05bb4", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../css-loader/index.js!../../../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-9a21a6f4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../vue-loader/lib/selector.js?type=styles&index=0!./VueBootstrapTypeahead.vue", function() {
+     var newContent = require("!!../../../css-loader/index.js!../../../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-9a21a6f4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../vue-loader/lib/selector.js?type=styles&index=0!./VueBootstrapTypeahead.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 346 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(263)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.vbt-autcomplete-list[data-v-9a21a6f4] {\n  padding-top: 5px;\n  position: absolute;\n  max-height: 350px;\n  overflow-y: auto;\n  z-index: 999;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 347 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__VueBootstrapTypeaheadList_vue__ = __webpack_require__(348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__VueBootstrapTypeaheadList_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__VueBootstrapTypeaheadList_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_resize_observer_polyfill__ = __webpack_require__(354);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'VueBootstrapTypehead',
+
+  components: {
+    VueBootstrapTypeaheadList: __WEBPACK_IMPORTED_MODULE_0__VueBootstrapTypeaheadList_vue___default.a
+  },
+
+  props: {
+    size: {
+      type: String,
+      default: null,
+      validator: function validator(size) {
+        return ['lg', 'sm'].indexOf(size) > -1;
+      }
+    },
+    value: {
+      type: String
+    },
+    data: {
+      type: Array,
+      required: true,
+      validator: function validator(d) {
+        return d instanceof Array;
+      }
+    },
+    serializer: {
+      type: Function,
+      default: function _default(d) {
+        return d;
+      },
+      validator: function validator(d) {
+        return d instanceof Function;
+      }
+    },
+    backgroundVariant: String,
+    textVariant: String,
+    inputClass: {
+      type: String,
+      default: ''
+    },
+    maxMatches: {
+      type: Number,
+      default: 10
+    },
+    minMatchingChars: {
+      type: Number,
+      default: 2
+    },
+    placeholder: String,
+    prepend: String,
+    append: String
+  },
+
+  computed: {
+    sizeClasses: function sizeClasses() {
+      return this.size ? 'input-group input-group-' + this.size : 'input-group';
+    },
+    formattedData: function formattedData() {
+      var _this = this;
+
+      if (!(this.data instanceof Array)) {
+        return [];
+      }
+      return this.data.map(function (d, i) {
+        return {
+          id: i,
+          data: d,
+          text: _this.serializer(d)
+        };
+      });
+    }
+  },
+
+  methods: {
+    resizeList: function resizeList(el) {
+      var rect = el.getBoundingClientRect();
+      var listStyle = this.$refs.list.$el.style;
+
+      // Set the width of the list on resize
+      listStyle.width = rect.width + 'px';
+
+      // Set the margin when the prepend prop or slot is populated
+      // (setting the "left" CSS property doesn't work)
+      if (this.$refs.prependDiv) {
+        var prependRect = this.$refs.prependDiv.getBoundingClientRect();
+        listStyle.marginLeft = prependRect.width + 'px';
+      }
+    },
+    handleHit: function handleHit(evt) {
+      if (typeof this.value !== 'undefined') {
+        this.$emit('input', evt.text);
+      }
+
+      this.inputValue = evt.text;
+      this.$emit('hit', evt.data);
+      this.$refs.input.blur();
+      this.isFocused = false;
+    },
+    handleBlur: function handleBlur(evt) {
+      var tgt = evt.relatedTarget;
+      if (tgt && tgt.classList.contains('vbst-item')) {
+        return;
+      }
+      this.isFocused = false;
+    },
+    handleInput: function handleInput(newValue) {
+      this.inputValue = newValue;
+
+      // If v-model is being used, emit an input event
+      if (typeof this.value !== 'undefined') {
+        this.$emit('input', newValue);
+      }
+    }
+  },
+
+  data: function data() {
+    return {
+      isFocused: false,
+      inputValue: ''
+    };
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$_ro = new __WEBPACK_IMPORTED_MODULE_1_resize_observer_polyfill__["a" /* default */](function (e) {
+      _this2.resizeList(_this2.$refs.input);
+    });
+    this.$_ro.observe(this.$refs.input);
+    this.$_ro.observe(this.$refs.list.$el);
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.$_ro.disconnect();
+  }
+});
+
+/***/ }),
+/* 348 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(16)
+/* script */
+var __vue_script__ = __webpack_require__(349)
+/* template */
+var __vue_template__ = __webpack_require__(353)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue-bootstrap-typeahead/src/components/VueBootstrapTypeaheadList.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-dde7c978", Component.options)
+  } else {
+    hotAPI.reload("data-v-dde7c978", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 349 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__VueBootstrapTypeaheadListItem_vue__ = __webpack_require__(350);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__VueBootstrapTypeaheadListItem_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__VueBootstrapTypeaheadListItem_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+function sanitize(text) {
+  return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function escapeRegExp(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'VueBootstrapTypeaheadList',
+
+  components: {
+    VueBootstrapTypeaheadListItem: __WEBPACK_IMPORTED_MODULE_0__VueBootstrapTypeaheadListItem_vue___default.a
+  },
+
+  props: {
+    data: {
+      type: Array,
+      required: true,
+      validator: function validator(d) {
+        return d instanceof Array;
+      }
+    },
+    query: {
+      type: String,
+      default: ''
+    },
+    backgroundVariant: {
+      type: String
+    },
+    textVariant: {
+      type: String
+    },
+    maxMatches: {
+      type: Number,
+      default: 10
+    },
+    minMatchingChars: {
+      type: Number,
+      default: 2
+    }
+  },
+
+  computed: {
+    highlight: function highlight() {
+      var _this = this;
+
+      return function (text) {
+        text = sanitize(text);
+        if (_this.query.length === 0) {
+          return text;
+        }
+        var re = new RegExp(_this.escapedQuery, 'gi');
+
+        return text.replace(re, '<strong>$&</strong>');
+      };
+    },
+    escapedQuery: function escapedQuery() {
+      return escapeRegExp(sanitize(this.query));
+    },
+    matchedItems: function matchedItems() {
+      if (this.query.length === 0 || this.query.length < this.minMatchingChars) {
+        return [];
+      }
+
+      var re = new RegExp(this.escapedQuery, 'gi');
+
+      // Filter, sort, and concat
+      return this.data.filter(function (i) {
+        return i.text.match(re) !== null;
+      }).sort(function (a, b) {
+        var aIndex = a.text.indexOf(a.text.match(re)[0]);
+        var bIndex = b.text.indexOf(b.text.match(re)[0]);
+
+        if (aIndex < bIndex) {
+          return -1;
+        }
+        if (aIndex > bIndex) {
+          return 1;
+        }
+        return 0;
+      }).slice(0, this.maxMatches);
+    }
+  },
+
+  methods: {
+    handleHit: function handleHit(item, evt) {
+      this.$emit('hit', item);
+      evt.preventDefault();
+    }
+  }
+});
+
+/***/ }),
+/* 350 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(16)
+/* script */
+var __vue_script__ = __webpack_require__(351)
+/* template */
+var __vue_template__ = __webpack_require__(352)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue-bootstrap-typeahead/src/components/VueBootstrapTypeaheadListItem.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1b7202f7", Component.options)
+  } else {
+    hotAPI.reload("data-v-1b7202f7", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 351 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'VueBootstrapTypeaheadListItem',
+
+  props: {
+    data: {},
+    htmlText: {
+      type: String
+    },
+    backgroundVariant: {
+      type: String
+    },
+    textVariant: {
+      type: String
+    }
+  },
+
+  data: function data() {
+    return {
+      active: false
+    };
+  },
+
+
+  computed: {
+    textClasses: function textClasses() {
+      var classes = '';
+      classes += this.active ? 'active' : '';
+      classes += this.backgroundVariant ? ' bg-' + this.backgroundVariant : '';
+      classes += this.textVariant ? ' text-' + this.textVariant : '';
+      return 'vbst-item list-group-item list-group-item-action ' + classes;
+    }
+  }
+});
+
+/***/ }),
+/* 352 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "a",
+    {
+      class: _vm.textClasses,
+      attrs: { tabindex: "0", href: "#" },
+      on: {
+        mouseover: function($event) {
+          _vm.active = true
+        },
+        mouseout: function($event) {
+          _vm.active = false
+        }
+      }
+    },
+    [
+      _vm._t(
+        "suggestion",
+        [_c("span", { domProps: { innerHTML: _vm._s(_vm.htmlText) } })],
+        null,
+        { data: _vm.data, htmlText: _vm.htmlText }
+      )
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1b7202f7", module.exports)
+  }
+}
+
+/***/ }),
+/* 353 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "list-group shadow" },
+    _vm._l(_vm.matchedItems, function(item, id) {
+      return _c("vue-bootstrap-typeahead-list-item", {
+        key: id,
+        attrs: {
+          data: item.data,
+          "html-text": _vm.highlight(item.text),
+          "background-variant": _vm.backgroundVariant,
+          "text-variant": _vm.textVariant
+        },
+        nativeOn: {
+          click: function($event) {
+            return _vm.handleHit(item, $event)
+          }
+        },
+        scopedSlots: _vm._u(
+          [
+            {
+              key: "suggestion",
+              fn: function(ref) {
+                var data = ref.data
+                var htmlText = ref.htmlText
+                return _vm.$scopedSlots.suggestion
+                  ? [
+                      _vm._t("suggestion", null, null, {
+                        data: data,
+                        htmlText: htmlText
+                      })
+                    ]
+                  : undefined
+              }
+            }
+          ],
+          null,
+          true
+        )
+      })
+    }),
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-dde7c978", module.exports)
+  }
+}
+
+/***/ }),
+/* 354 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * A collection of shims that provide minimal functionality of the ES6 collections.
+ *
+ * These implementations are not meant to be used outside of the ResizeObserver
+ * modules as they cover only a limited range of use cases.
+ */
+/* eslint-disable require-jsdoc, valid-jsdoc */
+var MapShim = (function () {
+    if (typeof Map !== 'undefined') {
+        return Map;
+    }
+    /**
+     * Returns index in provided array that matches the specified key.
+     *
+     * @param {Array<Array>} arr
+     * @param {*} key
+     * @returns {number}
+     */
+    function getIndex(arr, key) {
+        var result = -1;
+        arr.some(function (entry, index) {
+            if (entry[0] === key) {
+                result = index;
+                return true;
+            }
+            return false;
+        });
+        return result;
+    }
+    return /** @class */ (function () {
+        function class_1() {
+            this.__entries__ = [];
+        }
+        Object.defineProperty(class_1.prototype, "size", {
+            /**
+             * @returns {boolean}
+             */
+            get: function () {
+                return this.__entries__.length;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @param {*} key
+         * @returns {*}
+         */
+        class_1.prototype.get = function (key) {
+            var index = getIndex(this.__entries__, key);
+            var entry = this.__entries__[index];
+            return entry && entry[1];
+        };
+        /**
+         * @param {*} key
+         * @param {*} value
+         * @returns {void}
+         */
+        class_1.prototype.set = function (key, value) {
+            var index = getIndex(this.__entries__, key);
+            if (~index) {
+                this.__entries__[index][1] = value;
+            }
+            else {
+                this.__entries__.push([key, value]);
+            }
+        };
+        /**
+         * @param {*} key
+         * @returns {void}
+         */
+        class_1.prototype.delete = function (key) {
+            var entries = this.__entries__;
+            var index = getIndex(entries, key);
+            if (~index) {
+                entries.splice(index, 1);
+            }
+        };
+        /**
+         * @param {*} key
+         * @returns {void}
+         */
+        class_1.prototype.has = function (key) {
+            return !!~getIndex(this.__entries__, key);
+        };
+        /**
+         * @returns {void}
+         */
+        class_1.prototype.clear = function () {
+            this.__entries__.splice(0);
+        };
+        /**
+         * @param {Function} callback
+         * @param {*} [ctx=null]
+         * @returns {void}
+         */
+        class_1.prototype.forEach = function (callback, ctx) {
+            if (ctx === void 0) { ctx = null; }
+            for (var _i = 0, _a = this.__entries__; _i < _a.length; _i++) {
+                var entry = _a[_i];
+                callback.call(ctx, entry[1], entry[0]);
+            }
+        };
+        return class_1;
+    }());
+})();
+
+/**
+ * Detects whether window and document objects are available in current environment.
+ */
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined' && window.document === document;
+
+// Returns global object of a current environment.
+var global$1 = (function () {
+    if (typeof global !== 'undefined' && global.Math === Math) {
+        return global;
+    }
+    if (typeof self !== 'undefined' && self.Math === Math) {
+        return self;
+    }
+    if (typeof window !== 'undefined' && window.Math === Math) {
+        return window;
+    }
+    // eslint-disable-next-line no-new-func
+    return Function('return this')();
+})();
+
+/**
+ * A shim for the requestAnimationFrame which falls back to the setTimeout if
+ * first one is not supported.
+ *
+ * @returns {number} Requests' identifier.
+ */
+var requestAnimationFrame$1 = (function () {
+    if (typeof requestAnimationFrame === 'function') {
+        // It's required to use a bounded function because IE sometimes throws
+        // an "Invalid calling object" error if rAF is invoked without the global
+        // object on the left hand side.
+        return requestAnimationFrame.bind(global$1);
+    }
+    return function (callback) { return setTimeout(function () { return callback(Date.now()); }, 1000 / 60); };
+})();
+
+// Defines minimum timeout before adding a trailing call.
+var trailingTimeout = 2;
+/**
+ * Creates a wrapper function which ensures that provided callback will be
+ * invoked only once during the specified delay period.
+ *
+ * @param {Function} callback - Function to be invoked after the delay period.
+ * @param {number} delay - Delay after which to invoke callback.
+ * @returns {Function}
+ */
+function throttle (callback, delay) {
+    var leadingCall = false, trailingCall = false, lastCallTime = 0;
+    /**
+     * Invokes the original callback function and schedules new invocation if
+     * the "proxy" was called during current request.
+     *
+     * @returns {void}
+     */
+    function resolvePending() {
+        if (leadingCall) {
+            leadingCall = false;
+            callback();
+        }
+        if (trailingCall) {
+            proxy();
+        }
+    }
+    /**
+     * Callback invoked after the specified delay. It will further postpone
+     * invocation of the original function delegating it to the
+     * requestAnimationFrame.
+     *
+     * @returns {void}
+     */
+    function timeoutCallback() {
+        requestAnimationFrame$1(resolvePending);
+    }
+    /**
+     * Schedules invocation of the original function.
+     *
+     * @returns {void}
+     */
+    function proxy() {
+        var timeStamp = Date.now();
+        if (leadingCall) {
+            // Reject immediately following calls.
+            if (timeStamp - lastCallTime < trailingTimeout) {
+                return;
+            }
+            // Schedule new call to be in invoked when the pending one is resolved.
+            // This is important for "transitions" which never actually start
+            // immediately so there is a chance that we might miss one if change
+            // happens amids the pending invocation.
+            trailingCall = true;
+        }
+        else {
+            leadingCall = true;
+            trailingCall = false;
+            setTimeout(timeoutCallback, delay);
+        }
+        lastCallTime = timeStamp;
+    }
+    return proxy;
+}
+
+// Minimum delay before invoking the update of observers.
+var REFRESH_DELAY = 20;
+// A list of substrings of CSS properties used to find transition events that
+// might affect dimensions of observed elements.
+var transitionKeys = ['top', 'right', 'bottom', 'left', 'width', 'height', 'size', 'weight'];
+// Check if MutationObserver is available.
+var mutationObserverSupported = typeof MutationObserver !== 'undefined';
+/**
+ * Singleton controller class which handles updates of ResizeObserver instances.
+ */
+var ResizeObserverController = /** @class */ (function () {
+    /**
+     * Creates a new instance of ResizeObserverController.
+     *
+     * @private
+     */
+    function ResizeObserverController() {
+        /**
+         * Indicates whether DOM listeners have been added.
+         *
+         * @private {boolean}
+         */
+        this.connected_ = false;
+        /**
+         * Tells that controller has subscribed for Mutation Events.
+         *
+         * @private {boolean}
+         */
+        this.mutationEventsAdded_ = false;
+        /**
+         * Keeps reference to the instance of MutationObserver.
+         *
+         * @private {MutationObserver}
+         */
+        this.mutationsObserver_ = null;
+        /**
+         * A list of connected observers.
+         *
+         * @private {Array<ResizeObserverSPI>}
+         */
+        this.observers_ = [];
+        this.onTransitionEnd_ = this.onTransitionEnd_.bind(this);
+        this.refresh = throttle(this.refresh.bind(this), REFRESH_DELAY);
+    }
+    /**
+     * Adds observer to observers list.
+     *
+     * @param {ResizeObserverSPI} observer - Observer to be added.
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.addObserver = function (observer) {
+        if (!~this.observers_.indexOf(observer)) {
+            this.observers_.push(observer);
+        }
+        // Add listeners if they haven't been added yet.
+        if (!this.connected_) {
+            this.connect_();
+        }
+    };
+    /**
+     * Removes observer from observers list.
+     *
+     * @param {ResizeObserverSPI} observer - Observer to be removed.
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.removeObserver = function (observer) {
+        var observers = this.observers_;
+        var index = observers.indexOf(observer);
+        // Remove observer if it's present in registry.
+        if (~index) {
+            observers.splice(index, 1);
+        }
+        // Remove listeners if controller has no connected observers.
+        if (!observers.length && this.connected_) {
+            this.disconnect_();
+        }
+    };
+    /**
+     * Invokes the update of observers. It will continue running updates insofar
+     * it detects changes.
+     *
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.refresh = function () {
+        var changesDetected = this.updateObservers_();
+        // Continue running updates if changes have been detected as there might
+        // be future ones caused by CSS transitions.
+        if (changesDetected) {
+            this.refresh();
+        }
+    };
+    /**
+     * Updates every observer from observers list and notifies them of queued
+     * entries.
+     *
+     * @private
+     * @returns {boolean} Returns "true" if any observer has detected changes in
+     *      dimensions of it's elements.
+     */
+    ResizeObserverController.prototype.updateObservers_ = function () {
+        // Collect observers that have active observations.
+        var activeObservers = this.observers_.filter(function (observer) {
+            return observer.gatherActive(), observer.hasActive();
+        });
+        // Deliver notifications in a separate cycle in order to avoid any
+        // collisions between observers, e.g. when multiple instances of
+        // ResizeObserver are tracking the same element and the callback of one
+        // of them changes content dimensions of the observed target. Sometimes
+        // this may result in notifications being blocked for the rest of observers.
+        activeObservers.forEach(function (observer) { return observer.broadcastActive(); });
+        return activeObservers.length > 0;
+    };
+    /**
+     * Initializes DOM listeners.
+     *
+     * @private
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.connect_ = function () {
+        // Do nothing if running in a non-browser environment or if listeners
+        // have been already added.
+        if (!isBrowser || this.connected_) {
+            return;
+        }
+        // Subscription to the "Transitionend" event is used as a workaround for
+        // delayed transitions. This way it's possible to capture at least the
+        // final state of an element.
+        document.addEventListener('transitionend', this.onTransitionEnd_);
+        window.addEventListener('resize', this.refresh);
+        if (mutationObserverSupported) {
+            this.mutationsObserver_ = new MutationObserver(this.refresh);
+            this.mutationsObserver_.observe(document, {
+                attributes: true,
+                childList: true,
+                characterData: true,
+                subtree: true
+            });
+        }
+        else {
+            document.addEventListener('DOMSubtreeModified', this.refresh);
+            this.mutationEventsAdded_ = true;
+        }
+        this.connected_ = true;
+    };
+    /**
+     * Removes DOM listeners.
+     *
+     * @private
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.disconnect_ = function () {
+        // Do nothing if running in a non-browser environment or if listeners
+        // have been already removed.
+        if (!isBrowser || !this.connected_) {
+            return;
+        }
+        document.removeEventListener('transitionend', this.onTransitionEnd_);
+        window.removeEventListener('resize', this.refresh);
+        if (this.mutationsObserver_) {
+            this.mutationsObserver_.disconnect();
+        }
+        if (this.mutationEventsAdded_) {
+            document.removeEventListener('DOMSubtreeModified', this.refresh);
+        }
+        this.mutationsObserver_ = null;
+        this.mutationEventsAdded_ = false;
+        this.connected_ = false;
+    };
+    /**
+     * "Transitionend" event handler.
+     *
+     * @private
+     * @param {TransitionEvent} event
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.onTransitionEnd_ = function (_a) {
+        var _b = _a.propertyName, propertyName = _b === void 0 ? '' : _b;
+        // Detect whether transition may affect dimensions of an element.
+        var isReflowProperty = transitionKeys.some(function (key) {
+            return !!~propertyName.indexOf(key);
+        });
+        if (isReflowProperty) {
+            this.refresh();
+        }
+    };
+    /**
+     * Returns instance of the ResizeObserverController.
+     *
+     * @returns {ResizeObserverController}
+     */
+    ResizeObserverController.getInstance = function () {
+        if (!this.instance_) {
+            this.instance_ = new ResizeObserverController();
+        }
+        return this.instance_;
+    };
+    /**
+     * Holds reference to the controller's instance.
+     *
+     * @private {ResizeObserverController}
+     */
+    ResizeObserverController.instance_ = null;
+    return ResizeObserverController;
+}());
+
+/**
+ * Defines non-writable/enumerable properties of the provided target object.
+ *
+ * @param {Object} target - Object for which to define properties.
+ * @param {Object} props - Properties to be defined.
+ * @returns {Object} Target object.
+ */
+var defineConfigurable = (function (target, props) {
+    for (var _i = 0, _a = Object.keys(props); _i < _a.length; _i++) {
+        var key = _a[_i];
+        Object.defineProperty(target, key, {
+            value: props[key],
+            enumerable: false,
+            writable: false,
+            configurable: true
+        });
+    }
+    return target;
+});
+
+/**
+ * Returns the global object associated with provided element.
+ *
+ * @param {Object} target
+ * @returns {Object}
+ */
+var getWindowOf = (function (target) {
+    // Assume that the element is an instance of Node, which means that it
+    // has the "ownerDocument" property from which we can retrieve a
+    // corresponding global object.
+    var ownerGlobal = target && target.ownerDocument && target.ownerDocument.defaultView;
+    // Return the local global object if it's not possible extract one from
+    // provided element.
+    return ownerGlobal || global$1;
+});
+
+// Placeholder of an empty content rectangle.
+var emptyRect = createRectInit(0, 0, 0, 0);
+/**
+ * Converts provided string to a number.
+ *
+ * @param {number|string} value
+ * @returns {number}
+ */
+function toFloat(value) {
+    return parseFloat(value) || 0;
+}
+/**
+ * Extracts borders size from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @param {...string} positions - Borders positions (top, right, ...)
+ * @returns {number}
+ */
+function getBordersSize(styles) {
+    var positions = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        positions[_i - 1] = arguments[_i];
+    }
+    return positions.reduce(function (size, position) {
+        var value = styles['border-' + position + '-width'];
+        return size + toFloat(value);
+    }, 0);
+}
+/**
+ * Extracts paddings sizes from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @returns {Object} Paddings box.
+ */
+function getPaddings(styles) {
+    var positions = ['top', 'right', 'bottom', 'left'];
+    var paddings = {};
+    for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
+        var position = positions_1[_i];
+        var value = styles['padding-' + position];
+        paddings[position] = toFloat(value);
+    }
+    return paddings;
+}
+/**
+ * Calculates content rectangle of provided SVG element.
+ *
+ * @param {SVGGraphicsElement} target - Element content rectangle of which needs
+ *      to be calculated.
+ * @returns {DOMRectInit}
+ */
+function getSVGContentRect(target) {
+    var bbox = target.getBBox();
+    return createRectInit(0, 0, bbox.width, bbox.height);
+}
+/**
+ * Calculates content rectangle of provided HTMLElement.
+ *
+ * @param {HTMLElement} target - Element for which to calculate the content rectangle.
+ * @returns {DOMRectInit}
+ */
+function getHTMLElementContentRect(target) {
+    // Client width & height properties can't be
+    // used exclusively as they provide rounded values.
+    var clientWidth = target.clientWidth, clientHeight = target.clientHeight;
+    // By this condition we can catch all non-replaced inline, hidden and
+    // detached elements. Though elements with width & height properties less
+    // than 0.5 will be discarded as well.
+    //
+    // Without it we would need to implement separate methods for each of
+    // those cases and it's not possible to perform a precise and performance
+    // effective test for hidden elements. E.g. even jQuery's ':visible' filter
+    // gives wrong results for elements with width & height less than 0.5.
+    if (!clientWidth && !clientHeight) {
+        return emptyRect;
+    }
+    var styles = getWindowOf(target).getComputedStyle(target);
+    var paddings = getPaddings(styles);
+    var horizPad = paddings.left + paddings.right;
+    var vertPad = paddings.top + paddings.bottom;
+    // Computed styles of width & height are being used because they are the
+    // only dimensions available to JS that contain non-rounded values. It could
+    // be possible to utilize the getBoundingClientRect if only it's data wasn't
+    // affected by CSS transformations let alone paddings, borders and scroll bars.
+    var width = toFloat(styles.width), height = toFloat(styles.height);
+    // Width & height include paddings and borders when the 'border-box' box
+    // model is applied (except for IE).
+    if (styles.boxSizing === 'border-box') {
+        // Following conditions are required to handle Internet Explorer which
+        // doesn't include paddings and borders to computed CSS dimensions.
+        //
+        // We can say that if CSS dimensions + paddings are equal to the "client"
+        // properties then it's either IE, and thus we don't need to subtract
+        // anything, or an element merely doesn't have paddings/borders styles.
+        if (Math.round(width + horizPad) !== clientWidth) {
+            width -= getBordersSize(styles, 'left', 'right') + horizPad;
+        }
+        if (Math.round(height + vertPad) !== clientHeight) {
+            height -= getBordersSize(styles, 'top', 'bottom') + vertPad;
+        }
+    }
+    // Following steps can't be applied to the document's root element as its
+    // client[Width/Height] properties represent viewport area of the window.
+    // Besides, it's as well not necessary as the <html> itself neither has
+    // rendered scroll bars nor it can be clipped.
+    if (!isDocumentElement(target)) {
+        // In some browsers (only in Firefox, actually) CSS width & height
+        // include scroll bars size which can be removed at this step as scroll
+        // bars are the only difference between rounded dimensions + paddings
+        // and "client" properties, though that is not always true in Chrome.
+        var vertScrollbar = Math.round(width + horizPad) - clientWidth;
+        var horizScrollbar = Math.round(height + vertPad) - clientHeight;
+        // Chrome has a rather weird rounding of "client" properties.
+        // E.g. for an element with content width of 314.2px it sometimes gives
+        // the client width of 315px and for the width of 314.7px it may give
+        // 314px. And it doesn't happen all the time. So just ignore this delta
+        // as a non-relevant.
+        if (Math.abs(vertScrollbar) !== 1) {
+            width -= vertScrollbar;
+        }
+        if (Math.abs(horizScrollbar) !== 1) {
+            height -= horizScrollbar;
+        }
+    }
+    return createRectInit(paddings.left, paddings.top, width, height);
+}
+/**
+ * Checks whether provided element is an instance of the SVGGraphicsElement.
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+var isSVGGraphicsElement = (function () {
+    // Some browsers, namely IE and Edge, don't have the SVGGraphicsElement
+    // interface.
+    if (typeof SVGGraphicsElement !== 'undefined') {
+        return function (target) { return target instanceof getWindowOf(target).SVGGraphicsElement; };
+    }
+    // If it's so, then check that element is at least an instance of the
+    // SVGElement and that it has the "getBBox" method.
+    // eslint-disable-next-line no-extra-parens
+    return function (target) { return (target instanceof getWindowOf(target).SVGElement &&
+        typeof target.getBBox === 'function'); };
+})();
+/**
+ * Checks whether provided element is a document element (<html>).
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+function isDocumentElement(target) {
+    return target === getWindowOf(target).document.documentElement;
+}
+/**
+ * Calculates an appropriate content rectangle for provided html or svg element.
+ *
+ * @param {Element} target - Element content rectangle of which needs to be calculated.
+ * @returns {DOMRectInit}
+ */
+function getContentRect(target) {
+    if (!isBrowser) {
+        return emptyRect;
+    }
+    if (isSVGGraphicsElement(target)) {
+        return getSVGContentRect(target);
+    }
+    return getHTMLElementContentRect(target);
+}
+/**
+ * Creates rectangle with an interface of the DOMRectReadOnly.
+ * Spec: https://drafts.fxtf.org/geometry/#domrectreadonly
+ *
+ * @param {DOMRectInit} rectInit - Object with rectangle's x/y coordinates and dimensions.
+ * @returns {DOMRectReadOnly}
+ */
+function createReadOnlyRect(_a) {
+    var x = _a.x, y = _a.y, width = _a.width, height = _a.height;
+    // If DOMRectReadOnly is available use it as a prototype for the rectangle.
+    var Constr = typeof DOMRectReadOnly !== 'undefined' ? DOMRectReadOnly : Object;
+    var rect = Object.create(Constr.prototype);
+    // Rectangle's properties are not writable and non-enumerable.
+    defineConfigurable(rect, {
+        x: x, y: y, width: width, height: height,
+        top: y,
+        right: x + width,
+        bottom: height + y,
+        left: x
+    });
+    return rect;
+}
+/**
+ * Creates DOMRectInit object based on the provided dimensions and the x/y coordinates.
+ * Spec: https://drafts.fxtf.org/geometry/#dictdef-domrectinit
+ *
+ * @param {number} x - X coordinate.
+ * @param {number} y - Y coordinate.
+ * @param {number} width - Rectangle's width.
+ * @param {number} height - Rectangle's height.
+ * @returns {DOMRectInit}
+ */
+function createRectInit(x, y, width, height) {
+    return { x: x, y: y, width: width, height: height };
+}
+
+/**
+ * Class that is responsible for computations of the content rectangle of
+ * provided DOM element and for keeping track of it's changes.
+ */
+var ResizeObservation = /** @class */ (function () {
+    /**
+     * Creates an instance of ResizeObservation.
+     *
+     * @param {Element} target - Element to be observed.
+     */
+    function ResizeObservation(target) {
+        /**
+         * Broadcasted width of content rectangle.
+         *
+         * @type {number}
+         */
+        this.broadcastWidth = 0;
+        /**
+         * Broadcasted height of content rectangle.
+         *
+         * @type {number}
+         */
+        this.broadcastHeight = 0;
+        /**
+         * Reference to the last observed content rectangle.
+         *
+         * @private {DOMRectInit}
+         */
+        this.contentRect_ = createRectInit(0, 0, 0, 0);
+        this.target = target;
+    }
+    /**
+     * Updates content rectangle and tells whether it's width or height properties
+     * have changed since the last broadcast.
+     *
+     * @returns {boolean}
+     */
+    ResizeObservation.prototype.isActive = function () {
+        var rect = getContentRect(this.target);
+        this.contentRect_ = rect;
+        return (rect.width !== this.broadcastWidth ||
+            rect.height !== this.broadcastHeight);
+    };
+    /**
+     * Updates 'broadcastWidth' and 'broadcastHeight' properties with a data
+     * from the corresponding properties of the last observed content rectangle.
+     *
+     * @returns {DOMRectInit} Last observed content rectangle.
+     */
+    ResizeObservation.prototype.broadcastRect = function () {
+        var rect = this.contentRect_;
+        this.broadcastWidth = rect.width;
+        this.broadcastHeight = rect.height;
+        return rect;
+    };
+    return ResizeObservation;
+}());
+
+var ResizeObserverEntry = /** @class */ (function () {
+    /**
+     * Creates an instance of ResizeObserverEntry.
+     *
+     * @param {Element} target - Element that is being observed.
+     * @param {DOMRectInit} rectInit - Data of the element's content rectangle.
+     */
+    function ResizeObserverEntry(target, rectInit) {
+        var contentRect = createReadOnlyRect(rectInit);
+        // According to the specification following properties are not writable
+        // and are also not enumerable in the native implementation.
+        //
+        // Property accessors are not being used as they'd require to define a
+        // private WeakMap storage which may cause memory leaks in browsers that
+        // don't support this type of collections.
+        defineConfigurable(this, { target: target, contentRect: contentRect });
+    }
+    return ResizeObserverEntry;
+}());
+
+var ResizeObserverSPI = /** @class */ (function () {
+    /**
+     * Creates a new instance of ResizeObserver.
+     *
+     * @param {ResizeObserverCallback} callback - Callback function that is invoked
+     *      when one of the observed elements changes it's content dimensions.
+     * @param {ResizeObserverController} controller - Controller instance which
+     *      is responsible for the updates of observer.
+     * @param {ResizeObserver} callbackCtx - Reference to the public
+     *      ResizeObserver instance which will be passed to callback function.
+     */
+    function ResizeObserverSPI(callback, controller, callbackCtx) {
+        /**
+         * Collection of resize observations that have detected changes in dimensions
+         * of elements.
+         *
+         * @private {Array<ResizeObservation>}
+         */
+        this.activeObservations_ = [];
+        /**
+         * Registry of the ResizeObservation instances.
+         *
+         * @private {Map<Element, ResizeObservation>}
+         */
+        this.observations_ = new MapShim();
+        if (typeof callback !== 'function') {
+            throw new TypeError('The callback provided as parameter 1 is not a function.');
+        }
+        this.callback_ = callback;
+        this.controller_ = controller;
+        this.callbackCtx_ = callbackCtx;
+    }
+    /**
+     * Starts observing provided element.
+     *
+     * @param {Element} target - Element to be observed.
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.observe = function (target) {
+        if (!arguments.length) {
+            throw new TypeError('1 argument required, but only 0 present.');
+        }
+        // Do nothing if current environment doesn't have the Element interface.
+        if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+            return;
+        }
+        if (!(target instanceof getWindowOf(target).Element)) {
+            throw new TypeError('parameter 1 is not of type "Element".');
+        }
+        var observations = this.observations_;
+        // Do nothing if element is already being observed.
+        if (observations.has(target)) {
+            return;
+        }
+        observations.set(target, new ResizeObservation(target));
+        this.controller_.addObserver(this);
+        // Force the update of observations.
+        this.controller_.refresh();
+    };
+    /**
+     * Stops observing provided element.
+     *
+     * @param {Element} target - Element to stop observing.
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.unobserve = function (target) {
+        if (!arguments.length) {
+            throw new TypeError('1 argument required, but only 0 present.');
+        }
+        // Do nothing if current environment doesn't have the Element interface.
+        if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+            return;
+        }
+        if (!(target instanceof getWindowOf(target).Element)) {
+            throw new TypeError('parameter 1 is not of type "Element".');
+        }
+        var observations = this.observations_;
+        // Do nothing if element is not being observed.
+        if (!observations.has(target)) {
+            return;
+        }
+        observations.delete(target);
+        if (!observations.size) {
+            this.controller_.removeObserver(this);
+        }
+    };
+    /**
+     * Stops observing all elements.
+     *
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.disconnect = function () {
+        this.clearActive();
+        this.observations_.clear();
+        this.controller_.removeObserver(this);
+    };
+    /**
+     * Collects observation instances the associated element of which has changed
+     * it's content rectangle.
+     *
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.gatherActive = function () {
+        var _this = this;
+        this.clearActive();
+        this.observations_.forEach(function (observation) {
+            if (observation.isActive()) {
+                _this.activeObservations_.push(observation);
+            }
+        });
+    };
+    /**
+     * Invokes initial callback function with a list of ResizeObserverEntry
+     * instances collected from active resize observations.
+     *
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.broadcastActive = function () {
+        // Do nothing if observer doesn't have active observations.
+        if (!this.hasActive()) {
+            return;
+        }
+        var ctx = this.callbackCtx_;
+        // Create ResizeObserverEntry instance for every active observation.
+        var entries = this.activeObservations_.map(function (observation) {
+            return new ResizeObserverEntry(observation.target, observation.broadcastRect());
+        });
+        this.callback_.call(ctx, entries, ctx);
+        this.clearActive();
+    };
+    /**
+     * Clears the collection of active observations.
+     *
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.clearActive = function () {
+        this.activeObservations_.splice(0);
+    };
+    /**
+     * Tells whether observer has active observations.
+     *
+     * @returns {boolean}
+     */
+    ResizeObserverSPI.prototype.hasActive = function () {
+        return this.activeObservations_.length > 0;
+    };
+    return ResizeObserverSPI;
+}());
+
+// Registry of internal observers. If WeakMap is not available use current shim
+// for the Map collection as it has all required methods and because WeakMap
+// can't be fully polyfilled anyway.
+var observers = typeof WeakMap !== 'undefined' ? new WeakMap() : new MapShim();
+/**
+ * ResizeObserver API. Encapsulates the ResizeObserver SPI implementation
+ * exposing only those methods and properties that are defined in the spec.
+ */
+var ResizeObserver = /** @class */ (function () {
+    /**
+     * Creates a new instance of ResizeObserver.
+     *
+     * @param {ResizeObserverCallback} callback - Callback that is invoked when
+     *      dimensions of the observed elements change.
+     */
+    function ResizeObserver(callback) {
+        if (!(this instanceof ResizeObserver)) {
+            throw new TypeError('Cannot call a class as a function.');
+        }
+        if (!arguments.length) {
+            throw new TypeError('1 argument required, but only 0 present.');
+        }
+        var controller = ResizeObserverController.getInstance();
+        var observer = new ResizeObserverSPI(callback, controller, this);
+        observers.set(this, observer);
+    }
+    return ResizeObserver;
+}());
+// Expose public methods of ResizeObserver.
+[
+    'observe',
+    'unobserve',
+    'disconnect'
+].forEach(function (method) {
+    ResizeObserver.prototype[method] = function () {
+        var _a;
+        return (_a = observers.get(this))[method].apply(_a, arguments);
+    };
+});
+
+var index = (function () {
+    // Export existing implementation if available.
+    if (typeof global$1.ResizeObserver !== 'undefined') {
+        return global$1.ResizeObserver;
+    }
+    return ResizeObserver;
+})();
+
+/* harmony default export */ __webpack_exports__["a"] = (index);
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(25)))
+
+/***/ }),
+/* 355 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { class: _vm.sizeClasses }, [
+        _vm.$slots.prepend || _vm.prepend
+          ? _c(
+              "div",
+              { ref: "prependDiv", staticClass: "input-group-prepend" },
+              [
+                _vm._t("prepend", [
+                  _c("span", { staticClass: "input-group-text" }, [
+                    _vm._v(_vm._s(_vm.prepend))
+                  ])
+                ])
+              ],
+              2
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c("input", {
+          ref: "input",
+          class: "form-control " + _vm.inputClass,
+          attrs: {
+            type: "search",
+            placeholder: _vm.placeholder,
+            "aria-label": _vm.placeholder,
+            autocomplete: "off"
+          },
+          domProps: { value: _vm.inputValue },
+          on: {
+            focus: function($event) {
+              _vm.isFocused = true
+            },
+            blur: _vm.handleBlur,
+            input: function($event) {
+              return _vm.handleInput($event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _vm.$slots.append || _vm.append
+          ? _c(
+              "div",
+              { staticClass: "input-group-append" },
+              [
+                _vm._t("append", [
+                  _c("span", { staticClass: "input-group-text" }, [
+                    _vm._v(_vm._s(_vm.append))
+                  ])
+                ])
+              ],
+              2
+            )
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("vue-bootstrap-typeahead-list", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isFocused && _vm.data.length > 0,
+            expression: "isFocused && data.length > 0"
+          }
+        ],
+        ref: "list",
+        staticClass: "vbt-autcomplete-list",
+        attrs: {
+          query: _vm.inputValue,
+          data: _vm.formattedData,
+          "background-variant": _vm.backgroundVariant,
+          "text-variant": _vm.textVariant,
+          maxMatches: _vm.maxMatches,
+          minMatchingChars: _vm.minMatchingChars
+        },
+        on: { hit: _vm.handleHit },
+        scopedSlots: _vm._u(
+          [
+            _vm._l(_vm.$scopedSlots, function(slot, slotName) {
+              return {
+                key: slotName,
+                fn: function(ref) {
+                  var data = ref.data
+                  var htmlText = ref.htmlText
+                  return [
+                    _vm._t(slotName, null, null, {
+                      data: data,
+                      htmlText: htmlText
+                    })
+                  ]
+                }
+              }
+            })
+          ],
+          null,
+          true
+        )
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-9a21a6f4", module.exports)
+  }
+}
+
+/***/ }),
+/* 356 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("vue-bootstrap-typeahead", {
+        ref: "typeahead",
+        attrs: {
+          data: _vm.userNames,
+          serializer: function(u) {
+            return u.name
+          },
+          placeholder: "Type an user name..."
+        },
+        on: {
+          hit: function($event) {
+            _vm.selectedUser = $event
+          }
+        },
+        model: {
+          value: _vm.nameSearch,
+          callback: function($$v) {
+            _vm.nameSearch = $$v
+          },
+          expression: "nameSearch"
+        }
+      }),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "hidden", name: "user_name" },
+        domProps: { value: _vm.selectedUser.name }
+      }),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "hidden", name: "user_id" },
+        domProps: { value: _vm.selectedUser.id }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c191a05a", module.exports)
+  }
+}
+
+/***/ }),
+/* 357 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "card-header card-thin" }, [
+        _vm._v("Create a new transaction")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body card-thin" }, [
+        _c(
+          "form",
+          {
+            staticClass: "card-body-form",
+            attrs: { method: "POST" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.update($event)
+              }
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", { attrs: { for: "user_name" } }, [
+                  _vm._v("The recipient")
+                ]),
+                _vm._v(" "),
+                _vm.isLoaded
+                  ? _c("autocomplete", {
+                      attrs: {
+                        user_name: this.user_name,
+                        user_id: this.user_id
+                      }
+                    })
+                  : _vm._e()
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "amount" } }, [_vm._v("Amount")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  { name: "int", rawName: "v-int" },
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.amount,
+                    expression: "amount"
+                  }
+                ],
+                staticClass: "card-body-form_amount",
+                attrs: { type: "text", name: "amount", id: "amount" },
+                domProps: { value: _vm.amount },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.amount = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _vm._m(0)
+          ]
+        ),
+        _vm._v(" "),
+        _vm.success
+          ? _c("div", { staticClass: "alert alert-success" }, [
+              _vm._v("Transaction has been updated!")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.fail
+          ? _c("div", {
+              staticClass: "alert alert-danger",
+              domProps: { textContent: _vm._s(_vm.error) }
+            })
+          : _vm._e()
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Send")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-20a4529c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
