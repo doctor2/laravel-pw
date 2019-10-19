@@ -11,25 +11,25 @@
 
                 <form autocomplete="off" @submit.prevent="register" v-if="!success" method="post">
 
-                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.email }">
+                    <div class="form-group" v-bind:class="{ 'is-invalid': has_error && errors.name }">
                         <label for="name">Name</label>
                         <input type="name" id="name" class="form-control" placeholder="Denis" v-model="name">
                         <span class="help-block" v-if="has_error && errors.name">{{ errors.name }}</span>
                     </div>
 
-                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.email }">
+                    <div class="form-group" v-bind:class="{ 'is-invalid': has_error && errors.email }">
                         <label for="email">E-mail</label>
                         <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="email">
                         <span class="help-block" v-if="has_error && errors.email">{{ errors.email }}</span>
                     </div>
 
-                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.password }">
+                    <div class="form-group" v-bind:class="{ 'is-invalid': has_error && errors.password }">
                         <label for="password">Password</label>
                         <input type="password" id="password" class="form-control" v-model="password">
                         <span class="help-block" v-if="has_error && errors.password">{{ errors.password }}</span>
                     </div>
 
-                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.password }">
+                    <div class="form-group" v-bind:class="{ 'is-invalid': has_error && errors.password }">
                         <label for="password_confirmation">Password confirmation</label>
                         <input type="password" id="password_confirmation" class="form-control" v-model="password_confirmation">
                     </div>

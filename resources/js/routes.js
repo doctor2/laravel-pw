@@ -12,6 +12,7 @@ import Transactions from './components/pages/Transaction.vue';
 import AdminTransactions from './components/pages/Admin/Transaction.vue';
 import AdminTransactionsEdit from './components/pages/Admin/TransactionEdit.vue';
 import AdminUsersShow from './components/pages/Admin/User/Show.vue';
+import AdminUsersEdit from './components/pages/Admin/User/Edit.vue';
 import AdminUsers from './components/pages/Admin/User/Index.vue';
 import Register from './components/pages/Register.vue'
 import Login from './components/pages/Login.vue'
@@ -79,7 +80,7 @@ const routes = [
     {
         path: '/admin/users/edit/:id',
         name: 'admin.users.edit',
-        // component: AdminTransactions,
+        component: AdminUsersEdit,
         meta: {
             auth: true
         }

@@ -41,7 +41,6 @@ Route::group([
 
         Route::get('/users', 'UserController@index')->name('api.admin.users.index');
         Route::get('/users/{user}', 'UserController@show')->name('api.admin.users.show');
-        Route::get('/users/edit/{user}', 'UserController@edit')->name('api.admin.users.edit');
         Route::patch('/users/edit/{user}', 'UserController@update')->name('api.admin.users.update');
     });
 

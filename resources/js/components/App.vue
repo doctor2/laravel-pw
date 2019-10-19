@@ -56,7 +56,7 @@
                             >
                                 <a>{{ item.text }}</a>
                             </router-link>
-                            <templete v-if="this.getIsAdmin">
+                            <template v-if="this.getIsAdmin">
                                 <router-link v-for="(item, index) in menuList"
                                              v-if="item.forAdmin"
                                              :key="index"
@@ -67,7 +67,7 @@
                                 >
                                     <a>{{ item.text }}</a>
                                 </router-link>
-                            </templete>
+                            </template>
 
 
 <!--                                                        <router-link :to="{'name': 'transactions.index'}"-->
@@ -102,7 +102,7 @@
         },
         computed: {
             getIsAdmin(){
-                return (false || window.user.isAdmin);
+                return !!window.user ?  window.user.isAdmin : true;
             },
             getUserName(){
                 return window.user.name || '';

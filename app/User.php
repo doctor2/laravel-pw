@@ -64,11 +64,6 @@ class User extends Authenticatable implements JWTSubject
         return $this->balance->balance;
     }
 
-    public function setBannedAttribute($value)
-    {
-        $this->attributes['banned'] = ($value=='on');
-    }
-
     public function getHasBanAttribute()
     {
         return $this->attributes['banned'] ? 'yes' : 'no';

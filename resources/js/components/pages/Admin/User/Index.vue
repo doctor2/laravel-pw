@@ -12,7 +12,7 @@
             :current-page="currentPage"
         >
             <template slot="top-row" slot-scope="{ fields }">
-                <td v-for="field in fields" :key="field.key">
+                <td v-for="field in fields" :key="field.key" v-if="field.key != 'banned'" >
                     <input v-on:input="debounceInput({$event,field})" :placeholder="field.label">
                 </td>
             </template>
@@ -27,7 +27,7 @@
             </template>
 
         </b-table>
-        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0 pagination-sm"/>
+        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="pagination-sm"/>
     </div>
 </template>
 

@@ -15,6 +15,8 @@ class UserController extends BaseController
 
         $this->filterUsers($query, $fields);
 
+        $this->orderUsers($query, $fields);
+
         return $this->formedSuccessResult($query->paginate(10));
 
     }
@@ -22,11 +24,6 @@ class UserController extends BaseController
     public function show(User $user)
     {
         return $this->formedSuccessResult($user);
-    }
-
-    public function edit(User $user)
-    {
-        return view('admin.users.edit', compact('user'));
     }
 
     public function update(User $user)
@@ -38,8 +35,7 @@ class UserController extends BaseController
         ])
         );
 
-        return redirect()->route('admin.users.index')
-            ->with('success', 'User has been updated!');
+        return $this->formedSuccessResult($user);
     }
 
     public function filterUsers($query, $fields)

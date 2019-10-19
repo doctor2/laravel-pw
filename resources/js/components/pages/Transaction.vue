@@ -17,8 +17,8 @@
             </template>
 
             <template v-slot:cell(amount)="data">
-                <stan v-text="data.item.amount + ' - ' + data.item.transaction_type + ''">
-                </stan>
+                <span v-text="data.item.amount + ' - ' + data.item.transaction_type + ''">
+                </span>
             </template>
 
             <template v-slot:cell(user_balance)="data">
