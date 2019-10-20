@@ -5,7 +5,7 @@
                 <div class="card-body">
 
                     <div class="alert alert-danger" v-if="has_error && !success">
-                        <p v-if="error == 'The given data was invalid.'">Validation error (s), please consult the
+                        <p v-if="error == 'update_validation_error'">Validation error (s), please consult the
                             message (s) below.</p>
                         <p v-else>Error, can not update at the moment. If the problem persists, please contact an
                             administrator.</p>

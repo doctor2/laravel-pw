@@ -60,8 +60,9 @@ class TransactionTest extends TestCase
 
         $this->post(route('api.transactions.store'),$data = [
         ])
-            ->assertSessionHasErrors('user_name')
-            ->assertSessionHasErrors('amount')
+            ->assertSee('error')
+            ->assertSee('user_name')
+            ->assertSee('amount')
         ;
     }
 
@@ -73,8 +74,9 @@ class TransactionTest extends TestCase
             'user_id' => $this->user2->id,
             'user_name' => $this->user2->name
         ])
-            ->assertStatus(302)
-            ->assertSessionHasErrors('amount')
+            ->assertStatus(422)
+            ->assertSee('error')
+            ->assertSee('amount')
         ;
 
     }
@@ -86,8 +88,9 @@ class TransactionTest extends TestCase
             'user_id' => $this->user2->id,
             'user_name' => $this->user2->name
         ])
-            ->assertStatus(302)
-            ->assertSessionHasErrors('amount')
+            ->assertStatus(422)
+            ->assertSee('error')
+            ->assertSee('amount')
         ;
 
     }

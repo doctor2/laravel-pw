@@ -82275,7 +82275,7 @@ var render = function() {
       _c("div", { staticClass: "card-body" }, [
         _vm.has_error && !_vm.success
           ? _c("div", { staticClass: "alert alert-danger" }, [
-              _vm.error == "The given data was invalid."
+              _vm.error == "update_validation_error"
                 ? _c("p", [
                     _vm._v(
                       "Validation error (s), please consult the\n                        message (s) below."

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\Services\AdminTransactionService;
+use Validator;
 
 class TransactionController extends BaseController
 {
@@ -43,9 +44,14 @@ class TransactionController extends BaseController
 
     public function update($id)
     {
-        request()->validate([
+        $rules = [
             'amount' => ['required', 'numeric', 'min:1'],
-        ]);
+        ];
+        $validator = Validator::make(request()->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->formedErrorResult('The given data was invalid.', 422,  $validator->errors());
+        }
 
         try {
             $this->adminService->update($id, request('amount'));

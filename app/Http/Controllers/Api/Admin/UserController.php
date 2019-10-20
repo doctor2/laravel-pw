@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\User;
+use Validator;
 
 class UserController extends BaseController
 {
@@ -18,8 +19,8 @@ class UserController extends BaseController
         $this->orderUsers($query, $fields);
 
         $page = (int)request()->get('limit');
-        if(empty($page) || $page > 50){
-            $page =  10;
+        if (empty($page) || $page > 50) {
+            $page = 10;
         }
 
         return $this->formedSuccessResult($query->paginate($page));
@@ -41,12 +42,18 @@ class UserController extends BaseController
             return $this->formedErrorResult('Not found', 404);
         }
 
-        $user->update(request()->validate([
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
             'banned' => 'required',
-        ])
-        );
+        ];
+        $validator = Validator::make(request()->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->formedErrorResult('update_validation_error', 422,  $validator->errors());
+        }
+
+        $user->update(request()->all());
 
         return $this->formedSuccessResult($user);
     }

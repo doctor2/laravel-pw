@@ -7,6 +7,7 @@ use App\Rules\MaxUserBalance;
 use App\Services\TransactionService;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class TransactionController extends BaseController
 {
@@ -58,10 +59,15 @@ class TransactionController extends BaseController
 
     public function store(MaxUserBalance $maxBalance)
     {
-        request()->validate([
+        $rules = [
             'amount' => ['required', 'numeric', 'min:1', $maxBalance],
             'user_name' => 'required|exists:users,name',
-        ]);
+        ];
+        $validator = Validator::make(request()->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->formedErrorResult('The given data was invalid.', 422,  $validator->errors());
+        }
 
         $otherUser = User::where('id', request('user_id'))
             ->where('name', request('user_name'))
