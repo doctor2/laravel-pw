@@ -7,6 +7,7 @@ echo "\n${GREEN}Prepare settings...${NC}"
 
 docker-compose run --rm --no-deps pw-server composer install
 docker-compose run --rm --no-deps pw-server php artisan key:generate
+docker-compose run --rm --no-deps pw-server php artisan jwt:secret
 docker-compose run --rm --no-deps pw-server php artisan storage:link
 docker run --rm -it -v $(pwd):/app -w /app node yarn
 
