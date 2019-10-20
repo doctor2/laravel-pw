@@ -8,15 +8,15 @@ const config = {
     auth: bearer,
     http: axios,
     router: router,
-    tokenDefaultName: 'laravel-pw',
-    tokenStore: ['localStorage'],
+    // tokenDefaultName: 'laravel-pw',
+    // tokenStore: ['localStorage'],
     rolesVar: 'isAdmin',
     registerData: {url: 'auth/register', method: 'POST', redirect: '/login'},
     loginData: {url: 'auth/login', method: 'POST', redirect: '/', fetchUser: true},
     logoutData: {url: 'auth/logout', method: 'POST', redirect: '/login', makeRequest: true},
     fetchData: {url: 'auth/user', method: 'GET', enabled: true},
     refreshData: {url: 'auth/refresh', method: 'GET', enabled: true, interval: 30},
-    parseUserData (data) {
+    parseUserData: function (data) {
         window.user = data.data;
         return data.data;
     },

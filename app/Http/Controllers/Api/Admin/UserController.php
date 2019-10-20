@@ -53,13 +53,11 @@ class UserController extends BaseController
 
     public function filterUsers($query, $fields)
     {
-        $q = request('search');
-        if (empty($q['value']) || empty($q = trim($q['value']))) {
-            return;
-        }
-
         foreach ($fields as $field) {
-            $query->orWhere($field, 'like', '%' . $q . '%');
+            if (!empty($value = request($field))) {
+                $query
+                    ->where($field, 'like', '%' . $value . '%');
+            }
         }
     }
 

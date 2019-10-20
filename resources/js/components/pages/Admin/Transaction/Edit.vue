@@ -54,8 +54,8 @@
             </tr>
             </tbody>
         </table>
-        <div class="alert alert-success" v-if="updateSuccess">Transaction has been updated!</div>
-        <div class="alert alert-danger" v-if="updateFail" v-text="errorMessage"></div>
+        <div class="alert alert-success" v-if="success">Transaction has been updated!</div>
+        <div class="alert alert-danger" v-if="fail" v-text="errorMessage"></div>
     </div>
 </template>
 
@@ -63,8 +63,8 @@
     export default {
         data() {
             return {
-                updateSuccess: false,
-                updateFail: false,
+                success: false,
+                fail: false,
                 errorMessage: "",
                 editing: false,
                 item: {}
@@ -80,23 +80,23 @@
         methods: {
             update() {
                 axios
-                    .patch("/admin/transactions/edit/" + this.item.id, {
+                    .patch("/admin/transactions/" + this.item.id, {
                         amount: this.item.amount
                     })
                     .then(({data}) => {
                         this.item = data.data;
 
-                        this.updateSuccess = true;
+                        this.success = true;
 
-                        setTimeout(() => (this.updateSuccess = false), 5000);
+                        setTimeout(() => (this.success = false), 5000);
                     })
                     .catch(error => {
                         // console.log(JSON.stringify(error.response));
                         this.errorMessage = error.response.data.message;
 
-                        this.updateFail = true;
+                        this.fail = true;
 
-                        setTimeout(() => (this.updateFail = false), 5000);
+                        setTimeout(() => (this.fail = false), 5000);
                     });
                 this.editing = false;
             }

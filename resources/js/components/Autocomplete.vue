@@ -6,7 +6,7 @@
     ref="typeahead"
     :serializer="u => u.name"
     placeholder="Type an user name..."
-    @hit="selectedUser = $event"
+    @hit="selectedUser = $event; $emit('selectUser', selectedUser);"
   />
   <input type="hidden" name="user_name" :value="selectedUser.name">
   <input type="hidden" name="user_id" :value="selectedUser.id">

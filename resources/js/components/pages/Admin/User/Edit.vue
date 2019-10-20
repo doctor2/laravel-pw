@@ -1,7 +1,7 @@
 <template>
     <div class="justify-content-center">
             <div class="card">
-                <div class="card-header">Edit user with name {{this.title}}</div>
+                <div class="card-header">Edit user with name {{title}}</div>
                 <div class="card-body">
 
                     <div class="alert alert-danger" v-if="has_error && !success">
@@ -52,7 +52,7 @@
                             <div class="col-sm-8">
 
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-2 text-md-right">
                                 <button type="submit" class="btn btn-primary">
                                     Save
                                 </button>

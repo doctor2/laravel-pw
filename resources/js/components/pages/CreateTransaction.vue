@@ -1,31 +1,39 @@
 <template>
-    <div class="row justify-content-center">
-        <div class="col-md-12">
+    <div class="justify-content-center">
+        <div class="card">
 
-            <div class="card-header card-thin">Create a new transaction</div>
-            <div class="card-body card-thin">
-                <form method="POST" @submit.prevent="update" class="card-body-form">
-                    <div class="form-group">
-                        <label for="user_name">The recipient</label>
-                        <autocomplete v-if="isLoaded" :user_name="this.user_name"
-                                      :user_id="this.user_id"></autocomplete>
+        <div class="card-header ">Create a new transaction</div>
+
+            <div class="card-body">
+                <form method="POST" @submit.prevent="store" >
+                    <div class="form-group row">
+                        <label for="user_name" class="col-md-4 col-form-label text-md-right">The recipient</label>
+                        <div class="col-md-6">
+                            <autocomplete v-if="isLoaded" :user_name="user_name" :user_id="user_id" @selectUser="onSelectUser"></autocomplete>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="amount">Amount</label>
-                        <input type="text" name="amount" id="amount" v-int class="card-body-form_amount"
-                               v-model="amount">
+                    <div class="form-group row">
+                        <label for="amount" class="col-md-4 col-form-label text-md-right">Amount</label>
+                        <div class="col-md-6">
+                            <input type="text" name="amount" id="amount" @keypress="isNumber($event)" class="form-control card-body-form_amount"
+                                   v-model="amount">
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Send</button>
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                        </div>
+                        <div class="col-sm-2 text-md-right">
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
                     </div>
                 </form>
-                <div class="alert alert-success" v-if="success">Transaction has been updated!</div>
-                <div class="alert alert-danger" v-if="fail" v-text="error"></div>
+                <div class="alert alert-success" v-if="success">Transaction has been created!</div>
+                <div class="alert alert-danger" v-if="fail" v-text="errorMessage"></div>
+            </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -40,9 +48,7 @@
                 user_name: '',
                 user_id: '',
                 amount: '',
-                has_error: false,
-                error: '',
-                errors: {},
+                errorMessage: '',
                 success: false,
                 fail: false,
                 isLoaded: false
@@ -63,7 +69,11 @@
                 }).then(()=>{ this.isLoaded = true; });
         },
         methods: {
-            update() {
+            onSelectUser(user){
+                this.user_name =  user.name;
+                this.user_id =  user.id;
+            },
+            store() {
                 axios
                     .post("/transactions/", {
                         user_name: this.user_name,
@@ -73,20 +83,28 @@
                     .then(({data}) => {
                         this.success = true;
 
-                        this.amount = 0;
-                        this.user_name = '';
-                        this.user_id = '';
+                        setTimeout(() => {
+                            this.success = false;
 
-                        setTimeout(() => (this.success = false), 5000);
+                            this.$router.push({name : 'transactions.index'});
+                        }, 5000);
                     })
                     .catch(error => {
-                        this.error = error.response.data.message;
+                        this.errorMessage = error.response.data.message;
 
                         this.fail = true;
 
                         setTimeout(() => (this.fail = false), 5000);
                     });
-                this.editing = false;
+            },
+            isNumber: function(evt) {
+                evt = (evt) ? evt : window.event;
+                let charCode = (evt.which) ? evt.which : evt.keyCode;
+                if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+                    evt.preventDefault();
+                } else {
+                    return true;
+                }
             }
         }
     };

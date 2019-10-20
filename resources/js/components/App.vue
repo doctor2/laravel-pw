@@ -3,9 +3,8 @@
         <header>
             <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
                 <div class="container">
-                    <a class="navbar-brand" href="/" >
-                        {{ this.appName}}
-                    </a>
+
+                    <router-link :to="{ name: 'transactions.index' }" class="navbar-brand">{{ appName}}</router-link>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
@@ -17,13 +16,14 @@
                                     <router-link :to="{ name: 'login' }" class="nav-link">Login</router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link :to="{ name: 'register' }" class="nav-link" >Register</router-link>
+                                    <router-link :to="{ name: 'register' }" class="nav-link">Register</router-link>
                                 </li>
                             </template>
                             <template v-else>
                                 <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{ this.getUserName }} <span class="caret"></span>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ getUserName }} <span class="caret"></span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a href="#" @click.prevent="$auth.logout()" class="nav-link">Logout</a>
@@ -31,7 +31,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <span class="nav-link">Balance: {{ this.getUserBalance }}</span>
+                                    <span class="nav-link">Balance: {{ getUserBalance }}</span>
                                 </li>
                             </template>
 
@@ -47,18 +47,18 @@
                         <ul class="list-group">
                             <router-link v-for="(item, index) in menuList"
                                          v-if="!item.forAdmin"
+                                         :exact="item.url == '/'"
                                          :key="index"
                                          :to="item.url"
                                          tag="li"
                                          class="list-group-item"
                                          active-class="active"
-
                             >
                                 <a>{{ item.text }}</a>
                             </router-link>
-                            <template v-if="this.getIsAdmin">
+                            <template v-if="isLoaded">
                                 <router-link v-for="(item, index) in menuList"
-                                             v-if="item.forAdmin"
+                                             v-if="item.forAdmin &&  isAdmin()"
                                              :key="index"
                                              :to="item.url"
                                              tag="li"
@@ -68,16 +68,6 @@
                                     <a>{{ item.text }}</a>
                                 </router-link>
                             </template>
-
-
-<!--                                                        <router-link :to="{'name': 'transactions.index'}"-->
-<!--                                                                     :key="2"-->
-<!--                                                                     tag="li"-->
-<!--                                                                     class="list-group-item"-->
-<!--                                                                     active-class="active"-->
-<!--                                                        >-->
-<!--                                                            Transactions-->
-<!--                                                        </router-link>-->
                         </ul>
                     </div>
                     <div class="col col-sm-9">
@@ -95,79 +85,89 @@
     import {mapGetters} from 'vuex';
 
     export default {
-        data(){
+        data() {
             return {
                 appName: window.config.appName
             }
         },
         computed: {
-            getIsAdmin(){
-                return !!window.user ?  window.user.isAdmin : true;
+            isLoaded() {
+                return !!this.$auth.watch.data;
             },
-            getUserName(){
-                return window.user.name || '';
+            getUserName() {
+                return this.$auth.watch.data.name || '';
             },
-            getUserBalance(){
-                return (window.user.currentBalance || 0) + ' PW';
+            getUserBalance() {
+                return (this.$auth.watch.data.currentBalance || 0) + ' PW';
             },
             ...mapGetters('menu', {
                 menuList: 'items'
             }),
         },
         methods: {
-
+            isAdmin() {
+                return this.$auth.watch.data.isAdmin;
+            },
         }
     }
 </script>
 
 <style>
-    .menu{
+    .menu {
         border-right: 1px solid #ddd;
     }
 
-    .list-group-item{
+    .list-group-item {
         transition: background 0.3s, color 0.3s;
     }
 
-    .list-group-item a{
+    .list-group-item a {
         text-decoration: none;
     }
 
-    .list-group-item.active a{
+    .list-group-item.active a {
         color: inherit;
     }
 
-    .slide-enter{
+    .slide-enter {
 
     }
 
-    .slide-enter-active{
+    .slide-enter-active {
         animation: slideIn 0.5s;
     }
 
-    .slide-enter-to{
+    .slide-enter-to {
 
     }
 
-    .slide-leave{
+    .slide-leave {
 
     }
 
-    .slide-leave-active{
+    .slide-leave-active {
         animation: slideOut 0.5s;
     }
 
-    .slide-leave-to{
+    .slide-leave-to {
 
     }
 
-    @keyframes slideIn{
-        from{transform: rotateY(90deg);}
-        to{transform: rotateY(0deg);}
+    @keyframes slideIn {
+        from {
+            transform: rotateY(90deg);
+        }
+        to {
+            transform: rotateY(0deg);
+        }
     }
 
-    @keyframes slideOut{
-        from{transform: rotateY(0deg);}
-        to{transform: rotateY(90deg);}
+    @keyframes slideOut {
+        from {
+            transform: rotateY(0deg);
+        }
+        to {
+            transform: rotateY(90deg);
+        }
     }
 </style>
