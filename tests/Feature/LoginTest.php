@@ -18,15 +18,24 @@ class LoginTest extends TestCase
      */
     public function test_user_can_login_with_correct_credentials()
     {
+        $this->withExceptionHandling();
+
         $user = factory(User::class)->create([
             'password' => bcrypt($password = 'i-love-laravel'),
         ]);
-        $response = $this->post('/login', [
+
+        $response = $this->post(route('api.login'), [
             'email' => $user->email,
             'password' => $password,
         ]);
-        $response->assertRedirect('/');
-        $this->assertAuthenticatedAs($user);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'status' => 'success',
+        ])
+            ->assertHeader('authorization')
+        ;
     }
 
     public function test_user_cannot_login_with_incorrect_password()
@@ -37,16 +46,18 @@ class LoginTest extends TestCase
             'password' => bcrypt('i-love-laravel'),
         ]);
 
-        $response = $this->from('/login')->post('/login', [
+        $response = $this->post(route('api.login'), [
             'email' => $user->email,
             'password' => 'invalid-password',
         ]);
 
-        $response->assertRedirect('/login');
-        $response->assertSessionHasErrors('email');
-        $this->assertTrue(session()->hasOldInput('email'));
-        $this->assertFalse(session()->hasOldInput('password'));
-        $this->assertGuest();
+       $response
+           ->assertStatus(401)
+           ->assertJson([
+               'error' => 'login_error',
+           ])
+           ->assertHeaderMissing('authorization')
+       ;
     }
 
 }

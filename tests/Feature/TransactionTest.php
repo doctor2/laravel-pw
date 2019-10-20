@@ -36,14 +36,12 @@ class TransactionTest extends TestCase
         $balance1 = $this->user1->balance->balance;
         $balance2 = $this->user2->balance->balance;
 
-        $this->post(route('transactions.store'),$data = [
+        $this->post(route('api.transactions.store'),$data = [
             'amount' => 333,
             'user_id' => $this->user2->id,
             'user_name' => $this->user2->name
         ])
-            ->assertStatus(302)
-            ->assertRedirect(route('transactions.index'))
-            ->assertSessionHas('success','Your transaction has been completed!')
+            ->assertSee('success')
         ;
 
         $this->assertEquals($this->user1->fresh()->balance->balance, $balance1 - $data['amount']);
@@ -52,18 +50,16 @@ class TransactionTest extends TestCase
 
     public function test_an_error_while_user_create_transaction()
     {
-        $this->post(route('transactions.store'),$data = [
+        $this->post(route('api.transactions.store'),$data = [
             'amount' => 333,
             'user_name' => $this->user2->name
         ])
-            ->assertStatus(302)
-            ->assertRedirect(route('transactions.index'))
-            ->assertSessionHas('error','Server error, please try again')
+            ->assertSee('error')
+            ->assertSee('user_id')
         ;
 
-        $this->post(route('transactions.store'),$data = [
+        $this->post(route('api.transactions.store'),$data = [
         ])
-            ->assertStatus(302)
             ->assertSessionHasErrors('user_name')
             ->assertSessionHasErrors('amount')
         ;
@@ -72,7 +68,7 @@ class TransactionTest extends TestCase
     public function test_an_error_while_user_try_to_transact_more_pw_than_he_can()
     {
         $balance1 = $this->user1->balance->balance;
-        $this->post(route('transactions.store'),$data = [
+        $this->post(route('api.transactions.store'),$data = [
             'amount' => (int)$balance1 + 150,
             'user_id' => $this->user2->id,
             'user_name' => $this->user2->name
@@ -85,7 +81,7 @@ class TransactionTest extends TestCase
 
     public function test_an_error_while_user_try_to_transact_pw_less_than_zero()
     {
-        $this->post(route('transactions.store'),$data = [
+        $this->post(route('api.transactions.store'),$data = [
             'amount' => -50,
             'user_id' => $this->user2->id,
             'user_name' => $this->user2->name

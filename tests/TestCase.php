@@ -21,7 +21,7 @@ abstract class TestCase extends BaseTestCase
     public function loginAdmin() {
         $user = factory(User::class)->create([
             'email' => 'brath1@example.org',
-            'password' => bcrypt('123123')
+            'password' => bcrypt('123123123')
         ]);
 
         $this->actingAs($user);

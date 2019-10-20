@@ -23,19 +23,17 @@ class UserTest extends TestCase
 
         $user = factory(User::class)->create();
         $user->name .=  ' new';
-        $user->banned =  'on';
-        $this->patch(route('admin.users.update', $user->id),$data =[
+        $user->banned =  true;
+        $this->patch(route('api.admin.users.update', $user->id),$data =[
             'name' => $user->name,
             'email' => $user->email,
             'banned' => $user->banned
-        ])->assertSessionHasNoErrors()
-            ->assertStatus(302)
-            ->assertSessionHas('success','User has been updated!')
+        ])->assertStatus(200)
+            ->assertSee('success')
             ;
 
         $userData = User::find($user->id)->toArray();
         $userData = array_intersect_key( $userData, ['name' => '', 'email' => '', 'banned'=> '']);
-        $data['banned'] = $data['banned'] == 'on' ? true : false;
         $this->assertEquals($data, $userData);
     }
 
@@ -46,10 +44,10 @@ class UserTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
         $responses = [
-            $this->get(route('admin.users.index')),
-            $this->get(route('admin.transactions.index')),
-            $this->patch(route('admin.users.update', 1)),
-            $this->patch(route('admin.transactions.update', 1))
+            $this->get(route('api.admin.users.index')),
+            $this->get(route('api.admin.transactions.index')),
+            $this->patch(route('api.admin.users.update', 1)),
+            $this->patch(route('api.admin.transactions.update', 1))
         ];
         foreach ($responses as $response)
         {
@@ -57,10 +55,5 @@ class UserTest extends TestCase
                 ->assertStatus(403)
                 ->assertSee('You do not have a permission to lock this thread');
         }
-
-
-
-
-
     }
 }

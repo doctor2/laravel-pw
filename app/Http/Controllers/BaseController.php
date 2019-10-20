@@ -15,7 +15,7 @@ class BaseController extends Controller
         ], $code);
     }
 
-    public function formedSuccessResult($data, $code = 200)
+    public function formedSuccessResult($data = [], $code = 200)
     {
         return response([
             'status' => 'success',
