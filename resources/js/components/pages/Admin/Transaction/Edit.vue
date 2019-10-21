@@ -71,7 +71,7 @@
             };
         },
         mounted() {
-            axios.get('/admin/transactions/edit/'+ this.$route.params.id)
+            axios.get('/admin/transactions/'+ this.$route.params.id + '/edit/')
                 .then(({data}) => {
                         this.item = data.data;
                     }

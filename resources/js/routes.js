@@ -64,7 +64,7 @@ const routes = [
         }
     },
     {
-        path: '/admin/transactions/edit/:id',
+        path: '/admin/transactions/:id/edit/',
         name: 'admin.transactions.edit',
         component: AdminTransactionsEdit,
         meta: {

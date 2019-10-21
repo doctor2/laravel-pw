@@ -77911,7 +77911,7 @@ var routes = [{
         // auth: {isAdmin: true, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
     }
 }, {
-    path: '/admin/transactions/edit/:id',
+    path: '/admin/transactions/:id/edit/',
     name: 'admin.transactions.edit',
     component: __WEBPACK_IMPORTED_MODULE_6__components_pages_Admin_Transaction_Edit_vue___default.a,
     meta: {
@@ -81671,7 +81671,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        axios.get('/admin/transactions/edit/' + this.$route.params.id).then(function (_ref) {
+        axios.get('/admin/transactions/' + this.$route.params.id + '/edit/').then(function (_ref) {
             var data = _ref.data;
 
             _this.item = data.data;

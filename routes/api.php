@@ -23,7 +23,6 @@ Route::prefix('auth')->group(function () {
         Route::post('logout', 'Auth\AuthController@logout');
     });
 });
-
 Route::group([
     'namespace' => 'Api',
     'middleware' => ['auth:api']
@@ -39,7 +38,7 @@ Route::group([
         'middleware' => ['admin'],
     ], function () {
         Route::get('/', 'TransactionController@index')->name('api.admin.transactions.index');
-        Route::get('/transactions/edit/{id}', 'TransactionController@edit')->name('api.admin.transactions.edit');
+        Route::get('/transactions/{id}/edit', 'TransactionController@edit')->name('api.admin.transactions.edit');
         Route::patch('/transactions/{id}', 'TransactionController@update')->name('api.admin.transactions.update');
 
         Route::get('/users', 'UserController@index')->name('api.admin.users.index');
