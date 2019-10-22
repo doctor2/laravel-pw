@@ -23,7 +23,7 @@
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{ getUserName }} <span class="caret"></span>
+                                        {{ userName }} <span class="caret"></span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a href="#" @click.prevent="$auth.logout()" class="nav-link">Logout</a>
@@ -31,7 +31,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <span class="nav-link">Balance: {{ getUserBalance }}</span>
+                                    <span class="nav-link">Balance: {{ userBalance }}  PW </span>
                                 </li>
                             </template>
 
@@ -83,6 +83,7 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import {mapActions} from 'vuex';
 
     export default {
         data() {
@@ -92,22 +93,32 @@
         },
         computed: {
             isLoaded() {
+                if(!!this.$auth.watch.data){
+                    this.setUserData();
+                }
                 return !!this.$auth.watch.data;
-            },
-            getUserName() {
-                return this.$auth.watch.data.name || '';
-            },
-            getUserBalance() {
-                return (this.$auth.watch.data.currentBalance || 0) + ' PW';
             },
             ...mapGetters('menu', {
                 menuList: 'items'
+            }),
+            ...mapGetters('user', {
+                userName: 'name',
+                userBalance: 'balance'
             }),
         },
         methods: {
             isAdmin() {
                 return this.$auth.watch.data.isAdmin;
             },
+            ...mapActions('user', {
+                setUserName: 'setName',
+                setUserBalance: 'setBalance'
+            }),
+            setUserData(){
+                this.setUserName(this.$auth.watch.data.name);
+
+                this.setUserBalance(this.$auth.watch.data.currentBalance);
+            }
         }
     }
 </script>

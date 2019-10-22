@@ -38,6 +38,7 @@
 
 <script>
     import autocomplete from '../Autocomplete.vue';
+    import {mapActions} from 'vuex';
 
     export default {
         components: {
@@ -69,6 +70,9 @@
                 }).then(()=>{ this.isLoaded = true; });
         },
         methods: {
+            ...mapActions('user', {
+                setUserBalance: 'setBalance'
+            }),
             onSelectUser(user){
                 this.user_name =  user.name;
                 this.user_id =  user.id;
@@ -82,6 +86,8 @@
                     })
                     .then(({data}) => {
                         this.success = true;
+
+                        this.setUserBalance(data.data.balance);
 
                         setTimeout(() => {
                             this.success = false;
