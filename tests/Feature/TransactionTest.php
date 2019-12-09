@@ -66,7 +66,7 @@ class TransactionTest extends TestCase
             ->assertSessionHasErrors('amount');
     }
 
-    public function test_user_try_to_transact_more_pw_than_he_can()
+    public function test_user_tries_to_transact_more_pw_than_he_can()
     {
         $balance1 = $this->user1->balance->balance;
         $this->post('/transactions', $data = [
@@ -79,7 +79,7 @@ class TransactionTest extends TestCase
 
     }
 
-    public function test_user_try_to_transact_pw_less_than_zero()
+    public function test_user_tries_to_transact_pw_less_than_zero()
     {
         $this->post('/transactions', $data = [
             'amount' => -50,
