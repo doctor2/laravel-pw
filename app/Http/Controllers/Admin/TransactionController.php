@@ -21,7 +21,7 @@ class TransactionController extends BaseController
 
             $this->adminService->filterTransactionList($query);
 
-            return $this->formedSuccessResult(datatables()->query($query)->make(true));
+            return $this->formSuccessResult(datatables()->query($query)->make(true));
         }
 
         return view('admin.transactions.index');
@@ -47,9 +47,9 @@ class TransactionController extends BaseController
         try {
             $this->adminService->update($id, (int)request('amount'));
         } catch (\Exception $e) {
-            return $this->formedErrorResult($e->getMessage(), 400);
+            return $this->formErrorResult($e->getMessage(), 400);
         }
 
-        return $this->formedSuccessResult($this->adminService->getById($id));
+        return $this->formSuccessResult($this->adminService->getById($id));
     }
 }

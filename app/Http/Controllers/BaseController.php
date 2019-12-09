@@ -1,8 +1,9 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Response;
 
 class BaseController extends Controller
 {
@@ -10,9 +11,9 @@ class BaseController extends Controller
      * @param string $message - error message
      * @param int $code - response code
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return ResponseFactory|Response
      */
-    public function formedErrorResult(string $message, int $code)
+    public function formErrorResult(string $message, int $code)
     {
         return response([
             'status' => 'error',
@@ -25,9 +26,9 @@ class BaseController extends Controller
      * @param $data
      * @param int $code - response code
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return ResponseFactory|Response
      */
-    public function formedSuccessResult($data, $code = 200)
+    public function formSuccessResult($data = null, $code = 200)
     {
         return response([
             'status' => 'ok',

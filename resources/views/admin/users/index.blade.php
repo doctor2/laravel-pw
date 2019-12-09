@@ -72,7 +72,7 @@
                         "render": function (data, type, row) {
                             if (type === 'display') {
                                 return (data.banned ? "yes" : "no") +
-                                    `  <a href="/admin/users/edit/${data.id}">Edit</a>`;
+                                    `  <a href="/admin/users/${data.id}/edit">Edit</a>`;
                             }
                             return data.banned;
                         },

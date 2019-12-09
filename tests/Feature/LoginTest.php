@@ -29,7 +29,7 @@ class LoginTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_user_cannot_login_with_incorrect_password()
+    public function test_user_cant_login_with_incorrect_password()
     {
         $this->withExceptionHandling();
 

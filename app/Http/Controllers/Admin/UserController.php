@@ -16,7 +16,7 @@ class UserController extends BaseController
 
             $this->filterUsers($query, $fields);
 
-            return $this->formedSuccessResult(datatables()->query($query)->make(true));
+            return $this->formSuccessResult(datatables()->query($query)->make(true));
         }
 
         return view('admin.users.index');

@@ -21,7 +21,7 @@ class TransactionController extends BaseController
 
             $query = $this->service->getTransactionsQueryWithFilter(auth()->id());
 
-            return $this->formedSuccessResult(datatables()->query($query)->make(true));
+            return $this->formSuccessResult(datatables()->query($query)->make(true));
         }
 
         return view('transactions.index');
