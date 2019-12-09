@@ -28,7 +28,7 @@ class TransactionController extends BaseController
             $page =  10;
         }
 
-        return $this->formedSuccessResult($query->paginate($page));
+        return $this->formSuccessResult($query->paginate($page));
     }
 
     public function edit($id)
@@ -36,10 +36,10 @@ class TransactionController extends BaseController
         $transaction = $this->adminService->getById($id);
 
         if (empty($transaction)) {
-            $this->formedErrorResult('Not found', 404);
+            $this->formErrorResult('Not found', 404);
         }
 
-        return $this->formedSuccessResult($transaction);
+        return $this->formSuccessResult($transaction);
     }
 
     public function update($id)
@@ -50,15 +50,15 @@ class TransactionController extends BaseController
         $validator = Validator::make(request()->all(), $rules);
 
         if ($validator->fails()) {
-            return $this->formedErrorResult('The given data was invalid.', 422,  $validator->errors());
+            return $this->formErrorResult('The given data was invalid.', 422,  $validator->errors());
         }
 
         try {
             $this->adminService->update($id, request('amount'));
         } catch (\Exception $e) {
-            return $this->formedErrorResult($e->getMessage(), 400);
+            return $this->formErrorResult($e->getMessage(), 400);
         }
 
-        return $this->formedSuccessResult($this->adminService->getById($id));
+        return $this->formSuccessResult($this->adminService->getById($id));
     }
 }

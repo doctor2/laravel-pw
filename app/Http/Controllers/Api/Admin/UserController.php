@@ -23,23 +23,23 @@ class UserController extends BaseController
             $page = 10;
         }
 
-        return $this->formedSuccessResult($query->paginate($page));
+        return $this->formSuccessResult($query->paginate($page));
 
     }
 
     public function show($id)
     {
         if (empty($user = User::find($id))) {
-            return $this->formedErrorResult('Not found', 404);
+            return $this->formErrorResult('Not found', 404);
         }
 
-        return $this->formedSuccessResult($user);
+        return $this->formSuccessResult($user);
     }
 
     public function update($id)
     {
         if (empty($user = User::find($id))) {
-            return $this->formedErrorResult('Not found', 404);
+            return $this->formErrorResult('Not found', 404);
         }
 
         $rules = [
@@ -50,12 +50,12 @@ class UserController extends BaseController
         $validator = Validator::make(request()->all(), $rules);
 
         if ($validator->fails()) {
-            return $this->formedErrorResult('update_validation_error', 422,  $validator->errors());
+            return $this->formErrorResult('update_validation_error', 422,  $validator->errors());
         }
 
         $user->update(request()->all());
 
-        return $this->formedSuccessResult($user);
+        return $this->formSuccessResult($user);
     }
 
     public function filterUsers($query, $fields)

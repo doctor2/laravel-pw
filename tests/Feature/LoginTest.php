@@ -3,9 +3,8 @@
 namespace Tests\Feature;
 
 use App\User;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
@@ -24,7 +23,7 @@ class LoginTest extends TestCase
             'password' => bcrypt($password = 'i-love-laravel'),
         ]);
 
-        $response = $this->post(route('api.login'), [
+        $response = $this->post('/api/auth/login', [
             'email' => $user->email,
             'password' => $password,
         ]);
@@ -33,9 +32,8 @@ class LoginTest extends TestCase
             ->assertStatus(200)
             ->assertJson([
                 'status' => 'success',
-        ])
-            ->assertHeader('authorization')
-        ;
+            ])
+            ->assertHeader('authorization');
     }
 
     public function test_user_cannot_login_with_incorrect_password()
@@ -46,18 +44,17 @@ class LoginTest extends TestCase
             'password' => bcrypt('i-love-laravel'),
         ]);
 
-        $response = $this->post(route('api.login'), [
+        $response = $this->post('/api/auth/login', [
             'email' => $user->email,
             'password' => 'invalid-password',
         ]);
 
-       $response
-           ->assertStatus(401)
-           ->assertJson([
-               'error' => 'login_error',
-           ])
-           ->assertHeaderMissing('authorization')
-       ;
+        $response
+            ->assertStatus(401)
+            ->assertJson([
+                'error' => 'login_error',
+            ])
+            ->assertHeaderMissing('authorization');
     }
 
 }

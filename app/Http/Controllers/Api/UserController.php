@@ -24,6 +24,6 @@ class UserController extends BaseController
                 });
         }
 
-        return $this->formedSuccessResult($users);
+        return $this->formSuccessResult($users);
     }
 }

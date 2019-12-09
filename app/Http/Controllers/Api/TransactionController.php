@@ -27,7 +27,7 @@ class TransactionController extends BaseController
             $page =  10;
         }
 
-        return $this->formedSuccessResult($query->paginate($page));
+        return $this->formSuccessResult($query->paginate($page));
     }
 
     public function create()
@@ -54,7 +54,7 @@ class TransactionController extends BaseController
             }
         }
 
-        return $this->formedSuccessResult($transaction);
+        return $this->formSuccessResult($transaction);
     }
 
     public function store(MaxUserBalance $maxBalance)
@@ -66,7 +66,7 @@ class TransactionController extends BaseController
         $validator = Validator::make(request()->all(), $rules);
 
         if ($validator->fails()) {
-            return $this->formedErrorResult('The given data was invalid.', 422,  $validator->errors());
+            return $this->formErrorResult('The given data was invalid.', 422,  $validator->errors());
         }
 
         $otherUser = User::where('id', request('user_id'))
@@ -76,9 +76,9 @@ class TransactionController extends BaseController
         try {
             $this->service->create(auth()->user(), $otherUser, request('amount'));
         } catch (\Exception $e) {
-            return $this->formedErrorResult('Server error, please try again');
+            return $this->formErrorResult('Server error, please try again');
         }
 
-        return $this->formedSuccessResult(['balance' => Auth::user()->fresh()->currentBalance]);
+        return $this->formSuccessResult(['balance' => Auth::user()->fresh()->currentBalance]);
     }
 }

@@ -24,7 +24,7 @@ class UserTest extends TestCase
         $user = factory(User::class)->create();
         $user->name .=  ' new';
         $user->banned =  true;
-        $this->patch(route('api.admin.users.update', $user->id),$data =[
+        $this->patch('/api/admin/users/' . $user->id,$data =[
             'name' => $user->name,
             'email' => $user->email,
             'banned' => $user->banned
@@ -44,10 +44,10 @@ class UserTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
         $responses = [
-            $this->get(route('api.admin.users.index')),
-            $this->get(route('api.admin.transactions.index')),
-            $this->patch(route('api.admin.users.update', 1)),
-            $this->patch(route('api.admin.transactions.update', 1))
+            $this->get('/api/admin/users'),
+            $this->get('/api/admin'),
+            $this->patch('/api/admin/users/1'),
+            $this->patch('/api/admin/transactions/1')
         ];
         foreach ($responses as $response)
         {

@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 
 class BaseController extends Controller
 {
-    public function formedErrorResult($message, $code, $errors = [])
+    public function formErrorResult($message, $code, $errors = [])
     {
         return response([
             'status' => 'error',
@@ -16,7 +16,7 @@ class BaseController extends Controller
         ], $code);
     }
 
-    public function formedSuccessResult($data = [], $code = 200)
+    public function formSuccessResult($data = null, $code = 200)
     {
         return response([
             'status' => 'success',
