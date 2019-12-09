@@ -36,7 +36,7 @@ class LoginTest extends TestCase
             ->assertHeader('authorization');
     }
 
-    public function test_user_cannot_login_with_incorrect_password()
+    public function test_user_cant_login_with_incorrect_password()
     {
         $this->withExceptionHandling();
 
