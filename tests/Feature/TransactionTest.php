@@ -49,7 +49,7 @@ class TransactionTest extends TestCase
         $this->assertEquals($this->user2->fresh()->balance->balance, $balance2 + $data['amount']);
     }
 
-    public function test_there_is_no_user_id_in_the_request()
+    public function test_there_is_no_user_id_in_request()
     {
         $this->post('/transactions', $data = [
             'amount' => 333,

@@ -23,7 +23,7 @@ class AdminTransactionService
     public function filterTransactionList($query)
     {
         $q = request('search');
-        if(empty($q['value']) || empty($q = trim($q['value']))){
+        if (empty($q['value']) || empty($q = trim($q['value']))) {
             return;
         }
 
@@ -97,31 +97,14 @@ class AdminTransactionService
 
         \DB::transaction(function () use ($transaction, $amount) {
 
-            $oldAmount = $transaction->amount;
+            $success = $this->updateDebitUserBalance($transaction, $amount);
 
-            // Изменения баланса дебита
-            $newDebitUserBalance = $transaction->debit_user_balance + $oldAmount - $amount;
-            $newUserBalanse = $transaction->debitUser->balance->balance + $oldAmount - $amount;
-
-            if ($newDebitUserBalance < 0 || $newUserBalanse < 0) {
-                throw new Exception('Too large amount!');
-            }
-            $success = $transaction->debitUser->balance()->update(['balance' => $newUserBalanse]);
-
-            // Изменения баланса кредита
-            $newCreditUserBalance = $transaction->credit_user_balance + $amount - $oldAmount;
-            $newUserBalanse = $transaction->creditUser->balance->balance + $amount - $oldAmount;
-
-            if ($newCreditUserBalance < 0 || $newUserBalanse < 0) {
-                throw new Exception('Too small amount!');
-            }
-            $success &= $transaction->creditUser->balance()->update(['balance' => $newUserBalanse]);
-
+            $success &= $this->updateCreditUserBalance($transaction, $amount);
 
             $success &= $transaction->update([
                 'amount' => $amount,
-                'debit_user_balance' => $newDebitUserBalance,
-                'credit_user_balance' => $newCreditUserBalance
+                'debit_user_balance' => $transaction->debitUser->balance->fresh()->balance,
+                'credit_user_balance' => $transaction->creditUser->balance->fresh()->balance
             ]);
 
             if (!$success) {
@@ -129,4 +112,47 @@ class AdminTransactionService
             }
         });
     }
+
+    /**
+     * @param $transaction - transaction object
+     * @param $amount  - amount
+     *
+     * @return mixed
+     * @throws Exception
+     */
+    public function updateDebitUserBalance($transaction, $amount)
+    {
+        $oldAmount = $transaction->amount;
+
+        $newDebitUserBalance = $transaction->debit_user_balance + $oldAmount - $amount;
+        $newUserBalance = $transaction->debitUser->balance->balance + $oldAmount - $amount;
+
+        if ($newDebitUserBalance < 0 || $newUserBalance < 0) {
+            throw new Exception('Too large amount!');
+        }
+
+        return $transaction->debitUser->balance()->update(['balance' => $newUserBalance]);
+    }
+
+    /**
+     * @param $transaction - transaction object
+     * @param $amount  - amount
+     *
+     * @return mixed
+     * @throws Exception
+     */
+    public function updateCreditUserBalance($transaction, $amount)
+    {
+        $oldAmount = $transaction->amount;
+
+        $newCreditUserBalance = $transaction->credit_user_balance + $amount - $oldAmount;
+        $newUserBalance = $transaction->creditUser->balance->balance + $amount - $oldAmount;
+
+        if ($newCreditUserBalance < 0 || $newUserBalance < 0) {
+            throw new Exception('Too small amount!');
+        }
+
+        return $transaction->creditUser->balance()->update(['balance' => $newUserBalance]);
+    }
+
 }
