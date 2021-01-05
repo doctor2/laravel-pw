@@ -19,7 +19,7 @@
     "dependencies": {
         "popper.js": "^1.12",
         "bootstrap": "^4.0.0",
-        "axios": "^0.18.1",
+        "axios": "^0.21.1",
         "jquery": "^3.4.1",
         "jquery-ui": "^1.12.1",
         "datatables.net": "^1.10.*",
