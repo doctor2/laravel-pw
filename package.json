@@ -21,7 +21,7 @@
         "bootstrap": "^4.0.0",
         "axios": "^0.18.1",
         "jquery": "^3.4.1",
-        "jquery-ui": "^1.12.1",
+        "jquery-ui": "^1.13.0",
         "datatables.net": "^1.10.*",
         "datatables.net-dt": "^1.10.*"
     }
